@@ -1,4 +1,5 @@
 import js from "@eslint/js"
+import globals from "globals"
 import tseslint from "typescript-eslint"
 import eslintPluginAstro from "eslint-plugin-astro"
 import svelte from "eslint-plugin-svelte"
@@ -13,6 +14,7 @@ export default tseslint.config(
   {
     files: ["**/*.svelte", "**/*.svelte.ts", "**/*.svelte.js"],
     languageOptions: {
+      globals: globals.browser,
       parserOptions: { parser: tseslint.parser, svelteConfig },
     },
   },

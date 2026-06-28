@@ -1,0 +1,42 @@
+---
+import ThemeSwitcher from "./ThemeSwitcher.svelte";
+---
+
+<header>
+  <a href="/">Vladimír Kovalský</a>
+  <nav>
+    <ul>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+  </nav>
+  <ThemeSwitcher client:load />
+</header>
+
+<style>
+  header {
+    padding: var(--space-m) var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-l);
+
+    a {
+      text-decoration: none;
+    }
+
+    > a:first-child {
+      font-size: var(--text-l);
+    }
+
+    nav {
+      margin-inline-start: auto;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        gap: var(--space-l);
+      }
+    }
+  }
+</style>

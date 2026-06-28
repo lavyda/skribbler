@@ -1,0 +1,167 @@
+/* =============================================================================
+   reset.css — modern CSS reset / normalize
+   -----------------------------------------------------------------------------
+   Normalizes browser defaults and applies sensible modern defaults using
+   current native-HTML/CSS guidance. Everything lives in @layer reset, so any
+   unlayered author style wins automatically without specificity battles.
+   ============================================================================= */
+
+@layer reset {
+	/* --- Box model ------------------------------------------------------------
+	   The one justified universal selector. It stays overridable because it
+	   lives in the reset layer. */
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	/* Strip default margins where the UA value is unhelpful/inconsistent. */
+	body,
+	h1, h2, h3, h4, h5, h6,
+	p,
+	figure,
+	blockquote,
+	dl,
+	dd,
+	ul,
+	ol,
+	fieldset {
+		margin: 0;
+	}
+
+	/* --- Root & body ----------------------------------------------------------- */
+	html {
+		/* Follow the user's OS light/dark preference and let the browser theme
+		   native UI (canvas, text, form controls, scrollbars) to match.
+		   Never pin `light` or `dark` here — that's the author/toggle's job. */
+		color-scheme: light dark;
+
+		/* Stop iOS from inflating font sizes on orientation change. */
+		text-size-adjust: 100%;
+		-webkit-text-size-adjust: 100%;
+		-webkit-tap-highlight-color: transparent;
+		tab-size: 4;
+	}
+
+	body {
+		min-block-size: 100dvh;
+		line-height: 1.5; /* unitless, scales with font-size */
+	}
+
+	/* --- Typography (targeted, never on * — text-wrap has a cost) ------------- */
+	h1, h2, h3, h4, h5, h6,
+	th {
+		text-wrap: balance;
+		line-height: 1.1;
+	}
+
+	p,
+	li,
+	figcaption,
+	blockquote,
+	dd {
+		text-wrap: pretty;
+	}
+
+	/* overflow-wrap is not inherited, so set it on the text-bearing elements. */
+	h1, h2, h3, h4, h5, h6,
+	p,
+	li,
+	blockquote,
+	dd,
+	figcaption {
+		overflow-wrap: break-word;
+	}
+
+	/* --- Media ---------------------------------------------------------------- */
+	img,
+	picture,
+	video,
+	canvas,
+	svg,
+	audio,
+	iframe,
+	embed,
+	object {
+		display: block;
+		max-inline-size: 100%;
+	}
+
+	img,
+	video {
+		height: auto;
+	}
+
+	/* --- Forms (controls don't inherit typography by default — fix it) -------- */
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+		color: inherit;
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	textarea:not([rows]) {
+		min-block-size: 10em;
+	}
+
+	/* --- Lists, links, tables ------------------------------------------------- */
+	/* Strip bullets only when the author opted out of list semantics. */
+	ul[role="list"],
+	ol[role="list"] {
+		list-style: none;
+	}
+
+	a:not([class]) {
+		text-decoration-skip-ink: auto;
+	}
+
+	table {
+		border-collapse: collapse;
+	}
+
+	/* --- Interactivity & accessibility ---------------------------------------- */
+	/* Keep the native focus ring; just give it breathing room. */
+	:focus-visible {
+		outline-offset: 2px;
+	}
+
+	/* Respect hidden=until-found (find-in-page can still reveal it). */
+	[hidden]:not([hidden="until-found"]) {
+		display: none;
+	}
+
+	/* Keep anchored headings clear of fixed/sticky UI. */
+	:target {
+		scroll-margin-block: 5ex;
+	}
+
+	/* --- Reduced motion -------------------------------------------------------
+	   Don't blanket-set animation-duration: 0.01ms (it can make some animations
+	   MORE jarring). Disable animation by default and let components opt into a
+	   reduced variant via --animation-reduced. The !important here lives in the
+	   earliest layer, so for !important it authoritatively wins — correct for an
+	   accessibility override. */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation: var(--animation-reduced) !important;
+		}
+
+		html {
+			scroll-behavior: auto;
+		}
+	}
+}
+
+@property --animation-reduced {
+	syntax: "*";
+	inherits: false;
+	initial-value: none;
+}
