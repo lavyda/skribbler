@@ -3,10 +3,10 @@ import ThemeSwitcher from "./ThemeSwitcher.svelte";
 ---
 
 <header>
-  <a href="/">Vladimír Kovalský</a>
+  <a href="/">VLADIMÍR KOVALSKÝ</a>
   <nav>
     <ul>
-      <li><a href="/blog">Blog</a></li>
+      <li><a href="/blog">BLOG</a></li>
     </ul>
   </nav>
   <ThemeSwitcher client:load />
@@ -14,17 +14,14 @@ import ThemeSwitcher from "./ThemeSwitcher.svelte";
 
 <style>
   header {
-    padding: var(--space-m) var(--space-xl);
+    padding: var(--space-l) var(--space-3xl);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-l);
 
-    a {
-      text-decoration: none;
-    }
-
     > a:first-child {
+      text-decoration: none;
       font-size: var(--text-l);
     }
 
@@ -36,6 +33,16 @@ import ThemeSwitcher from "./ThemeSwitcher.svelte";
         flex-direction: row;
         list-style-type: none;
         gap: var(--space-l);
+
+        a {
+          text-decoration: none;
+
+          &:hover,
+          &:active,
+          &:focus-visible {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }

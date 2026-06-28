@@ -102,7 +102,6 @@
     width: 100%;
     padding-block: var(--space-xs);
     padding-inline: var(--space-s);
-    background: var(--color-surface);
     color: var(--color-text);
     border: 1px solid var(--color-border);
     border-radius: var(--space-2xs);
@@ -113,6 +112,7 @@
   .select:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
+    background: var(--color-surface);
   }
 
   .select:disabled {
@@ -175,7 +175,7 @@
 
   .select option:checked {
     background: var(--color-accent);
-    color: var(--color-accent-contrast);
+    color: var(--color-on-accent);
     font-weight: var(--weight-semibold);
   }
 </style>

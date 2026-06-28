@@ -20,14 +20,14 @@
   --weight-regular: 400;
   --weight-semibold: 600;
 
-  --color-accent: #EB0037;
-  --color-accent-contrast: #ffffff;
+  --color-accent: light-dark(#B8472A, #E3876D);
+  --color-on-accent: light-dark(#F8F4EC, #1A1208);
 
-  --color-bg: light-dark(#ffffff, #1A1A1A);
-  --color-surface: light-dark(#f7f7f7, #1c1c1c);
-  --color-text: light-dark(#1a1a1a, #F0F0F0);
-  --color-text-muted: light-dark(#5a5a5a, #a3a3a3);
-  --color-border: light-dark(#e2e2e2, #2e2e2e);
+  --color-bg: light-dark(#F4F1EA, #15120E);
+  --color-surface: light-dark(#FBF8F1, #211B13);
+  --color-text: light-dark(#1A1714, #EDE7DB);
+  --color-text-muted: light-dark(#5E574E, #9C9384);
+  --color-border: light-dark(#D9D2C4, #322C24);
 }
 
 :root {
@@ -42,7 +42,7 @@
 
 html,
 body {
-  font-family: "Lora", serif;
+  font-family: "Cormorant Garamond", serif;
   font-optical-sizing: auto;
 }
 

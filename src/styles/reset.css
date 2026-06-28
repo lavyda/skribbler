@@ -46,7 +46,7 @@
 
 	body {
 		min-block-size: 100dvh;
-		line-height: 1.5; /* unitless, scales with font-size */
+		line-height: 1.25; /* unitless, scales with font-size */
 	}
 
 	/* --- Typography (targeted, never on * — text-wrap has a cost) ------------- */

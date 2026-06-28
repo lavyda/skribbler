@@ -1,1 +1,47 @@
-<h1>Hey, I'm Vladimir.</h1>
+<div class="home">
+  <h1>
+    <span>Software developer</span>
+    <span>·</span>
+    <span>Visual nomad</span>
+  </h1>
+
+  <div class="bio">
+    <div>I build software for a living,</div>
+    <div>design for the human experience,</div>
+    <div>and capture the world through a lens</div>
+    <div>for everything else.</div>
+  </div>
+</div>
+
+<style>
+  .home {
+    padding: var(--space-3xl);
+  }
+  h1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    font-size: var(--text-m);
+    font-weight: var(--weight-normal);
+    letter-spacing: var(--space-3xs);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .bio {
+    margin-block-start: var(--space-l);
+    font-size: var(--text-3xl);
+
+    & > div:nth-child(2) {
+      opacity: 0.85;
+    }
+
+    & > div:nth-child(3) {
+      opacity: 0.75;
+    }
+
+    & > div:nth-child(4) {
+      opacity: 0.65;
+    }
+  }
+</style>
