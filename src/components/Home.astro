@@ -11,16 +11,30 @@
     <div>and capture the world through a lens</div>
     <div>for everything else.</div>
   </div>
+
+  <div class="details">
+    <span>Based in Slovakia</span>
+    <span>·</span>
+    <span>
+      Currently building stuff at <a href="https://visma.com">Visma Labs</a>
+    </span>
+    <span>·</span>
+    <a href="https://github.com/lavyda">Github</a>
+    <span>·</span>
+    <a href="https://instagram.com/ja.vlado">Instagram</a>
+  </div>
 </div>
 
 <style>
   .home {
     padding: var(--space-3xl);
   }
+
   h1 {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
+    font-family: var(--font-body);
     font-size: var(--text-m);
     font-weight: var(--weight-normal);
     letter-spacing: var(--space-3xs);
@@ -29,7 +43,7 @@
   }
 
   .bio {
-    margin-block-start: var(--space-l);
+    margin-block: var(--space-xl);
     font-size: var(--text-3xl);
 
     & > div:nth-child(2) {
@@ -43,5 +57,14 @@
     & > div:nth-child(4) {
       opacity: 0.65;
     }
+  }
+
+  .details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-items: center;
+    color: var(--color-text-muted);
+    font-family: var(--font-monospace);
   }
 </style>

@@ -20,6 +20,10 @@
   --weight-regular: 400;
   --weight-semibold: 600;
 
+  --font-body: "Elms Sans", serif;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-monospace: "Source Code Pro", monospace;
+
   --color-accent: light-dark(#B8472A, #E3876D);
   --color-on-accent: light-dark(#F8F4EC, #1A1208);
 
@@ -42,7 +46,7 @@
 
 html,
 body {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-body);
   font-optical-sizing: auto;
 }
 
@@ -61,5 +65,9 @@ a {
   &:active,
   &:focus-visible {
     opacity: 0.7;
+  }
+
+  &[href^="http"]::after {
+    content: "↗" / "";
   }
 }
