@@ -12,10 +12,10 @@
   --text-xs: 0.75rem;
   --text-s: 0.875rem;
   --text-m: 1rem;
-  --text-l: 1.25rem;
-  --text-xl: 1.5rem;
-  --text-2xl: 2rem;
-  --text-3xl: 3rem;
+  --text-l: clamp(1.0625rem, 0.997rem + 0.326vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.163rem + 0.435vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.326rem + 0.87vw, 2rem);
+  --text-3xl: clamp(2rem, 1.652rem + 1.739vw, 3rem);
 
   --weight-regular: 400;
   --weight-semibold: 600;
