@@ -13,6 +13,8 @@
 
   const D = Math.PI / 180;
   const TAIL = 16;
+  const DEFAULT_COLS = 78;
+  const MAX_COLS = 400;
   const GLYPHS =
     "0123456789012345678901234567890123456789ABCDEFGHKMNPRSTUVWXYZabcdehknpqrstuvwxy#%&$@={}[]<>+*";
 
@@ -61,6 +63,7 @@
 </script>
 
 <script lang="ts">
+  import { untrack } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -77,7 +80,7 @@
   let {
     color = "currentColor",
     animate = true,
-    cols = 78,
+    cols = DEFAULT_COLS,
     center = [15, 48],
     class: className,
     ...rest
@@ -107,17 +110,29 @@
   let tabVisible = true;
   let onScreen = true;
   let reducedMotion = false;
+  let lastSize = -1;
+  let probeCtx: CanvasRenderingContext2D | null = null;
 
   function resolveRGB(input: string) {
     const probe = document.createElement("span");
     probe.style.color = input;
     probe.style.display = "none";
     wrap.appendChild(probe);
-    const parsed = getComputedStyle(probe).color;
+    const resolved = getComputedStyle(probe).color;
     probe.remove();
-    const m = parsed.match(/[\d.]+/g);
-    if (!m || m.length < 3) return { r: 230, g: 230, b: 230 };
-    return { r: +m[0], g: +m[1], b: +m[2] };
+
+    if (!probeCtx) {
+      const c = document.createElement("canvas");
+      c.width = c.height = 1;
+      probeCtx = c.getContext("2d");
+    }
+    if (!probeCtx) return { r: 230, g: 230, b: 230 };
+    probeCtx.clearRect(0, 0, 1, 1);
+    probeCtx.fillStyle = "#000";
+    probeCtx.fillStyle = resolved;
+    probeCtx.fillRect(0, 0, 1, 1);
+    const d = probeCtx.getImageData(0, 0, 1, 1).data;
+    return { r: d[0], g: d[1], b: d[2] };
   }
 
   function applyColor() {
@@ -128,6 +143,7 @@
   function layout() {
     if (!ctx) return;
     const size = Math.max(1, Math.min(wrap.clientWidth, wrap.clientHeight));
+    lastSize = size;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     canvas.style.width = size + "px";
     canvas.style.height = size + "px";
@@ -135,7 +151,8 @@
     canvas.height = Math.round(size * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    colCount = Math.max(1, Math.floor(cols));
+    const requested = Number.isFinite(cols) ? Math.floor(cols) : DEFAULT_COLS;
+    colCount = Math.min(MAX_COLS, Math.max(1, requested));
     cell = size / colCount;
     rows = Math.ceil(size / cell);
     C = size / 2;
@@ -182,7 +199,7 @@
     speed = new Float32Array(colCount);
     for (let c = 0; c < colCount; c++) {
       drop[c] = Math.random() * rows;
-      speed[c] = 0.025 + Math.random() * 0.05;
+      speed[c] = 0.006 + Math.random() * 0.012;
     }
 
     ctx.font = (cell + 1).toFixed(1) + "px ui-monospace, Menlo, Consolas, monospace";
@@ -198,7 +215,7 @@
         drop[c] += speed[c];
         if (drop[c] - TAIL > rows) {
           drop[c] = -Math.random() * rows * 0.6;
-          speed[c] = 0.025 + Math.random() * 0.05;
+          speed[c] = 0.006 + Math.random() * 0.012;
         }
       }
     }
@@ -224,7 +241,7 @@
           v = (land ? 0.9 : 0.13) * f;
         }
         if (v < 0.03) continue;
-        if (animating && Math.random() < 0.025) grid[idx] = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        if (animating && Math.random() < 0.005) grid[idx] = GLYPHS[(Math.random() * GLYPHS.length) | 0];
         const a = Math.min(1, v * 1.6);
         ctx.fillStyle = isHead
           ? "rgba(" + headCol.r + "," + headCol.g + "," + headCol.b + ",1)"
@@ -254,11 +271,14 @@
 
   $effect(() => {
     ctx = canvas.getContext("2d");
+    tabVisible = !document.hidden;
     const rmq = window.matchMedia("(prefers-reduced-motion: reduce)");
     reducedMotion = rmq.matches;
 
     let rz: ReturnType<typeof setTimeout>;
     const ro = new ResizeObserver(() => {
+      const size = Math.max(1, Math.min(wrap.clientWidth, wrap.clientHeight));
+      if (size === lastSize) return;
       clearTimeout(rz);
       rz = setTimeout(() => {
         layout();
@@ -297,6 +317,19 @@
       attributeFilter: ["data-theme"],
     });
 
+    let dprMedia: MediaQueryList | null = null;
+    const onResolution = () => {
+      layout();
+      start();
+      armResolution();
+    };
+    const armResolution = () => {
+      dprMedia?.removeEventListener("change", onResolution);
+      dprMedia = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+      dprMedia.addEventListener("change", onResolution);
+    };
+    armResolution();
+
     return () => {
       if (raf !== null) cancelAnimationFrame(raf);
       clearTimeout(rz);
@@ -306,29 +339,35 @@
       document.removeEventListener("visibilitychange", onVisibility);
       rmq.removeEventListener("change", onReducedMotion);
       scheme.removeEventListener("change", onTheme);
+      dprMedia?.removeEventListener("change", onResolution);
     };
   });
 
   $effect(() => {
     color;
-    if (ctx) {
+    untrack(() => {
+      if (!ctx) return;
       applyColor();
       if (raf === null) paint(false);
-    }
+    });
   });
 
   $effect(() => {
     cols;
     center;
-    if (ctx) {
+    untrack(() => {
+      if (!ctx) return;
       layout();
       start();
-    }
+    });
   });
 
   $effect(() => {
     animate;
-    if (ctx) start();
+    untrack(() => {
+      if (!ctx) return;
+      start();
+    });
   });
 </script>
 

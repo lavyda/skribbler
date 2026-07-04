@@ -1,3 +1,7 @@
+---
+import Earth from "./Earth.svelte";
+---
+
 <div class="home">
   <h1>
     <span>Software developer</span>
@@ -9,31 +13,40 @@
     <div>I build software for a living,</div>
     <div>design for the human experience,</div>
     <div>and capture the world through a lens</div>
-    <div>for everything else.</div>
+    <div>to remember why it all matters.</div>
   </div>
 
   <div class="details">
-    <span>Based in Slovakia</span>
-    <span>·</span>
-    <span>
+    <div>Based in Slovakia</div>
+    <div>
       Currently building stuff at <a href="https://visma.com">Visma Labs</a>
-    </span>
-    <span>·</span>
-    <a href="https://github.com/lavyda">Github</a>
-    <span>·</span>
-    <a href="https://instagram.com/ja.vlado">Instagram</a>
+    </div>
+    <div>
+      Find me on <a href="https://instagram.com/ja.vlado">Instagram</a> · <a
+        href="https://github.com/lavyda">Github</a
+      >
+    </div>
+    <span>Say <a href="mailto:hi@kovalsky.sk">hi@kovalsky.sk</a></span>
+  </div>
+
+  <div class="backdrop" aria-hidden="true">
+    <Earth client:idle color="var(--color-accent)" />
   </div>
 </div>
 
 <style>
+  .home {
+    isolation: isolate;
+    padding-block-start: var(--space-3xl);
+  }
+
   h1 {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
-    font-family: var(--font-body);
+    font-family: var(--font-monospace);
     font-size: var(--text-m);
     font-weight: var(--weight-normal);
-    letter-spacing: var(--space-3xs);
     text-transform: uppercase;
     color: var(--color-accent);
   }
@@ -56,11 +69,22 @@
   }
 
   .details {
-    display: flex;
-    flex-wrap: wrap;
+    inline-size: min(50ch, 100%);
+    display: grid;
     gap: var(--space-xs);
-    align-items: center;
     color: var(--color-text-muted);
     font-family: var(--font-monospace);
+    border-top: 1px solid var(--color-border);
+    padding-block-start: var(--space-m);
+  }
+
+  .backdrop {
+    position: fixed;
+    z-index: -1;
+    right: clamp(-8rem, -6vw, -3rem);
+    bottom: clamp(-8rem, -6vw, -3rem);
+    inline-size: clamp(22rem, 55vw, 48rem);
+    aspect-ratio: 1;
+    pointer-events: none;
   }
 </style>

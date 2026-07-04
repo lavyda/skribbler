@@ -66,6 +66,9 @@ a {
   }
 
   &[href^="http"]::after {
-    content: "↗" / "";
+    content: "⇱" / "";
+    font-size: var(--text-s);
+    vertical-align: top;
+    margin-inline-start: var(--space-3xs);
   }
 }

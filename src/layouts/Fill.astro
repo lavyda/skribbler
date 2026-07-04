@@ -1,0 +1,25 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+	title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<Base {title}>
+	<main>
+		<slot />
+	</main>
+</Base>
+
+<style>
+	main {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		align-content: start;
+		padding: clamp(1rem, 0.826rem + 0.87vw, 1.5rem)
+			clamp(1.5rem, 0.63rem + 4.348vw, 4rem);
+	}
+</style>
