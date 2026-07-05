@@ -13,17 +13,41 @@ import ThemeSwitcher from "./ThemeSwitcher.svelte";
 </header>
 
 <style>
+  @keyframes header-shrink {
+    to {
+      padding: var(--space-xs) var(--space-m);
+      border-color: var(--color-border);
+    }
+  }
+
+  @keyframes logo-shrink {
+    to {
+      font-size: var(--text-m);
+    }
+  }
+
   header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 10;
     padding: clamp(1rem, 0.826rem + 0.87vw, 1.5rem)
       clamp(1.5rem, 0.63rem + 4.348vw, 4rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-l);
+    background-color: var(--color-bg);
+    border: 1px solid transparent;
+    animation: header-shrink auto linear both;
+    animation-timeline: scroll(block root);
+    animation-range: 0 6rem;
 
     > a:first-child {
       text-decoration: none;
-      font-size: var(--text-l);
+      font-size: var(--text-xl);
+      animation: logo-shrink auto linear both;
+      animation-timeline: scroll(block root);
+      animation-range: 0 6rem;
     }
 
     nav {
@@ -45,6 +69,13 @@ import ThemeSwitcher from "./ThemeSwitcher.svelte";
           }
         }
       }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    header,
+    header > a:first-child {
+      animation: none;
     }
   }
 </style>
