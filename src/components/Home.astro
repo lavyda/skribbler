@@ -1,32 +1,66 @@
 ---
 import Earth from "./Earth.svelte";
+
+const locale = Astro.locals.locale;
+
+const strings = {
+  en: {
+    roles: { developer: "Software developer", nomad: "Visual nomad" },
+    bio: {
+      build: "I build software for a living,",
+      design: "design for the human experience,",
+      capture: "and capture the world through a lens",
+      remember: "to remember why it all matters.",
+    },
+    location: "Based in Slovakia",
+    building: "Currently building stuff at",
+    findMe: "Find me on",
+    say: "Say",
+  },
+  sk: {
+    roles: { developer: "Softvérový vývojár", nomad: "Vizuálny nomád" },
+    bio: {
+      build: "Živím sa tvorbou softvéru,",
+      design: "dizajnujem pre ľudský zážitok,",
+      capture: "zachytávam svet cez objektív,",
+      remember: "aby som nezabudol, prečo na tom záleží.",
+    },
+    location: "Žijem na Slovensku",
+    building: "Momentálne tvorím vo",
+    findMe: "Nájdeš ma na",
+    say: "Napíš na",
+  },
+};
+const t = strings[locale as keyof typeof strings];
 ---
 
 <div class="home">
   <h1>
-    <span>Software developer</span>
+    <span>{t.roles.developer}</span>
     <span>·</span>
-    <span>Visual nomad</span>
+    <span>{t.roles.nomad}</span>
   </h1>
 
   <div class="bio">
-    <div>I build software for a living,</div>
-    <div>design for the human experience,</div>
-    <div>and capture the world through a lens</div>
-    <div>to remember why it all matters.</div>
+    <div>{t.bio.build}</div>
+    <div>{t.bio.design}</div>
+    <div>{t.bio.capture}</div>
+    <div>{t.bio.remember}</div>
   </div>
 
   <div class="details">
-    <div>Based in Slovakia</div>
+    <div>{t.location}</div>
     <div>
-      Currently building stuff at <a href="https://visma.com">Visma Labs</a>
+      {t.building}
+      <a href="https://visma.com">Visma Labs</a>
     </div>
     <div>
-      Find me on <a href="https://instagram.com/ja.vlado">Instagram</a> · <a
+      {t.findMe}
+      <a href="https://instagram.com/ja.vlado">Instagram</a> · <a
         href="https://github.com/lavyda">Github</a
       >
     </div>
-    <span>Say <a href="mailto:hi@kovalsky.sk">hi@kovalsky.sk</a></span>
+    <span>{t.say} <a href="mailto:hi@kovalsky.sk">hi@kovalsky.sk</a></span>
   </div>
 
   <div class="backdrop" aria-hidden="true">

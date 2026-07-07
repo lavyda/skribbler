@@ -6,15 +6,24 @@
   import Sun from "./ui/icons/Sun.svelte";
   import Moon from "./ui/icons/Moon.svelte";
 
+  interface Labels {
+    system: string;
+    light: string;
+    dark: string;
+    themes: string;
+  }
+
+  let { labels }: { labels: Labels } = $props();
+
   type Theme = "system" | "light" | "dark";
 
   let theme = $state<Theme>("system");
 
-  let options: SelectOption[] = [
-    { label: "System", value: "system", icon: { glyph: MonitorCog } },
-    { label: "Light", value: "light", icon: { glyph: Sun } },
-    { label: "Dark", value: "dark", icon: { glyph: Moon } },
-  ];
+  let options: SelectOption[] = $derived([
+    { label: labels.system, value: "system", icon: { glyph: MonitorCog } },
+    { label: labels.light, value: "light", icon: { glyph: Sun } },
+    { label: labels.dark, value: "dark", icon: { glyph: Moon } },
+  ]);
 
   onMount(() => {
     theme = (document.documentElement.dataset.theme as Theme | undefined) ?? "system";
@@ -32,7 +41,7 @@
   }
 </script>
 
-<Select id="themes" ariaLabel="Themes" {options} value={theme} onchange={(value) => setTheme(value as Theme)}>
+<Select id="themes" ariaLabel={labels.themes} {options} value={theme} onchange={(value) => setTheme(value as Theme)}>
   {#snippet selected(opt)}
     {#if opt?.icon}<Icon {...opt.icon} title={opt.label} />{/if}
   {/snippet}

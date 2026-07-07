@@ -1,0 +1,15 @@
+---
+import Fill from "../../layouts/Fill.astro";
+import Home from "../../components/Home.astro";
+import { LOCALES, DEFAULT_LOCALE } from "../../i18n/locale";
+
+export function getStaticPaths() {
+  return LOCALES.filter((locale) => locale !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang },
+  }));
+}
+---
+
+<Fill>
+  <Home />
+</Fill>

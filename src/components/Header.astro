@@ -1,15 +1,35 @@
 ---
+import { getAbsoluteLocaleUrl } from "astro:i18n";
 import ThemeSwitcher from "./ThemeSwitcher.svelte";
+
+const locale = Astro.locals.locale;
+
+const strings = {
+  en: {
+    blog: "BLOG",
+    theme: { system: "System", light: "Light", dark: "Dark", themes: "Themes" },
+  },
+  sk: {
+    blog: "BLOG",
+    theme: {
+      system: "Systém",
+      light: "Svetlý",
+      dark: "Tmavý",
+      themes: "Vzhľad",
+    },
+  },
+};
+const t = strings[locale as keyof typeof strings];
 ---
 
 <header>
-  <a href="/">VLADIMÍR KOVALSKÝ</a>
+  <a href={getAbsoluteLocaleUrl(locale, "")}>VLADIMÍR KOVALSKÝ</a>
   <nav>
     <ul>
-      <!-- <li><a href="/blog">BLOG</a></li> -->
+      <!-- <li><a href={getAbsoluteLocaleUrl(locale, "blog")}>{t.blog}</a></li> -->
     </ul>
   </nav>
-  <ThemeSwitcher client:load />
+  <ThemeSwitcher client:load labels={t.theme} />
 </header>
 
 <style>
