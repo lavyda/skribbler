@@ -1,8 +1,9 @@
 ---
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 import ThemeSwitcher from "./ThemeSwitcher.svelte";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
 
-const locale = Astro.locals.locale;
+const { locale } = Astro.locals;
 
 const strings = {
   en: {
@@ -29,6 +30,7 @@ const t = strings[locale as keyof typeof strings];
       <!-- <li><a href={getAbsoluteLocaleUrl(locale, "blog")}>{t.blog}</a></li> -->
     </ul>
   </nav>
+  <LanguageSwitcher />
   <ThemeSwitcher client:load labels={t.theme} />
 </header>
 

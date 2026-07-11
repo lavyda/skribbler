@@ -1,0 +1,38 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const { locale, locales } = Astro.locals;
+
+const target = locales.find((l) => l !== locale) ?? locale;
+
+const segments = Astro.url.pathname.split("/").filter(Boolean);
+if (locales.some((l) => l === segments[0])) {
+  segments.shift();
+}
+const href = getRelativeLocaleUrl(target, segments.join("/"));
+
+const strings = {
+  en: {
+    changeLanguage: "Change language to",
+    en: "English",
+    sk: "Slovak",
+  },
+  sk: {
+    changeLanguage: "Prepnúť jazyk na",
+    en: "angličtinu",
+    sk: "slovenčinu",
+  },
+};
+const t = strings[locale as keyof typeof strings];
+---
+
+<a href={href} aria-label={`${t.changeLanguage} ${t[target]}`}>
+  {target.toUpperCase()}
+</a>
+
+<style>
+  a {
+    color: var(--color-accent);
+    font-size: var(--text-s);
+  }
+</style>

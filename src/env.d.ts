@@ -1,5 +1,7 @@
 declare namespace App {
+  type Locale = "en" | "sk";
   interface Locals {
-    locale: string;
+    locale: Locale;
+    locales: Locale[];
   }
 }

@@ -1,7 +1,7 @@
 ---
 import Earth from "./Earth.svelte";
 
-const locale = Astro.locals.locale;
+const { locale } = Astro.locals;
 
 const strings = {
   en: {
@@ -10,7 +10,7 @@ const strings = {
       build: "I build software for a living,",
       design: "design for the human experience,",
       capture: "and capture the world through a lens",
-      remember: "to remember why it all matters.",
+      remember: "to remember what matters the most.",
     },
     location: "Based in Slovakia",
     building: "Currently building stuff at",
@@ -18,14 +18,14 @@ const strings = {
     say: "Say",
   },
   sk: {
-    roles: { developer: "Softvérový vývojár", nomad: "Vizuálny nomád" },
+    roles: { developer: "Softvérový vývojár", nomad: "Kreatívec na cestach" },
     bio: {
       build: "Živím sa tvorbou softvéru,",
-      design: "dizajnujem pre ľudský zážitok,",
-      capture: "zachytávam svet cez objektív,",
-      remember: "aby som nezabudol, prečo na tom záleží.",
+      design: "vnášam ľudskosť do digitálneho sveta,",
+      capture: "a zachytávam svet cez objektív,",
+      remember: "aby som nezabudol, na čom skutočne záleží.",
     },
-    location: "Žijem na Slovensku",
+    location: "So sídlom na Slovensku",
     building: "Momentálne tvorím vo",
     findMe: "Nájdeš ma na",
     say: "Napíš na",
@@ -52,15 +52,21 @@ const t = strings[locale as keyof typeof strings];
     <div>{t.location}</div>
     <div>
       {t.building}
+      <span> </span>
       <a href="https://visma.com">Visma Labs</a>
     </div>
     <div>
       {t.findMe}
+      <span> </span>
       <a href="https://instagram.com/ja.vlado">Instagram</a> · <a
         href="https://github.com/lavyda">Github</a
       >
     </div>
-    <span>{t.say} <a href="mailto:hi@kovalsky.sk">hi@kovalsky.sk</a></span>
+    <div>
+      {t.say}
+      <span> </span>
+      <a href="mailto:hi@kovalsky.sk">hi@kovalsky.sk</a>
+    </div>
   </div>
 
   <div class="backdrop" aria-hidden="true">
