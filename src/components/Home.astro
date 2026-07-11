@@ -13,7 +13,7 @@ const strings = {
       remember: "to remember what matters the most.",
     },
     location: "Based in Slovakia",
-    building: "Currently building stuff at",
+    building: "Currently crafting at",
     findMe: "Find me on",
     say: "Say",
   },
@@ -25,7 +25,7 @@ const strings = {
       capture: "a zachytávam svet cez objektív,",
       remember: "aby som nezabudol, na čom skutočne záleží.",
     },
-    location: "So sídlom na Slovensku",
+    location: "Sídlim na Slovensku",
     building: "Momentálne tvorím vo",
     findMe: "Nájdeš ma na",
     say: "Napíš na",
@@ -78,6 +78,10 @@ const t = strings[locale as keyof typeof strings];
   .home {
     isolation: isolate;
     padding-block-start: var(--space-3xl);
+
+    @media screen and (width < 40rem) {
+      padding-block-start: var(--space-m);
+    }
   }
 
   h1 {
