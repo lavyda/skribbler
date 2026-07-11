@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import Button from "./ui/Button.svelte";
   import Icon from "./ui/Icon.svelte";
   import Sun from "./ui/icons/Sun.svelte";
   import Moon from "./ui/icons/Moon.svelte";
@@ -50,27 +51,11 @@
   }
 </script>
 
-<button type="button" class="theme-toggle" title={`${labels.changeTo} ${target === "dark" ? labels.dark : labels.light}`} onclick={toggle}>
+<Button
+  variant="ghost"
+  icon
+  title={`${labels.changeTo} ${target === "dark" ? labels.dark : labels.light}`}
+  onclick={toggle}
+>
   {#if mounted}<Icon glyph={target === "dark" ? Moon : Sun} />{/if}
-</button>
-
-<style>
-  .theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: calc(var(--text-l) + var(--space-xs) * 2);
-    block-size: calc(var(--text-l) + var(--space-xs) * 2);
-    background: transparent;
-    border: none;
-    border-radius: var(--space-2xs);
-    font-size: var(--text-l);
-    cursor: pointer;
-
-    &:hover,
-    &:focus-visible {
-      background-color: var(--color-surface);
-      color: var(--color-accent);
-    }
-  }
-</style>
+</Button>

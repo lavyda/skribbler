@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import Button from "./ui/Button.svelte";
 
 const { locale, locales } = Astro.locals;
 
@@ -26,17 +27,11 @@ const strings = {
 const t = strings[locale as keyof typeof strings];
 ---
 
-<a href={href} title={`${t.changeLanguage} ${t[target]}`}>
+<Button
+  variant="ghost"
+  link
+  href={href}
+  title={`${t.changeLanguage} ${t[target]}`}
+>
   {target.toUpperCase()}
-</a>
-
-<style>
-  a {
-    font-size: var(--text-s);
-
-    &:hover,
-    &:focus-visible {
-      color: var(--color-accent);
-    }
-  }
-</style>
+</Button>
