@@ -8,16 +8,11 @@ const { locale } = Astro.locals;
 const strings = {
   en: {
     blog: "BLOG",
-    theme: { system: "System", light: "Light", dark: "Dark", themes: "Themes" },
+    theme: { light: "light mode", dark: "dark mode", changeTo: "Change to" },
   },
   sk: {
     blog: "BLOG",
-    theme: {
-      system: "Systém",
-      light: "Svetlý",
-      dark: "Tmavý",
-      themes: "Vzhľad",
-    },
+    theme: { light: "svetlý", dark: "tmavý", changeTo: "Zmeniť vzhľad na" },
   },
 };
 const t = strings[locale as keyof typeof strings];

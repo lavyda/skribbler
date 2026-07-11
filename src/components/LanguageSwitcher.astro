@@ -18,7 +18,7 @@ const strings = {
     sk: "Slovak",
   },
   sk: {
-    changeLanguage: "Prepnúť jazyk na",
+    changeLanguage: "Zmeniť jazyk na",
     en: "angličtinu",
     sk: "slovenčinu",
   },
@@ -26,13 +26,17 @@ const strings = {
 const t = strings[locale as keyof typeof strings];
 ---
 
-<a href={href} aria-label={`${t.changeLanguage} ${t[target]}`}>
+<a href={href} title={`${t.changeLanguage} ${t[target]}`}>
   {target.toUpperCase()}
 </a>
 
 <style>
   a {
-    color: var(--color-accent);
     font-size: var(--text-s);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-accent);
+    }
   }
 </style>
