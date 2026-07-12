@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/reset.css";
 import "../styles/main.css";
 import Header from "../components/Header.astro";
@@ -18,14 +19,20 @@ const { locale } = Astro.locals;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="color-scheme" content="light dark" />
 		<script is:inline>
-			const t = localStorage.getItem("theme");
-			if (t === "light" || t === "dark")
-				document.documentElement.dataset.theme = t;
+			function applyTheme() {
+				const t = localStorage.getItem("theme");
+				if (t === "light" || t === "dark")
+					document.documentElement.dataset.theme = t;
+				else document.documentElement.removeAttribute("data-theme");
+			}
+			applyTheme();
+			document.addEventListener("astro:after-swap", applyTheme);
 		</script>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ClientRouter />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
