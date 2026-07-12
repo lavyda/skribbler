@@ -1,0 +1,42 @@
+---
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+
+const { locale } = Astro.locals;
+
+const strings = {
+  en: {
+    blog: "BLOG",
+  },
+  sk: {
+    blog: "BLOG",
+  },
+};
+const t = strings[locale as keyof typeof strings];
+---
+
+<nav>
+  <ul>
+    <li><a href={getAbsoluteLocaleUrl(locale, "blog")}>{t.blog}</a></li>
+  </ul>
+</nav>
+
+<style>
+  nav {
+    ul {
+      display: flex;
+      flex-direction: row;
+      list-style-type: none;
+      gap: var(--space-l);
+
+      a {
+        text-decoration: none;
+
+        &:hover,
+        &:active,
+        &:focus-visible {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import { getAbsoluteLocaleUrl } from "astro:i18n";
+// import Navigation from "./Navigation.astro";
 import ThemeSwitcher from "./ThemeSwitcher.svelte";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 
@@ -19,12 +20,8 @@ const t = strings[locale as keyof typeof strings];
 ---
 
 <header>
-  <a href={getAbsoluteLocaleUrl(locale, "")}>VLADIMÍR KOVALSKÝ</a>
-  <nav>
-    <ul>
-      <!-- <li><a href={getAbsoluteLocaleUrl(locale, "blog")}>{t.blog}</a></li> -->
-    </ul>
-  </nav>
+  <a href={getAbsoluteLocaleUrl(locale, "")}>Vladimír Kovalský</a>
+  <!-- <Navigation /> -->
   <LanguageSwitcher />
   <ThemeSwitcher client:load labels={t.theme} />
 </header>
@@ -60,31 +57,17 @@ const t = strings[locale as keyof typeof strings];
     animation-range: 0 6rem;
 
     > a:first-child {
+      margin-inline-end: auto;
       text-decoration: none;
       font-size: var(--text-xl);
+      font-family: var(--font-heading);
+      letter-spacing: var(--space-3xs);
       animation: logo-shrink auto linear both;
       animation-timeline: scroll(block root);
       animation-range: 0 6rem;
-    }
 
-    nav {
-      margin-inline-start: auto;
-
-      ul {
-        display: flex;
-        flex-direction: row;
-        list-style-type: none;
-        gap: var(--space-l);
-
-        a {
-          text-decoration: none;
-
-          &:hover,
-          &:active,
-          &:focus-visible {
-            text-decoration: underline;
-          }
-        }
+      @media screen and (width < 40rem) {
+        font-size: var(--text-m);
       }
     }
   }

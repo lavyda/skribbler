@@ -25,15 +25,15 @@
   --weight-normal: 400;
   --weight-semibold: 600;
 
-  --font-body: "Elms Sans", serif;
-  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Mozilla Text", serif;
+  --font-heading: "Cinzel Decorative", serif;
   --font-monospace: "Source Code Pro", monospace;
 
   --color-accent: light-dark(#B8472A, #E3876D);
   --color-on-accent: light-dark(#F8F4EC, #1A1208);
 
   --color-bg: light-dark(#F4F1EA, #15120E);
-  --color-surface: light-dark(#FBF8F1, #211B13);
+  --color-surface: light-dark(#FDFCFA, #211B13);
   --color-text: light-dark(#1A1714, #EDE7DB);
   --color-text-muted: light-dark(#5E574E, #9C9384);
   --color-border: light-dark(#D9D2C4, #322C24);

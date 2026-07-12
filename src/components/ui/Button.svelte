@@ -55,7 +55,7 @@
     justify-content: center;
     gap: var(--space-xs);
     padding-block: var(--space-xs);
-    padding-inline: var(--space-m);
+    padding-inline: var(--space-s);
     border: 1px solid transparent;
     border-radius: var(--space-2xs);
     font: inherit;
@@ -83,29 +83,29 @@
   }
 
   .btn--primary {
-    background: var(--color-accent);
+    background-color: var(--color-accent);
     color: var(--color-on-accent);
   }
 
   .btn--primary:hover {
-    background: color-mix(in oklab, var(--color-accent), var(--color-bg) 15%);
+    background-color: color-mix(in oklab, var(--color-accent), var(--color-bg) 15%);
   }
 
   .btn--secondary {
-    background: var(--color-surface);
+    background-color: var(--color-surface);
     color: var(--color-text);
     border-color: var(--color-border);
   }
 
   .btn--ghost {
-    background: transparent;
+    background-color: transparent;
     color: var(--color-text);
   }
 
   .btn--secondary:hover,
   .btn--ghost:hover,
   .btn--ghost:focus-visible {
-    background: var(--color-surface);
+    background-color: var(--color-surface);
     color: var(--color-accent);
   }
 
