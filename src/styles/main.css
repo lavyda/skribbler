@@ -25,8 +25,8 @@
   --weight-normal: 400;
   --weight-semibold: 600;
 
-  --font-body: "Mozilla Text", serif;
-  --font-heading: "Cinzel Decorative", serif;
+  --font-body: "Mozilla Text", sans-serif;
+  --font-heading: "Saira", serif;
   --font-monospace: "Source Code Pro", monospace;
 
   --color-accent: light-dark(#B8472A, #E3876D);

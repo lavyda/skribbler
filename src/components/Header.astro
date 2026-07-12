@@ -1,5 +1,5 @@
 ---
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
 // import Navigation from "./Navigation.astro";
 import ThemeSwitcher from "./ThemeSwitcher.svelte";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
@@ -10,17 +10,23 @@ const strings = {
   en: {
     blog: "BLOG",
     theme: { light: "light mode", dark: "dark mode", changeTo: "Change to" },
+    name: "Vladimír",
+    surname: "Kovalský",
   },
   sk: {
     blog: "BLOG",
     theme: { light: "svetlý", dark: "tmavý", changeTo: "Zmeniť vzhľad na" },
+    name: "Vladimír",
+    surname: "Kovalský",
   },
 };
 const t = strings[locale as keyof typeof strings];
 ---
 
 <header>
-  <a href={getAbsoluteLocaleUrl(locale, "")}>Vladimír Kovalský</a>
+  <a href={getRelativeLocaleUrl(locale, "")}
+    ><span>{t.name}</span> <span>{t.surname}</span>
+  </a>
   <!-- <Navigation /> -->
   <LanguageSwitcher />
   <ThemeSwitcher client:load labels={t.theme} />
@@ -62,9 +68,17 @@ const t = strings[locale as keyof typeof strings];
       font-size: var(--text-xl);
       font-family: var(--font-heading);
       letter-spacing: var(--space-3xs);
+      text-transform: uppercase;
       animation: logo-shrink auto linear both;
       animation-timeline: scroll(block root);
       animation-range: 0 6rem;
+
+      > span:first-child {
+        font-weight: var(--weight-semibold);
+      }
+      > span:last-child {
+        font-style: italic;
+      }
 
       @media screen and (width < 40rem) {
         font-size: var(--text-m);
