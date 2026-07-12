@@ -115,4 +115,22 @@
     block-size: calc(var(--text-l) + var(--space-xs) * 2);
     font-size: var(--text-l);
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn {
+      transition:
+        scale 160ms ease,
+        background-color 160ms ease,
+        color 160ms ease;
+    }
+
+    .btn:not(:disabled, [aria-disabled="true"]):hover {
+      scale: 1.04;
+    }
+
+    .btn:not(:disabled, [aria-disabled="true"]):active {
+      scale: 0.97;
+      transition-duration: 80ms;
+    }
+  }
 </style>
