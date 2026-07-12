@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
+  import { withViewTransition } from "../lib/viewTransition";
   import Button from "./ui/Button.svelte";
   import Icon from "./ui/Icon.svelte";
   import Sun from "./ui/icons/Sun.svelte";
@@ -39,15 +40,18 @@
   function toggle() {
     const next: Scheme = scheme === "dark" ? "light" : "dark";
 
-    if (next === systemScheme) {
-      override = null;
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.removeItem("theme");
-    } else {
-      override = next;
-      document.documentElement.dataset.theme = next;
-      localStorage.setItem("theme", next);
-    }
+    withViewTransition(async () => {
+      if (next === systemScheme) {
+        override = null;
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.removeItem("theme");
+      } else {
+        override = next;
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem("theme", next);
+      }
+      await tick();
+    });
   }
 </script>
 
