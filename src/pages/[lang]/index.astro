@@ -3,11 +3,8 @@ import { i18n } from "astro:config/server";
 import Fill from "../../layouts/Fill.astro";
 import Home from "../../components/Home.astro";
 
-export const getStaticPaths = () => {
-  return i18n?.locales
-    .filter((l) => l !== i18n?.defaultLocale)
-    .map((lang) => ({ params: { lang } }));
-};
+export const getStaticPaths = () =>
+  i18n?.locales.map((lang) => ({ params: { lang } }));
 ---
 
 <Fill>
