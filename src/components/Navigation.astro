@@ -1,14 +1,14 @@
 ---
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const { locale } = Astro.locals;
 
 const strings = {
   en: {
-    blog: "BLOG",
+    blog: "Blog",
   },
   sk: {
-    blog: "BLOG",
+    blog: "Blog",
   },
 };
 const t = strings[locale as keyof typeof strings];
@@ -16,7 +16,7 @@ const t = strings[locale as keyof typeof strings];
 
 <nav>
   <ul>
-    <li><a href={getAbsoluteLocaleUrl(locale, "blog")}>{t.blog}</a></li>
+    <li><a href={getRelativeLocaleUrl(locale, "blog")}>{t.blog}</a></li>
   </ul>
 </nav>
 
