@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
-  import { withViewTransition } from "../lib/viewTransition";
-  import Button from "./ui/Button.svelte";
-  import Icon from "./ui/Icon.svelte";
-  import Sun from "./ui/icons/Sun.svelte";
-  import Moon from "./ui/icons/Moon.svelte";
+  import { withViewTransition } from "@/lib/transitions/viewTransition";
+  import Button from "@/lib/ui/Button.svelte";
+  import Icon from "@/lib/ui/Icon.svelte";
+  import Sun from "@/lib/ui/icons/Sun.svelte";
+  import Moon from "@/lib/ui/icons/Moon.svelte";
 
   interface Labels {
     light: string;

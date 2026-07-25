@@ -1,7 +1,7 @@
 ---
 import { i18n } from "astro:config/server";
-import Fill from "../../layouts/Fill.astro";
-import Home from "../../components/Home.astro";
+import Fill from "@/layouts/Fill.astro";
+import Home from "@/modules/home/Home.astro";
 
 export const getStaticPaths = () =>
   i18n?.locales.map((lang) => ({ params: { lang } }));
