@@ -105,7 +105,8 @@
   .btn--secondary:hover,
   .btn--ghost:hover,
   .btn--ghost:focus-visible {
-    background-color: var(--color-surface);
+    background-color: var(--glass-bg);
+    backdrop-filter: var(--glass-filter);
     color: var(--color-accent);
   }
 
@@ -121,7 +122,8 @@
       transition:
         scale 160ms ease,
         background-color 160ms ease,
-        color 160ms ease;
+        color 160ms ease,
+        backdrop-filter 160ms ease;
     }
 
     .btn:not(:disabled, [aria-disabled="true"]):hover {

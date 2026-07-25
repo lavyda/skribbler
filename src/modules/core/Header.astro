@@ -34,7 +34,8 @@ const t = strings[locale as keyof typeof strings];
   @keyframes header-shrink {
     to {
       padding: var(--space-xs) var(--space-m);
-      border-color: var(--color-border);
+      background-color: var(--glass-bg-muted);
+      backdrop-filter: var(--glass-filter);
     }
   }
 
@@ -55,7 +56,6 @@ const t = strings[locale as keyof typeof strings];
     justify-content: space-between;
     gap: var(--space-3xs);
     background-color: var(--color-bg);
-    border-block-end: 1px solid transparent;
     animation: header-shrink auto linear both;
     animation-timeline: scroll(block root);
     animation-range: 0 6rem;

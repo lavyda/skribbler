@@ -27,8 +27,8 @@
     padding: var(--space-2xs) var(--space-xs);
     border: none;
     border-radius: var(--space-xs);
-    background-color: var(--color-surface);
-    background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    background-color: var(--glass-bg-muted);
+    backdrop-filter: var(--glass-filter);
     color: var(--color-text-muted);
     font-family: var(--font-monospace);
     font-size: var(--text-xs);
@@ -41,6 +41,7 @@
   .chip:focus-visible {
     color: var(--color-text);
     background-color: var(--color-surface);
+    backdrop-filter: none;
   }
 
   .chip:focus-visible {
@@ -56,7 +57,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .chip {
-      transition: color 160ms ease, background-color 160ms ease;
+      transition: color 160ms ease, background-color 160ms ease, backdrop-filter 160ms ease;
     }
   }
 </style>

@@ -37,15 +37,29 @@
   --color-text: light-dark(#1A1714, #EDE7DB);
   --color-text-muted: light-dark(#5E574E, #9C9384);
   --color-border: light-dark(#D9D2C4, #322C24);
+
+  --glass-blur: 1rem;
+  --glass-saturate: 100%;
+  --glass-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  --glass-bg: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  --glass-bg-muted: color-mix(in oklab, var(--color-surface) 60%, transparent);
 }
 
 :root {
   &[data-theme="light"] {
     color-scheme: light;
   }
-  
+
   &[data-theme="dark"] {
     color-scheme: dark;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-filter: none;
+    --glass-bg: var(--color-surface);
+    --glass-bg-muted: var(--color-surface);
   }
 }
 
