@@ -34,8 +34,6 @@ const t = strings[locale as keyof typeof strings];
   @keyframes header-shrink {
     to {
       padding: var(--space-xs) var(--space-m);
-      background-color: var(--glass-bg-muted);
-      backdrop-filter: var(--glass-filter);
     }
   }
 
@@ -46,8 +44,6 @@ const t = strings[locale as keyof typeof strings];
   }
 
   header {
-    position: sticky;
-    inset-block-start: 0;
     z-index: 10;
     padding: clamp(1rem, 0.826rem + 0.87vw, 1.5rem)
       clamp(1.5rem, 0.63rem + 4.348vw, 4rem);
