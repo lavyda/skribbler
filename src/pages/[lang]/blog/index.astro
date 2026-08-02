@@ -1,0 +1,82 @@
+---
+import { i18n } from "astro:config/server";
+import Fill from "@/layouts/Fill.astro";
+import PostPreview from "@/modules/blog/PostPreview.astro";
+import { getPosts } from "@/modules/blog/blog";
+
+export const getStaticPaths = () =>
+  i18n?.locales.map((lang) => ({ params: { lang } }));
+
+const { locale } = Astro.locals;
+const posts = await getPosts(locale);
+
+const strings = {
+  en: {
+    title: "Writing",
+    intro: "Notes on life, travel and everything",
+    empty: "No articles yet.",
+  },
+  sk: {
+    title: "Blog",
+    intro: "Zápisky o živote, cestovaní a všetkom ostatnom",
+    empty: "Zatiaľ žiadne články.",
+  },
+};
+const t = strings[locale];
+---
+
+<Fill title={t.title}>
+  <header>
+    <h1>{t.title}</h1>
+    <p>{t.intro}</p>
+  </header>
+  {
+    posts.length === 0 ? (
+      <p class="empty">{t.empty}</p>
+    ) : (
+      <ul>
+        {posts.map((post) => (
+          <li>
+            <PostPreview post={post} />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Fill>
+
+<style>
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-m) var(--space-xl);
+    padding-block-end: var(--space-xl);
+    margin-block-end: var(--space-2xl);
+    border-block-end: 1px solid var(--color-border);
+    font-family: var(--font-heading);
+
+    h1 {
+      font-size: var(--text-3xl);
+      font-weight: var(--weight-normal);
+    }
+
+    p {
+      font-size: var(--text-m);
+      color: var(--color-text-muted);
+    }
+  }
+
+  ul {
+    padding: 0;
+    display: grid;
+    gap: var(--space-2xl);
+    list-style-type: none;
+    inline-size: min(100ch, 100%);
+  }
+
+  .empty {
+    color: var(--color-text-muted);
+  }
+</style>

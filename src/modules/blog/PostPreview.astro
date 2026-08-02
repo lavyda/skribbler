@@ -1,0 +1,171 @@
+---
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Chip from "@/lib/ui/Chip.svelte";
+import { slugOf, readingTime, type Post } from "@/modules/blog/blog";
+import { dateFormatter } from "@/lib/dateTime";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { locale } = Astro.locals;
+
+const strings = {
+  en: { min: "min read", updated: "Updated" },
+  sk: { min: "min čítania", updated: "Aktualizované" },
+};
+const t = strings[locale];
+
+const fmt = dateFormatter(locale);
+const slug = slugOf(post);
+const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
+---
+
+<article>
+  {
+    post.data.cover && (
+      <Image
+        src={post.data.cover}
+        alt={post.data.coverAlt ?? ""}
+        priority
+        class="cover"
+        transition:name={`post-preview-cover-${slug}`}
+      />
+    )
+  }
+
+  <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
+
+  <div class="content" transition:name={`post-preview-meta-${slug}`}>
+    <div class="divider" aria-hidden="true"><div></div></div>
+
+    <h2 class="title">
+      <a href={href}>{post.data.title}</a>
+    </h2>
+
+    <p class="description">{post.data.description}</p>
+
+    <div class="meta">
+      <time datetime={post.data.created.toISOString()}>
+        {fmt.format(post.data.created)}
+      </time>
+      {
+        post.data.updated && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>
+              {t.updated} {fmt.format(post.data.updated)}
+            </span>
+          </>
+        )
+      }
+      <span aria-hidden="true">·</span>
+      <span>
+        {readingTime(post.body)}
+        {t.min}
+      </span>
+    </div>
+
+    <ul class="tags">
+      {
+        post.data.tags.map((tag) => (
+          <li>
+            <Chip>{tag}</Chip>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
+
+<style>
+  article {
+    position: relative;
+    inline-size: 100%;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+  }
+
+  .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .cover {
+    display: block;
+    inline-size: 100%;
+    block-size: 16rem;
+    object-fit: cover;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "meta tags"
+      "divider divider"
+      "title title"
+      "description description";
+    padding: var(--space-l);
+    row-gap: var(--space-m);
+    column-gap: var(--space-l);
+  }
+
+  .meta {
+    grid-area: meta;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-monospace);
+    font-size: var(--text-xs);
+  }
+
+  .tags {
+    grid-area: tags;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: var(--space-2xs);
+    list-style-type: none;
+  }
+
+  .divider {
+    grid-area: divider;
+
+    div {
+      block-size: 2px;
+      inline-size: 3rem;
+      background-color: var(--color-accent);
+    }
+  }
+
+  .title {
+    grid-area: title;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-normal);
+
+    a {
+      transition: color 160ms ease;
+
+      article:hover &,
+      article:focus-within & {
+        text-decoration: none;
+        @media (prefers-reduced-motion: no-preference) {
+          color: var(--color-accent);
+        }
+      }
+    }
+  }
+
+  .description {
+    grid-area: description;
+    color: var(--color-text-muted);
+  }
+</style>
