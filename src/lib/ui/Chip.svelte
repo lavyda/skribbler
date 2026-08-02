@@ -18,7 +18,7 @@
     tabindex={disabled ? -1 : undefined}
   >{@render children()}</a>
 {:else}
-  <button class="chip" type="button" {disabled}>{@render children()}</button>
+  <span class="chip">{@render children()}</span>
 {/if}
 
 <style>
@@ -26,38 +26,38 @@
     display: inline-block;
     padding: var(--space-2xs) var(--space-xs);
     border: none;
-    border-radius: var(--space-xs);
-    background-color: var(--glass-bg-muted);
-    backdrop-filter: var(--glass-filter);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-border);
     color: var(--color-text-muted);
     font-family: var(--font-monospace);
     font-size: var(--text-xs);
     line-height: 1;
-    cursor: pointer;
     text-decoration: none;
   }
 
-  .chip:hover,
-  .chip:focus-visible {
-    color: var(--color-text);
-    background-color: var(--color-surface);
-    backdrop-filter: none;
+  a.chip {
+    cursor: pointer;
   }
 
-  .chip:focus-visible {
+  a.chip:hover,
+  a.chip:focus-visible {
+    color: var(--color-text);
+    background-color: var(--color-surface);
+  }
+
+  a.chip:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
 
-  .chip:disabled,
-  .chip[aria-disabled="true"] {
+  a.chip[aria-disabled="true"] {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .chip {
-      transition: color 160ms ease, background-color 160ms ease, backdrop-filter 160ms ease;
+    a.chip {
+      transition: color 160ms ease, background-color 160ms ease;
     }
   }
 </style>

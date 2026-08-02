@@ -57,7 +57,7 @@
     padding-block: var(--space-xs);
     padding-inline: var(--space-s);
     border: 1px solid transparent;
-    border-radius: var(--space-2xs);
+    border-radius: var(--radius-2xs);
     font: inherit;
     font-size: var(--text-m);
     font-weight: var(--weight-semibold);
@@ -105,8 +105,7 @@
   .btn--secondary:hover,
   .btn--ghost:hover,
   .btn--ghost:focus-visible {
-    background-color: var(--glass-bg);
-    backdrop-filter: var(--glass-filter);
+    background-color: var(--color-border);
     color: var(--color-accent);
   }
 
@@ -122,8 +121,7 @@
       transition:
         scale 160ms ease,
         background-color 160ms ease,
-        color 160ms ease,
-        backdrop-filter 160ms ease;
+        color 160ms ease;
     }
 
     .btn:not(:disabled, [aria-disabled="true"]):hover {

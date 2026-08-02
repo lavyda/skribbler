@@ -104,7 +104,7 @@
     padding-inline: var(--space-s);
     color: var(--color-text);
     border: 1px solid var(--color-border);
-    border-radius: var(--space-2xs);
+    border-radius: var(--radius-2xs);
     font-size: var(--text-m);
     cursor: pointer;
   }
@@ -123,7 +123,7 @@
   .select::picker(select) {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: var(--space-2xs);
+    border-radius: var(--radius-2xs);
     padding: var(--space-2xs);
     min-width: anchor-size(width);
     margin-block-start: var(--space-2xs);
@@ -150,7 +150,7 @@
     gap: var(--space-xs);
     padding-block: var(--space-2xs);
     padding-inline: var(--space-xs);
-    border-radius: var(--space-2xs);
+    border-radius: var(--radius-2xs);
     cursor: pointer;
   }
 
