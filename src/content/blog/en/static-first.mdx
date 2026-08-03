@@ -1,0 +1,26 @@
+---
+title: "Static-first, always"
+description: "A short case for shipping HTML and CSS before reaching for JavaScript."
+created: 2026-07-14
+tags: ["css", "web"]
+authors: ["vladimir-kovalsky"]
+relatedPosts: []
+---
+
+The fastest component is the one that never hydrates.
+
+## Lean on the platform
+
+Modern CSS does a lot that used to demand a script — container queries, `:has()`,
+scroll-driven animation, `light-dark()`:
+
+```css
+.card {
+  container-type: inline-size;
+}
+```
+
+> Reach for JavaScript when the platform genuinely can't express the idea —
+> not by default.
+
+That's the whole philosophy, and it keeps pages fast and durable.
