@@ -8,7 +8,7 @@ const photo = z.object({
   caption: z.string().optional(),
 });
 
-const blog = defineCollection({
+const blogs = defineCollection({
   loader: glob({
     pattern: "**/*.{md,mdx}",
     base: "./src/content/blog",
@@ -24,7 +24,7 @@ const blog = defineCollection({
         tags: z.array(z.string()).default([]),
         draft: z.boolean().default(false),
         authors: z.array(reference("authors")),
-        relatedPosts: z.array(reference("blog")),
+        relatedPosts: z.array(reference("blogs")),
         galleries: z.array(reference("galleries")).optional(),
         cover: image().optional(),
         coverAlt: z.string().optional(),
@@ -57,8 +57,8 @@ const galleries = defineCollection({
     draft: z.boolean().default(false),
     listed: z.boolean().default(true),
     photos: z.array(photo).min(1),
-    blogs: z.array(reference("blog")).optional(),
+    blogs: z.array(reference("blogs")).optional(),
   }),
 });
 
-export const collections = { blog, authors, galleries };
+export const collections = { blogs, authors, galleries };

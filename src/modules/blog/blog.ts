@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type Locale = App.Locale;
 
-export type Post = CollectionEntry<"blog">;
+export type Post = CollectionEntry<"blogs">;
 
 export const slugOf = (post: Post): string =>
   post.id.split("/").slice(1).join("/");
@@ -10,7 +10,7 @@ export const slugOf = (post: Post): string =>
 export async function getPosts(locale: Locale): Promise<Post[]> {
   const prefix = `${locale}/`;
   const posts = await getCollection(
-    "blog",
+    "blogs",
     ({ id, data }) =>
       id.startsWith(prefix) && (import.meta.env.PROD ? !data.draft : true),
   );
