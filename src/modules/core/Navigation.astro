@@ -6,9 +6,11 @@ const { locale } = Astro.locals;
 const strings = {
   en: {
     blog: "Blog",
+    gallery: "Gallery",
   },
   sk: {
     blog: "Blog",
+    gallery: "Galéria",
   },
 };
 const t = strings[locale as keyof typeof strings];
@@ -17,6 +19,9 @@ const t = strings[locale as keyof typeof strings];
 <nav>
   <ul>
     <li><a href={getRelativeLocaleUrl(locale, "blog")}>{t.blog}</a></li>
+    <li>
+      <a href={getRelativeLocaleUrl(locale, "gallery")}>{t.gallery}</a>
+    </li>
   </ul>
 </nav>
 

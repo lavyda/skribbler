@@ -7,6 +7,9 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   integrations: [svelte(), mdx()],
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  },
   i18n: {
     locales: ["en", "sk"],
     defaultLocale: "en",

@@ -1,0 +1,166 @@
+---
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Chip from "@/lib/ui/Chip.svelte";
+import { slugOf, type Gallery } from "@/modules/gallery/gallery";
+import { dateFormatter } from "@/lib/dateTime";
+
+interface Props {
+  gallery: Gallery;
+}
+
+const { gallery } = Astro.props;
+const { locale } = Astro.locals;
+
+const strings = {
+  en: { updated: "Updated", photos: "photos" },
+  sk: { updated: "Aktualizované", photos: "fotografií" },
+};
+const t = strings[locale];
+
+const fmt = dateFormatter(locale);
+const slug = slugOf(gallery);
+const href = getRelativeLocaleUrl(locale, `gallery/${slug}`);
+const cover = gallery.data.photos[0];
+---
+
+<article>
+  <Image
+    src={cover.src}
+    inferSize
+    alt={cover.alt}
+    priority
+    class="cover"
+    transition:name={`gallery-preview-cover-${slug}`}
+  />
+
+  <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
+
+  <div class="content" transition:name={`gallery-preview-meta-${slug}`}>
+    <div class="divider" aria-hidden="true"><div></div></div>
+
+    <h2 class="title">
+      <a href={href}>{gallery.data.title}</a>
+    </h2>
+
+    <p class="description">{gallery.data.description}</p>
+
+    <div class="meta">
+      <time datetime={gallery.data.created.toISOString()}>
+        {fmt.format(gallery.data.created)}
+      </time>
+      {
+        gallery.data.updated && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>
+              {t.updated} {fmt.format(gallery.data.updated)}
+            </span>
+          </>
+        )
+      }
+      <span aria-hidden="true">·</span>
+      <span>{gallery.data.photos.length} {t.photos}</span>
+    </div>
+
+    <ul class="tags">
+      {
+        gallery.data.tags.map((tag) => (
+          <li>
+            <Chip>{tag}</Chip>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
+
+<style>
+  article {
+    position: relative;
+    inline-size: 100%;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+  }
+
+  .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .cover {
+    display: block;
+    inline-size: 100%;
+    block-size: 16rem;
+    object-fit: cover;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "meta tags"
+      "divider divider"
+      "title title"
+      "description description";
+    padding: var(--space-l);
+    row-gap: var(--space-m);
+    column-gap: var(--space-l);
+  }
+
+  .meta {
+    grid-area: meta;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-monospace);
+    font-size: var(--text-xs);
+  }
+
+  .tags {
+    grid-area: tags;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: var(--space-2xs);
+    list-style-type: none;
+  }
+
+  .divider {
+    grid-area: divider;
+
+    div {
+      block-size: 2px;
+      inline-size: 3rem;
+      background-color: var(--color-accent);
+    }
+  }
+
+  .title {
+    grid-area: title;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-normal);
+
+    a {
+      transition: color 160ms ease;
+
+      article:hover &,
+      article:focus-within & {
+        text-decoration: none;
+        @media (prefers-reduced-motion: no-preference) {
+          color: var(--color-accent);
+        }
+      }
+    }
+  }
+
+  .description {
+    grid-area: description;
+    color: var(--color-text-muted);
+  }
+</style>

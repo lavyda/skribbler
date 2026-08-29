@@ -1,0 +1,188 @@
+---
+import { Image } from "astro:assets";
+import { i18n } from "astro:config/server";
+import Base from "@/layouts/Base.astro";
+import {
+  getListedGalleries,
+  slugOf,
+  type Locale,
+} from "@/modules/gallery/gallery";
+import Chip from "@/lib/ui/Chip.svelte";
+import { dateFormatter } from "@/lib/dateTime";
+
+export async function getStaticPaths() {
+  const locales = i18n?.locales ?? [];
+  const groups = await Promise.all(
+    locales.map(async (lang) => {
+      const galleries = await getListedGalleries(lang as Locale);
+      return galleries.map((gallery) => ({
+        params: { lang, slug: slugOf(gallery) },
+        props: { gallery },
+      }));
+    }),
+  );
+  return groups.flat();
+}
+
+const { gallery } = Astro.props;
+const { locale } = Astro.locals;
+const slug = slugOf(gallery);
+const cover = gallery.data.photos[0];
+
+const strings = {
+  en: { updated: "Updated", photos: "photos" },
+  sk: { updated: "Aktualizované", photos: "fotografií" },
+};
+const t = strings[locale];
+
+const fmt = dateFormatter(locale);
+---
+
+<Base title={gallery.data.title}>
+  <main>
+    <Image
+      src={cover.src}
+      inferSize
+      alt={cover.alt}
+      priority
+      class="cover"
+      transition:name={`gallery-preview-cover-${slug}`}
+    />
+
+    <div class="seam" aria-hidden="true"></div>
+
+    <header class="content" transition:name={`gallery-preview-meta-${slug}`}>
+      <div class="divider" aria-hidden="true"><div></div></div>
+
+      <h2 class="title">
+        {gallery.data.title}
+      </h2>
+
+      <p class="description">{gallery.data.description}</p>
+
+      <div class="meta">
+        <time datetime={gallery.data.created.toISOString()}>
+          {fmt.format(gallery.data.created)}
+        </time>
+        {
+          gallery.data.updated && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                {t.updated} {fmt.format(gallery.data.updated)}
+              </span>
+            </>
+          )
+        }
+        <span aria-hidden="true">·</span>
+        <span>{gallery.data.photos.length} {t.photos}</span>
+      </div>
+
+      <ul class="tags">
+        {
+          gallery.data.tags.map((tag) => (
+            <li>
+              <Chip>{tag}</Chip>
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <ul class="photos">
+      {
+        gallery.data.photos.map((photo) => (
+          <li>
+            <Image src={photo.src} inferSize alt={photo.alt} />
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+
+  <style>
+    .cover {
+      display: block;
+      inline-size: 100%;
+      block-size: calc(20rem + var(--space-3xl) + var(--space-xl));
+      object-fit: cover;
+    }
+
+    .seam {
+      block-size: 1px;
+      background-color: var(--color-border);
+    }
+
+    .photos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-m);
+      padding: var(--space-xl);
+      list-style-type: none;
+
+      img {
+        max-inline-size: 20rem;
+      }
+    }
+
+    .content {
+      inline-size: min(var(--screen-xl), calc(100% - var(--space-xl) * 2));
+      margin-inline: auto;
+      margin-block-start: calc(-1 * var(--space-3xl));
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "meta tags"
+        "divider divider"
+        "title title"
+        "description description";
+      padding: var(--space-xl);
+      row-gap: var(--space-m);
+      column-gap: var(--space-l);
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-m);
+    }
+
+    .meta {
+      grid-area: meta;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+      color: var(--color-text-muted);
+      font-family: var(--font-monospace);
+      font-size: var(--text-xs);
+    }
+
+    .tags {
+      grid-area: tags;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: start;
+      gap: var(--space-2xs);
+      list-style-type: none;
+    }
+
+    .divider {
+      grid-area: divider;
+
+      div {
+        block-size: 2px;
+        inline-size: 3rem;
+        background-color: var(--color-accent);
+      }
+    }
+
+    .title {
+      grid-area: title;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--weight-normal);
+    }
+
+    .description {
+      grid-area: description;
+      color: var(--color-text-muted);
+    }
+  </style>
+</Base>
