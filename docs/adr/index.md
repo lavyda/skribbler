@@ -3,6 +3,7 @@
 | ADR | Title | Status |
 | --- | --- | --- |
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
+| [0002](0002-lucide-icons-vendored.md) | Use only Lucide icons, copied into the project | Accepted |
 
 ## Adding a new ADR
 
