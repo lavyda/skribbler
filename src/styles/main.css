@@ -62,6 +62,15 @@ body {
   color: var(--color-text);
 }
 
+:root:has(dialog[open]) {
+  overflow: hidden;
+
+  /* transition:name is wired permanently, not just during nav — it would hijack the lightbox's own transitions otherwise. */
+  [data-astro-transition-scope] {
+    view-transition-name: none;
+  }
+}
+
 a {
   &:link,
   &:visited {

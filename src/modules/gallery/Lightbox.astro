@@ -1,0 +1,303 @@
+---
+import type { Photo } from "@/modules/gallery/gallery";
+import Button from "@/lib/ui/Button.svelte";
+import Icon from "@/lib/ui/Icon.svelte";
+import X from "@/lib/ui/icons/X.svelte";
+import ChevronLeft from "@/lib/ui/icons/ChevronLeft.svelte";
+import ChevronRight from "@/lib/ui/icons/ChevronRight.svelte";
+
+interface Props {
+  photos: Photo[];
+}
+
+const { photos } = Astro.props;
+const { locale } = Astro.locals;
+
+const strings = {
+  en: { close: "Close", previous: "Previous photo", next: "Next photo" },
+  sk: {
+    close: "Zavrieť",
+    previous: "Predchádzajúca fotografia",
+    next: "Nasledujúca fotografia",
+  },
+};
+const t = strings[locale];
+
+const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
+---
+
+<dialog class="lightbox">
+  <Button variant="ghost" icon aria-label={t.close} class="control close">
+    <Icon glyph={X} size="1.25rem" />
+  </Button>
+
+  <figure class="frame">
+    <img class="photo" alt="" />
+
+    <div class="below">
+      <div class="nav">
+        <Button variant="ghost" icon aria-label={t.previous} class="control prev">
+          <Icon glyph={ChevronLeft} size="1.25rem" />
+        </Button>
+
+        <Button variant="ghost" icon aria-label={t.next} class="control next">
+          <Icon glyph={ChevronRight} size="1.25rem" />
+        </Button>
+      </div>
+
+      <div class="meta">
+        <p class="caption"></p>
+        <p class="counter"></p>
+      </div>
+    </div>
+  </figure>
+</dialog>
+
+<script type="application/json" data-lightbox-photos set:html={payload} />
+
+<script>
+  import { withViewTransition } from "@/lib/transitions/viewTransition";
+
+  type Photo = { src: string; alt: string; caption?: string };
+
+  const dialog = document.querySelector<HTMLDialogElement>(".lightbox")!;
+  const img = dialog.querySelector<HTMLImageElement>(".photo")!;
+  const caption = dialog.querySelector<HTMLParagraphElement>(".caption")!;
+  const counter = dialog.querySelector<HTMLParagraphElement>(".counter")!;
+  const closeButton = dialog.querySelector<HTMLButtonElement>(".close")!;
+  const prevButton = dialog.querySelector<HTMLButtonElement>(".prev")!;
+  const nextButton = dialog.querySelector<HTMLButtonElement>(".next")!;
+
+  const payload = document.querySelector<HTMLScriptElement>(
+    "script[data-lightbox-photos]",
+  )!;
+  const photos: Photo[] = JSON.parse(payload.textContent!);
+
+  const thumbnails = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-lightbox-index]"),
+  );
+
+  let index = 0;
+
+  // Only one element may carry the shared name at a time, or the browser
+  // rejects the transition as a duplicate view-transition-name.
+  let tagged: HTMLElement | null = null;
+  function tag(el: HTMLElement) {
+    if (tagged && tagged !== el) tagged.style.viewTransitionName = "";
+    el.style.viewTransitionName = "lightbox-photo";
+    tagged = el;
+  }
+
+  function preload(i: number) {
+    new Image().src = photos[i]!.src;
+  }
+
+  function render() {
+    const photo = photos[index]!;
+    img.src = photo.src;
+    img.alt = photo.alt;
+    caption.textContent = photo.caption ?? "";
+    counter.textContent = `${index + 1} / ${photos.length}`;
+    preload((index + 1) % photos.length);
+    preload((index - 1 + photos.length) % photos.length);
+  }
+
+  function open(i: number, thumbnail?: HTMLElement) {
+    const thumbImg = thumbnail?.querySelector("img");
+    if (thumbImg) tag(thumbImg);
+    withViewTransition(() => {
+      index = i;
+      render();
+      dialog.showModal();
+      tag(img);
+    });
+  }
+
+  function close() {
+    const thumbImg = thumbnails[index]?.querySelector("img");
+    withViewTransition(() => {
+      dialog.close();
+      if (thumbImg) tag(thumbImg);
+    });
+  }
+
+  function go(delta: number) {
+    index = (index + delta + photos.length) % photos.length;
+    withViewTransition(render);
+  }
+
+  thumbnails.forEach((thumbnail, i) => {
+    thumbnail.addEventListener("click", () => open(i, thumbnail));
+  });
+
+  closeButton.addEventListener("click", close);
+  prevButton.addEventListener("click", () => go(-1));
+  nextButton.addEventListener("click", () => go(1));
+
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    close();
+  });
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) close();
+  });
+
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") go(-1);
+    else if (event.key === "ArrowRight") go(1);
+  });
+</script>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    padding-block: var(--space-2xl);
+    padding-inline: calc(var(--space-3xl) + var(--space-s));
+    border: none;
+    background: none;
+    color: var(--color-text);
+
+    &[open] {
+      display: flex;
+    }
+
+    &::backdrop {
+      background-color: light-dark(rgb(255 255 255 / 94%), rgb(0 0 0 / 94%));
+    }
+  }
+
+  .frame,
+  .below,
+  .nav {
+    display: contents;
+  }
+
+  .photo {
+    display: block;
+    max-inline-size: 100%;
+    max-block-size: calc(100vh - var(--space-3xl) * 2);
+    object-fit: contain;
+    border-radius: var(--radius-2xs);
+  }
+
+  .lightbox :global(.control) {
+    position: absolute;
+  }
+
+  .lightbox :global(.close) {
+    inset-block-start: var(--space-l);
+    inset-inline-end: var(--space-l);
+  }
+
+  .lightbox :global(.prev) {
+    inset-inline-start: var(--space-l);
+  }
+
+  .lightbox :global(.next) {
+    inset-inline-end: var(--space-l);
+  }
+
+  .meta {
+    position: absolute;
+    inset-block-end: var(--space-l);
+    inset-inline: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xs);
+    text-align: center;
+    font-family: var(--font-monospace);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+
+    .caption:empty {
+      display: none;
+    }
+  }
+
+  @media screen and (width < 40rem) {
+    .lightbox {
+      padding-inline: var(--space-l);
+    }
+
+    .photo {
+      max-block-size: calc(100vh - var(--space-3xl) * 3);
+    }
+
+    .frame {
+      display: block;
+      position: relative;
+    }
+
+    .below {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-m);
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: 100%;
+      margin-block-start: var(--space-m);
+    }
+
+    .nav {
+      display: flex;
+      gap: var(--space-m);
+    }
+
+    .meta {
+      position: static;
+    }
+
+    .lightbox :global(.prev),
+    .lightbox :global(.next) {
+      position: static;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox {
+      opacity: 0;
+      transition:
+        opacity 200ms ease,
+        display 200ms allow-discrete,
+        overlay 200ms allow-discrete;
+
+      &[open] {
+        opacity: 1;
+      }
+
+      &::backdrop {
+        opacity: 0;
+        transition:
+          opacity 200ms ease,
+          display 200ms allow-discrete,
+          overlay 200ms allow-discrete;
+      }
+
+      &[open]::backdrop {
+        opacity: 1;
+      }
+    }
+
+    @starting-style {
+      .lightbox[open] {
+        opacity: 0;
+      }
+
+      .lightbox[open]::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+</style>
