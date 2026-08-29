@@ -1,0 +1,16 @@
+{
+  "title": "Test Gallery",
+  "description": "A sample gallery used to verify the galleries collection.",
+  "created": "2026-08-29",
+  "photos": [
+    {
+      "src": "https://picsum.photos/id/1015/1200/800",
+      "alt": "A river winding through a canyon"
+    },
+    {
+      "src": "https://picsum.photos/id/1016/1200/800",
+      "alt": "A mountain range at dusk"
+    }
+  ],
+  "blogs": ["en/hello-world"]
+}

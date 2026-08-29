@@ -1,0 +1,28 @@
+{
+  "title": "Horské chodníky",
+  "description": "Pár dní turistiky po horách s fotoaparátom v ruke.",
+  "created": "2026-08-20",
+  "tags": ["cestovanie", "príroda"],
+  "photos": [
+    {
+      "src": "https://picsum.photos/id/1018/1200/800",
+      "alt": "Široké horské údolie pod jasnou oblohou"
+    },
+    {
+      "src": "https://picsum.photos/id/1036/1200/800",
+      "alt": "Zahmlený zalesnený svah hory"
+    },
+    {
+      "src": "https://picsum.photos/id/1043/1200/800",
+      "alt": "Kľukatý chodník popri hrebeni"
+    },
+    {
+      "src": "https://picsum.photos/id/1044/1200/800",
+      "alt": "Jazero obklopené vrcholmi"
+    },
+    {
+      "src": "https://picsum.photos/id/1053/1200/800",
+      "alt": "Západ slnka nad pohorím"
+    }
+  ]
+}

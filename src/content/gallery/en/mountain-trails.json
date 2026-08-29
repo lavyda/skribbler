@@ -1,0 +1,28 @@
+{
+  "title": "Mountain Trails",
+  "description": "A few days hiking through the mountains, camera in hand.",
+  "created": "2026-08-20",
+  "tags": ["travel", "nature"],
+  "photos": [
+    {
+      "src": "https://picsum.photos/id/1018/1200/800",
+      "alt": "A wide mountain valley under a clear sky"
+    },
+    {
+      "src": "https://picsum.photos/id/1036/1200/800",
+      "alt": "A misty forested mountainside"
+    },
+    {
+      "src": "https://picsum.photos/id/1043/1200/800",
+      "alt": "A winding trail along a ridge"
+    },
+    {
+      "src": "https://picsum.photos/id/1044/1200/800",
+      "alt": "A lake surrounded by peaks"
+    },
+    {
+      "src": "https://picsum.photos/id/1053/1200/800",
+      "alt": "Sunset over the mountain range"
+    }
+  ]
+}
