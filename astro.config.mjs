@@ -8,7 +8,7 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   integrations: [svelte(), mdx()],
   image: {
-    remotePatterns: [{ protocol: "https" }],
+    remotePatterns: [{ protocol: "https", hostname: "ik.imagekit.io" }],
   },
   i18n: {
     locales: ["en", "sk"],
