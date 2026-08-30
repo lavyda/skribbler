@@ -130,6 +130,8 @@ const fmt = dateFormatter(locale);
         display: block;
         position: relative;
         inline-size: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
         padding: 0;
         border: none;
         background: none;
@@ -157,7 +159,8 @@ const fmt = dateFormatter(locale);
       img {
         display: block;
         inline-size: 100%;
-        block-size: auto;
+        block-size: 100%;
+        object-fit: cover;
       }
 
       .caption {
