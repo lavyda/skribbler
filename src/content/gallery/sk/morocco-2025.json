@@ -1,0 +1,71 @@
+{
+  "title": "Maroko",
+  "description": "Roadtrip v Maroku (november 2025): Marakéš, Ouarzazate, Merzouga, Tinghir, Fes, Rabat, Casablanca.",
+  "created": "2025-11-21",
+  "tags": [
+    "cestovanie",
+    "Maroko"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-001-mountain-valley-haze.jpeg",
+      "alt": "Zahmlené horské údolie sa tiahne do diaľky",
+      "caption": "Údolie v pohorí Atlas"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-002-golden-hour-mountain-plain.jpeg",
+      "alt": "Zlaté svetlo dopadá na trávnatú pláň pod horami",
+      "caption": "Niekde v pohorí Atlas"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-003-dune-ripples-texture.jpeg",
+      "alt": "Vietor vytvoril na dune rovnobežné vlnky v piesku",
+      "caption": "Zvlnená piesočná duna"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-004-dunes-with-trees.jpeg",
+      "alt": "Medzi zlatými pieskovými dunami rastú zelené stromy",
+      "caption": "Stromy niekde v Saharskej púšti"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-005-dune-curves-shadow.jpeg",
+      "alt": "Hladké svahy duny sa zvlňujú v teplom večernom svetle",
+      "caption": "Hrebene duny pri západe slnka"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-006-layered-dunes-dusk.jpeg",
+      "alt": "Vrstvené pieskové duny zachytávajú posledné svetlo dňa",
+      "caption": "Vlniace sa duny pri západe slnka"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-007-child-cycling-alley.jpeg",
+      "alt": "Dieťa ide na bicykli úzkou uličkou.",
+      "caption": "Ulička mediny aj ako ihrisko"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-008-night-carpet-shop.jpeg",
+      "alt": "Žena sedí v noci pred obchodom s kobercami osvetleným pouličnou lampou",
+      "caption": "Stánok s kobercami v medine"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-009-medina-alley-flags.jpeg",
+      "alt": "Motorkár prechádza pod marockými vlajkami uličkou v medine",
+      "caption": "Motorky sú všade"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-010-bicycle-souk-alley.jpeg",
+      "alt": "Muž ide na bicykli slnkom zaliatou uličkou v medine",
+      "caption": "Uličky sa začínajú ráno prebúdzať"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-011-sunlit-alley-silhouettes.jpeg",
+      "alt": "Slnečné svetlo preniká do zatienenej uličky medina s okoloidúcimi",
+      "caption": "Každý za svojím"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-012-square-pigeons-minaret.jpeg",
+      "alt": "Holuby sa rozlietavajú po námestí, keď okolo prechádza žena",
+      "caption": "Medzi holubmi"
+    }
+  ]
+}

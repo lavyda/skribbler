@@ -1,0 +1,71 @@
+{
+  "title": "Morocco",
+  "description": "Roadtrip in Morocco (November 2025): Marrakech, Ouarzazate, Merzouga, Tinghir, Fes, Rabat, Casablanca.",
+  "created": "2025-11-21",
+  "tags": [
+    "travel",
+    "Morocco"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-001-mountain-valley-haze.jpeg",
+      "alt": "A hazy mountain valley stretches into the distance",
+      "caption": "A valley in Atlas mountains"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-002-golden-hour-mountain-plain.jpeg",
+      "alt": "Golden light falls across a grassy plain below mountains",
+      "caption": "Somewhere in Atlas mountains"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-003-dune-ripples-texture.jpeg",
+      "alt": "Wind-rippled sand forms parallel ridges on a dune",
+      "caption": "A sand dune ridged by the wind"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-004-dunes-with-trees.jpeg",
+      "alt": "Green trees grow among golden sand dunes",
+      "caption": "Trees somewhere in Sahra desert"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-005-dune-curves-shadow.jpeg",
+      "alt": "Smooth dune slopes curve under warm evening light",
+      "caption": "Curved dunes during the sunset"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-006-layered-dunes-dusk.jpeg",
+      "alt": "Layered sand dunes catch the last light of the day",
+      "caption": "Rolling dunes during the sunset"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-007-child-cycling-alley.jpeg",
+      "alt": "A child rides a bicycle down a narrow alley.",
+      "caption": "A medina alley also as a playground"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-008-night-carpet-shop.jpeg",
+      "alt": "A woman sits outside a carpet shop lit by a street lamp at night",
+      "caption": "A carpet shop in a medina"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-009-medina-alley-flags.jpeg",
+      "alt": "A moped rider passes beneath Moroccan flags in a medina alley",
+      "caption": "Mopeds are everywhere"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-010-bicycle-souk-alley.jpeg",
+      "alt": "A man rides a bicycle through a sunlit medina alley",
+      "caption": "Alleys are starting to wake up in the morning"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-011-sunlit-alley-silhouettes.jpeg",
+      "alt": "Sunlight streams into a shaded medina alley with passersby",
+      "caption": "Everyone has their own thing"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-012-square-pigeons-minaret.jpeg",
+      "alt": "Pigeons scatter across a square as a woman walks past",
+      "caption": "Among the pigeons"
+    }
+  ]
+}
