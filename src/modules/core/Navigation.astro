@@ -1,5 +1,9 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import Button from "@/lib/ui/Button.svelte";
+import Icon from "@/lib/ui/Icon.svelte";
+import Menu from "@/lib/ui/icons/Menu.svelte";
+import X from "@/lib/ui/icons/X.svelte";
 
 const { locale } = Astro.locals;
 
@@ -7,39 +11,121 @@ const strings = {
   en: {
     blog: "Blog",
     gallery: "Gallery",
+    menu: "Menu",
   },
   sk: {
     blog: "Blog",
     gallery: "Galéria",
+    menu: "Menu",
   },
 };
 const t = strings[locale as keyof typeof strings];
 ---
 
 <nav>
-  <ul>
-    <li><a href={getRelativeLocaleUrl(locale, "blog")}>{t.blog}</a></li>
+  <Button
+    variant="ghost"
+    icon
+    class="toggle"
+    command="toggle-popover"
+    commandfor="nav-list"
+    aria-label={t.menu}
+  >
+    <Icon glyph={Menu} class="icon-menu" />
+    <Icon glyph={X} class="icon-close" />
+  </Button>
+
+  <ul id="nav-list" popover>
     <li>
-      <a href={getRelativeLocaleUrl(locale, "gallery")}>{t.gallery}</a>
+      <Button link variant="ghost" href={getRelativeLocaleUrl(locale, "blog")}>
+        {t.blog}
+      </Button>
+    </li>
+    <li>
+      <Button
+        link
+        variant="ghost"
+        href={getRelativeLocaleUrl(locale, "gallery")}
+      >
+        {t.gallery}
+      </Button>
     </li>
   </ul>
 </nav>
 
 <style>
   nav {
+    position: relative;
+
+    :global(.toggle) {
+      display: none;
+      anchor-name: --nav-toggle;
+    }
+
+    :global(.icon-close) {
+      display: none;
+    }
+
     ul {
       display: flex;
       flex-direction: row;
+      align-items: center;
       list-style-type: none;
-      gap: var(--space-l);
+      gap: var(--space-3xs);
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      color: inherit;
+      position: static;
+      inset: auto;
+      overflow: visible;
+      width: auto;
+      height: auto;
+    }
+  }
 
-      a {
-        text-decoration: none;
+  @media screen and (width < 40rem) {
+    nav {
+      :global(.toggle) {
+        display: inline-flex;
+      }
 
-        &:hover,
-        &:active,
-        &:focus-visible {
-          text-decoration: underline;
+      &:has(#nav-list:popover-open) {
+        :global(.icon-menu) {
+          display: none;
+        }
+
+        :global(.icon-close) {
+          display: block;
+        }
+      }
+
+      ul {
+        display: none;
+
+        &:popover-open {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: var(--space-3xs);
+
+          position: fixed;
+          position-anchor: --nav-toggle;
+          position-area: block-end span-inline-end;
+          position-try-fallbacks: flip-block, flip-inline;
+          margin-block-start: var(--space-2xs);
+
+          min-inline-size: 10rem;
+          padding: var(--space-xs);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-xs);
+          background-color: var(--color-surface);
+
+          :global(.btn) {
+            width: 100%;
+            justify-content: flex-start;
+          }
         }
       }
     }
