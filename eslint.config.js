@@ -19,6 +19,10 @@ export default tseslint.config(
     },
   },
   {
+    files: ["scripts/**/*.js", "scripts/**/*.ts"],
+    languageOptions: { globals: globals.node },
+  },
+  {
     // project rule overrides go here
     rules: {},
   },
