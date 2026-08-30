@@ -1,19 +1,37 @@
 #!/usr/bin/env node
-// Strips privacy-sensitive EXIF/IPTC/XMP data from image files, keeping
-// only: exposure data (shutter speed, aperture, ISO, focal length, flash,
-// white balance, metering mode, exposure program, exposure compensation),
-// device/lens model names (not their serial numbers), and the capture date.
+// Strips privacy-sensitive EXIF/IPTC/XMP data from image files, caps their
+// resolution, and keeps: exposure data (shutter speed, aperture, ISO, focal
+// length, flash, white balance, metering mode, exposure program, exposure
+// compensation), device/lens model names (not their serial numbers), and
+// the capture date.
 //
 // Dropped: GPS, device/lens serial numbers, owner/author fields,
 // embedded thumbnail, IPTC, XMP, maker notes.
 //
-// Usage: node scripts/strip-exif/strip-exif.mjs <file-or-dir> [...more]
+// Every file gets re-encoded (orientation bake-in, sRGB conversion), even
+// when not resized, so JPEG/WebP/AVIF output is pinned to quality 100.
+//
+// Usage: node scripts/strip-exif/strip-exif.mjs [--max <px>] <file-or-dir> [...more]
 import sharp from "sharp";
 import exifr from "exifr";
 import { readdir, rename, stat, writeFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 
 const EXTS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".tiff"]);
+
+// Formats sharp re-encodes lossily. Map each to the sharp method that
+// takes a quality option; PNG and TIFF stay lossless and don't need one.
+const LOSSY_ENCODERS = {
+  ".jpg": "jpeg",
+  ".jpeg": "jpeg",
+  ".webp": "webp",
+  ".avif": "avif",
+};
+
+// Long-edge cap in pixels. The gallery lightbox (the largest, uncapped
+// display path) tops out at the viewport size, and 3840 covers a 2x
+// retina display up to a 1920px-wide viewport without upscaling.
+const MAX_DIMENSION = 3840;
 
 // [exifr's flattened read-side key, sharp's write-side key, type, target IFD]
 const KEPT_TAGS = [
@@ -88,21 +106,41 @@ async function collectFiles(path) {
   return nested.flat();
 }
 
-async function stripOne(path) {
+async function stripOne(path, maxDimension) {
   const image = sharp(path);
-  const { orientation } = await image.metadata();
+  const { orientation, width, height } = await image.metadata();
   const kept = await readKeptTags(path);
 
   // Bakes orientation into the pixels before metadata is dropped, or the
   // image displays sideways. Forces sRGB so a wide-gamut source doesn't
   // shift color once its ICC profile is gone.
   let pipeline = image.rotate().toColorspace("srgb");
+
+  const encoder = LOSSY_ENCODERS[extname(path).toLowerCase()];
+  if (encoder) {
+    pipeline = pipeline[encoder]({ quality: 100 });
+  }
+
+  // fit:'inside' with equal width/height caps whichever side is longer,
+  // regardless of orientation. withoutEnlargement leaves smaller photos as-is.
+  const willResize = Math.max(width, height) > maxDimension;
+  if (willResize) {
+    pipeline = pipeline.resize({
+      width: maxDimension,
+      height: maxDimension,
+      fit: "inside",
+      withoutEnlargement: true,
+    });
+  }
+
   if (kept) {
     // Replaces the EXIF block outright (unlike withMetadata, which keeps
     // everything) — only the tags above survive.
     pipeline = pipeline.withExif(kept);
   }
-  const buffer = await pipeline.toBuffer();
+  const { data: buffer, info } = await pipeline.toBuffer({
+    resolveWithObject: true,
+  });
 
   const tmp = `${path}.tmp`;
   await writeFile(tmp, buffer);
@@ -111,6 +149,7 @@ async function stripOne(path) {
   const keptCount = kept ? Object.values(kept).reduce((n, ifd) => n + Object.keys(ifd).length, 0) : 0;
   const note = [
     orientation > 1 ? "de-rotated" : null,
+    willResize ? `resized ${width}x${height} to ${info.width}x${info.height}` : null,
     keptCount > 0 ? `kept ${keptCount} tags` : null,
   ]
     .filter(Boolean)
@@ -118,14 +157,29 @@ async function stripOne(path) {
   console.log(`stripped ${path}${note ? ` (${note})` : ""}`);
 }
 
-const targets = process.argv.slice(2);
-if (targets.length === 0) {
-  console.error("usage: node scripts/strip-exif/strip-exif.mjs <file-or-dir> [...]");
+function parseArgs(argv) {
+  let maxDimension = MAX_DIMENSION;
+  const targets = [];
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === "--max") {
+      maxDimension = Number(argv[++i]);
+    } else {
+      targets.push(argv[i]);
+    }
+  }
+  return { maxDimension, targets };
+}
+
+const { maxDimension, targets } = parseArgs(process.argv.slice(2));
+if (targets.length === 0 || Number.isNaN(maxDimension)) {
+  console.error(
+    "usage: node scripts/strip-exif/strip-exif.mjs [--max <px>] <file-or-dir> [...]",
+  );
   process.exit(1);
 }
 
 const files = (await Promise.all(targets.map(collectFiles))).flat();
 for (const file of files) {
-  await stripOne(file);
+  await stripOne(file, maxDimension);
 }
 console.log(`done — ${files.length} file(s) stripped`);

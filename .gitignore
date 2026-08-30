@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# scratch files (e.g. prepare-gallery overview drafts)
+tmp/
+
 # macOS-specific files
 .DS_Store
 
