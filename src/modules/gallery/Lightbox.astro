@@ -17,8 +17,8 @@ const strings = {
   en: { close: "Close", previous: "Previous photo", next: "Next photo" },
   sk: {
     close: "Zavrieť",
-    previous: "Predchádzajúca fotografia",
-    next: "Nasledujúca fotografia",
+    previous: "Predchádzajúca fotka",
+    next: "Nasledujúca fotka",
   },
 };
 const t = strings[locale];
@@ -36,7 +36,12 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
 
     <div class="below">
       <div class="nav">
-        <Button variant="ghost" icon aria-label={t.previous} class="control prev">
+        <Button
+          variant="ghost"
+          icon
+          aria-label={t.previous}
+          class="control prev"
+        >
           <Icon glyph={ChevronLeft} size="1.25rem" />
         </Button>
 

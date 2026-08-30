@@ -26,27 +26,33 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 <article>
   {
     post.data.cover && (
-      <Image
-        src={post.data.cover}
-        alt={post.data.coverAlt ?? ""}
-        priority
-        class="cover"
-        transition:name={`post-preview-cover-${slug}`}
-      />
+      <div class="cover-wrap">
+        <Image
+          src={post.data.cover}
+          alt={post.data.coverAlt ?? ""}
+          priority
+          class="cover"
+          transition:name={`post-preview-cover-${slug}`}
+        />
+
+        <ul class="tags floating">
+          {
+            post.data.tags.map((tag) => (
+              <li>
+                <Chip>{tag}</Chip>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     )
   }
+
+  {post.data.cover && <div class="seam" aria-hidden="true" />}
 
   <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
 
   <div class="content" transition:name={`post-preview-meta-${slug}`}>
-    <div class="divider" aria-hidden="true"><div></div></div>
-
-    <h2 class="title">
-      <a href={href}>{post.data.title}</a>
-    </h2>
-
-    <p class="description">{post.data.description}</p>
-
     <div class="meta">
       <time datetime={post.data.created.toISOString()}>
         {fmt.format(post.data.created)}
@@ -68,15 +74,25 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
       </span>
     </div>
 
-    <ul class="tags">
-      {
-        post.data.tags.map((tag) => (
-          <li>
-            <Chip>{tag}</Chip>
-          </li>
-        ))
-      }
-    </ul>
+    {
+      !post.data.cover && (
+        <ul class="tags inline">
+          {post.data.tags.map((tag) => (
+            <li>
+              <Chip>{tag}</Chip>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="divider" aria-hidden="true"><div></div></div>
+
+    <h2 class="title">
+      <a href={href}>{post.data.title}</a>
+    </h2>
+
+    <p class="description">{post.data.description}</p>
   </div>
 </article>
 
@@ -96,11 +112,20 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
     z-index: 1;
   }
 
+  .cover-wrap {
+    position: relative;
+  }
+
   .cover {
     display: block;
     inline-size: 100%;
     block-size: 16rem;
     object-fit: cover;
+  }
+
+  .seam {
+    block-size: 1px;
+    background-color: var(--color-border);
   }
 
   .content {
@@ -116,6 +141,15 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
     column-gap: var(--space-l);
   }
 
+  article:has(.cover-wrap) .content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "meta"
+      "divider"
+      "title"
+      "description";
+  }
+
   .meta {
     grid-area: meta;
     display: flex;
@@ -126,13 +160,26 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
     font-size: var(--text-xs);
   }
 
-  .tags {
+  .tags.inline {
     grid-area: tags;
     display: flex;
     flex-wrap: wrap;
     align-items: start;
     gap: var(--space-2xs);
     list-style-type: none;
+  }
+
+  .tags.floating {
+    position: absolute;
+    inset-inline-end: var(--space-l);
+    inset-block-end: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-2xs);
+    list-style-type: none;
+    transform: translateY(50%);
   }
 
   .divider {

@@ -14,7 +14,7 @@ const { locale } = Astro.locals;
 
 const strings = {
   en: { updated: "Updated", photos: "photos" },
-  sk: { updated: "Aktualizované", photos: "fotografií" },
+  sk: { updated: "Aktualizované", photos: "fotiek" },
 };
 const t = strings[locale];
 
@@ -25,26 +25,32 @@ const cover = gallery.data.photos[0];
 ---
 
 <article>
-  <Image
-    src={cover.src}
-    inferSize
-    alt={cover.alt}
-    priority
-    class="cover"
-    transition:name={`gallery-preview-cover-${slug}`}
-  />
+  <div class="cover-wrap">
+    <Image
+      src={cover.src}
+      inferSize
+      alt={cover.alt}
+      priority
+      class="cover"
+      transition:name={`gallery-preview-cover-${slug}`}
+    />
+
+    <ul class="tags">
+      {
+        gallery.data.tags.map((tag) => (
+          <li>
+            <Chip>{tag}</Chip>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="seam" aria-hidden="true"></div>
 
   <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
 
   <div class="content" transition:name={`gallery-preview-meta-${slug}`}>
-    <div class="divider" aria-hidden="true"><div></div></div>
-
-    <h2 class="title">
-      <a href={href}>{gallery.data.title}</a>
-    </h2>
-
-    <p class="description">{gallery.data.description}</p>
-
     <div class="meta">
       <time datetime={gallery.data.created.toISOString()}>
         {fmt.format(gallery.data.created)}
@@ -63,15 +69,13 @@ const cover = gallery.data.photos[0];
       <span>{gallery.data.photos.length} {t.photos}</span>
     </div>
 
-    <ul class="tags">
-      {
-        gallery.data.tags.map((tag) => (
-          <li>
-            <Chip>{tag}</Chip>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="divider" aria-hidden="true"><div></div></div>
+
+    <h2 class="title">
+      <a href={href}>{gallery.data.title}</a>
+    </h2>
+
+    <p class="description">{gallery.data.description}</p>
   </div>
 </article>
 
@@ -91,6 +95,10 @@ const cover = gallery.data.photos[0];
     z-index: 1;
   }
 
+  .cover-wrap {
+    position: relative;
+  }
+
   .cover {
     display: block;
     inline-size: 100%;
@@ -98,17 +106,20 @@ const cover = gallery.data.photos[0];
     object-fit: cover;
   }
 
+  .seam {
+    block-size: 1px;
+    background-color: var(--color-border);
+  }
+
   .content {
     display: grid;
-    grid-template-columns: 1fr auto;
     grid-template-areas:
-      "meta tags"
-      "divider divider"
-      "title title"
-      "description description";
+      "meta"
+      "divider"
+      "title"
+      "description";
     padding: var(--space-l);
     row-gap: var(--space-m);
-    column-gap: var(--space-l);
   }
 
   .meta {
@@ -122,12 +133,16 @@ const cover = gallery.data.photos[0];
   }
 
   .tags {
-    grid-area: tags;
+    position: absolute;
+    inset-inline-end: var(--space-l);
+    inset-block-end: 0;
+    z-index: 2;
     display: flex;
     flex-wrap: wrap;
-    align-items: start;
+    justify-content: flex-end;
     gap: var(--space-2xs);
     list-style-type: none;
+    transform: translateY(50%);
   }
 
   .divider {
