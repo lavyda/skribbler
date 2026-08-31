@@ -1,12 +1,19 @@
 ## Development
 
-When starting the dev server, use background mode:
+Astro tracks at most one dev server per project (in `.astro/dev.json`), regardless of port — a second `astro dev` just reports the existing one, and `astro dev stop` always targets that single tracked instance. Check before starting anything:
 
 ```
-astro dev --background
+astro dev status
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+- **Already running** — it may be the user's own server. Leave it alone: never run `astro dev stop` or `--force` against it. Just use its reported URL.
+- **Nothing running** — start your own on a non-default port, so it's never mistaken for the user's:
+
+  ```
+  astro dev --background --port 4322
+  ```
+
+  Manage it with `astro dev stop`, `astro dev status`, and `astro dev logs`. Once the task is done, stop it yourself with `astro dev stop` — but only when you're the one who started it.
 
 ## Documentation
 
