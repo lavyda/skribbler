@@ -129,33 +129,60 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
     image.decode().catch(() => {});
   }
 
+  // decode() is preferred (it guarantees the image is actually decoded, not
+  // just downloaded, so the reveal never janks) but some browsers — e.g.
+  // Chrome deprioritizing a backgrounded tab — never settle its promise
+  // even once the image has fully loaded. Give it a grace period after
+  // `load` fires, then treat "loaded" as good enough rather than hang.
+  function whenReady(loader: HTMLImageElement): Promise<void> {
+    return new Promise((resolve) => {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        resolve();
+      };
+      loader.decode().then(finish, finish);
+      const afterLoad = () => setTimeout(finish, 300);
+      if (loader.complete) afterLoad();
+      else {
+        loader.addEventListener("load", afterLoad, { once: true });
+        loader.addEventListener("error", finish, { once: true });
+      }
+    });
+  }
+
   // Guards against rapid next/prev clicks: a stale in-flight decode is left
   // to finish (harmless, the bytes get cached) but never reaches the DOM.
   let renderToken = 0;
 
-  async function navigateTo(i: number) {
+  // withTransition=false skips the View Transition for the reveal — used by
+  // open()'s first photo, where the dialog already ran its own transition a
+  // moment earlier. Firing a second root-level transition right after (while
+  // the spinner is still mid-fade) visibly collided with it. The spinner's
+  // own opacity fade-out is enough of a reveal on its own: the photo is
+  // already decoded and paints instantly underneath as it fades away.
+  async function navigateTo(i: number, withTransition = true) {
     const token = ++renderToken;
     const photo = photos[i]!;
     setLoading(true);
     const loader = new Image();
     loader.fetchPriority = "high";
     loader.src = lightboxSrc(photo);
-    try {
-      await loader.decode();
-    } catch {
-      // broken image or superseded mid-decode — either way, don't block on it
-    }
+    await whenReady(loader);
     if (token !== renderToken) return;
     setLoading(false);
     index = i;
     preload((index + 1) % photos.length);
     preload((index - 1 + photos.length) % photos.length);
-    withViewTransition(() => {
+    const apply = () => {
       img.src = loader.src;
       img.alt = photo.alt;
       caption.textContent = photo.caption ?? "";
       counter.textContent = `${index + 1} / ${photos.length}`;
-    });
+    };
+    if (withTransition) withViewTransition(apply);
+    else apply();
   }
 
   function open(i: number, thumbnail?: HTMLElement) {
@@ -163,11 +190,21 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
     if (thumbImg) tag(thumbImg);
     // Opens immediately — the morph plays right away instead of waiting on
     // the photo, which is what leaves the frame available to show a spinner.
+    // Clear any photo left over from a previous session first, or a reopen
+    // would show it until the new one finishes loading. navigateTo() is
+    // called from *inside* this callback, not after it — startViewTransition
+    // doesn't guarantee the callback runs synchronously, and for an
+    // already-cached photo navigateTo can otherwise finish and paint the
+    // real photo before this clear even runs, which then wipes it out.
     withViewTransition(() => {
+      img.src = "";
+      img.alt = "";
+      caption.textContent = "";
+      counter.textContent = "";
       dialog.showModal();
       tag(img);
+      navigateTo(i, false);
     });
-    navigateTo(i);
   }
 
   function close() {
@@ -240,6 +277,11 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
 
   .photo {
     display: block;
+    /* Keeps a sane morph target and a place for the spinner while src is
+       cleared between open() and the first reveal — an empty img has no
+       intrinsic size and would otherwise collapse to nothing. */
+    min-inline-size: 12rem;
+    min-block-size: 12rem;
     max-inline-size: 100%;
     max-block-size: calc(100vh - var(--space-3xl) * 2);
     object-fit: contain;
