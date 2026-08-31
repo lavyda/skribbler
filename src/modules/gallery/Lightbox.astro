@@ -14,11 +14,17 @@ const { photos } = Astro.props;
 const { locale } = Astro.locals;
 
 const strings = {
-  en: { close: "Close", previous: "Previous photo", next: "Next photo" },
+  en: {
+    close: "Close",
+    previous: "Previous photo",
+    next: "Next photo",
+    loading: "Loading photo",
+  },
   sk: {
     close: "Zavrieť",
     previous: "Predchádzajúca fotka",
     next: "Nasledujúca fotka",
+    loading: "Načítava sa fotka",
   },
 };
 const t = strings[locale];
@@ -33,6 +39,8 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
 
   <figure class="frame">
     <img class="photo" alt="" />
+    <div class="spinner" aria-hidden="true"></div>
+    <p class="status" role="status" data-loading-text={t.loading}></p>
 
     <div class="below">
       <div class="nav">
@@ -62,11 +70,13 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
 
 <script>
   import { withViewTransition } from "@/lib/transitions/viewTransition";
+  import { imagekitUrl, nearestWidth } from "@/lib/imagekit";
 
   type Photo = { src: string; alt: string; caption?: string };
 
   const dialog = document.querySelector<HTMLDialogElement>(".lightbox")!;
   const img = dialog.querySelector<HTMLImageElement>(".photo")!;
+  const status = dialog.querySelector<HTMLParagraphElement>(".status")!;
   const caption = dialog.querySelector<HTMLParagraphElement>(".caption")!;
   const counter = dialog.querySelector<HTMLParagraphElement>(".counter")!;
   const closeButton = dialog.querySelector<HTMLButtonElement>(".close")!;
@@ -93,29 +103,71 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
     tagged = el;
   }
 
-  function preload(i: number) {
-    new Image().src = photos[i]!.src;
+  function lightboxSrc(photo: Photo) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const width = nearestWidth(window.innerWidth * dpr);
+    return imagekitUrl(photo.src, { width });
   }
 
-  function render() {
-    const photo = photos[index]!;
-    img.src = photo.src;
-    img.alt = photo.alt;
-    caption.textContent = photo.caption ?? "";
-    counter.textContent = `${index + 1} / ${photos.length}`;
+  // The spinner's own CSS transition-delay decides whether this becomes
+  // visible at all — fast loads never show it.
+  function setLoading(loading: boolean) {
+    if (loading) {
+      dialog.dataset.loading = "true";
+      status.textContent = status.dataset.loadingText ?? "";
+    } else {
+      delete dialog.dataset.loading;
+      status.textContent = "";
+    }
+  }
+
+  function preload(i: number) {
+    const image = new Image();
+    image.fetchPriority = "low";
+    image.decoding = "async";
+    image.src = lightboxSrc(photos[i]!);
+    image.decode().catch(() => {});
+  }
+
+  // Guards against rapid next/prev clicks: a stale in-flight decode is left
+  // to finish (harmless, the bytes get cached) but never reaches the DOM.
+  let renderToken = 0;
+
+  async function navigateTo(i: number) {
+    const token = ++renderToken;
+    const photo = photos[i]!;
+    setLoading(true);
+    const loader = new Image();
+    loader.fetchPriority = "high";
+    loader.src = lightboxSrc(photo);
+    try {
+      await loader.decode();
+    } catch {
+      // broken image or superseded mid-decode — either way, don't block on it
+    }
+    if (token !== renderToken) return;
+    setLoading(false);
+    index = i;
     preload((index + 1) % photos.length);
     preload((index - 1 + photos.length) % photos.length);
+    withViewTransition(() => {
+      img.src = loader.src;
+      img.alt = photo.alt;
+      caption.textContent = photo.caption ?? "";
+      counter.textContent = `${index + 1} / ${photos.length}`;
+    });
   }
 
   function open(i: number, thumbnail?: HTMLElement) {
     const thumbImg = thumbnail?.querySelector("img");
     if (thumbImg) tag(thumbImg);
+    // Opens immediately — the morph plays right away instead of waiting on
+    // the photo, which is what leaves the frame available to show a spinner.
     withViewTransition(() => {
-      index = i;
-      render();
       dialog.showModal();
       tag(img);
     });
+    navigateTo(i);
   }
 
   function close() {
@@ -127,8 +179,7 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
   }
 
   function go(delta: number) {
-    index = (index + delta + photos.length) % photos.length;
-    withViewTransition(render);
+    navigateTo((index + delta + photos.length) % photos.length);
   }
 
   thumbnails.forEach((thumbnail, i) => {
@@ -193,6 +244,53 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
     max-block-size: calc(100vh - var(--space-3xl) * 2);
     object-fit: contain;
     border-radius: var(--radius-2xs);
+  }
+
+  .spinner {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    inline-size: 2rem;
+    block-size: 2rem;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--color-text) 25%, transparent);
+    border-block-start-color: var(--color-text);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms ease;
+  }
+
+  .lightbox[data-loading] .spinner {
+    opacity: 1;
+    transition-delay: 200ms;
+    animation: lightbox-spin 800ms linear infinite;
+  }
+
+  @keyframes lightbox-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox[data-loading] .spinner {
+      animation: lightbox-pulse 1200ms ease-in-out infinite;
+    }
+  }
+
+  @keyframes lightbox-pulse {
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  .status {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .lightbox :global(.control) {

@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { i18n } from "astro:config/server";
 import Base from "@/layouts/Base.astro";
 import {
@@ -10,6 +9,12 @@ import {
 import Chip from "@/lib/ui/Chip.svelte";
 import Lightbox from "@/modules/gallery/Lightbox.astro";
 import { dateFormatter } from "@/lib/dateTime";
+import {
+  COVER_WIDTHS,
+  GRID_WIDTHS,
+  imagekitSrcSet,
+  imagekitUrl,
+} from "@/lib/imagekit";
 
 export async function getStaticPaths() {
   const locales = i18n?.locales ?? [];
@@ -41,11 +46,12 @@ const fmt = dateFormatter(locale);
 
 <Base title={gallery.data.title}>
   <main>
-    <Image
-      src={cover.src}
-      inferSize
+    <img
+      src={imagekitUrl(cover.src, { width: 1920 })}
+      srcset={imagekitSrcSet(cover.src, COVER_WIDTHS)}
+      sizes="100vw"
+      fetchpriority="high"
       alt={cover.alt}
-      priority
       class="cover"
       transition:name={`gallery-preview-cover-${slug}`}
     />
@@ -95,7 +101,14 @@ const fmt = dateFormatter(locale);
         gallery.data.photos.map((photo, index) => (
           <li>
             <button type="button" data-lightbox-index={index}>
-              <Image src={photo.src} inferSize alt={photo.alt} />
+              <img
+                src={imagekitUrl(photo.src, { width: 640 })}
+                srcset={imagekitSrcSet(photo.src, GRID_WIDTHS)}
+                sizes="(min-width: 30rem) 20rem, 100vw"
+                loading="lazy"
+                decoding="async"
+                alt={photo.alt}
+              />
               {photo.caption && <span class="caption">{photo.caption}</span>}
             </button>
           </li>
@@ -125,6 +138,11 @@ const fmt = dateFormatter(locale);
       gap: var(--space-m);
       padding: var(--space-xl);
       list-style-type: none;
+
+      li {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 20rem;
+      }
 
       button {
         display: block;

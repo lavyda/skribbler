@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Chip from "@/lib/ui/Chip.svelte";
 import { slugOf, type Gallery } from "@/modules/gallery/gallery";
 import { dateFormatter } from "@/lib/dateTime";
+import { COVER_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
 
 interface Props {
   gallery: Gallery;
@@ -26,11 +26,12 @@ const cover = gallery.data.photos[0];
 
 <article>
   <div class="cover-wrap">
-    <Image
-      src={cover.src}
-      inferSize
+    <img
+      src={imagekitUrl(cover.src, { width: 960 })}
+      srcset={imagekitSrcSet(cover.src, COVER_WIDTHS)}
+      sizes="(min-width: 44rem) 45vw, 100vw"
+      fetchpriority="high"
       alt={cover.alt}
-      priority
       class="cover"
       transition:name={`gallery-preview-cover-${slug}`}
     />
