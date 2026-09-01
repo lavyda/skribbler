@@ -49,7 +49,7 @@ Treat the skill argument, if given, as the starting file or folder path. Ask for
    ```
    See `docs/guides/preparing-photos.md` for what this keeps and drops.
 
-5. **Order the photos.** Use the capture times collected in step 3 when present on every photo. Otherwise keep the order the user gave them in. Show the resulting order to the user and ask them to confirm it before renaming.
+5. **Order the photos.** Use the capture times collected in step 3 when present on every photo. Otherwise keep the order the user gave them in. Show the resulting order to the user — as the section order in the overview file — and ask them to confirm it before renaming. That section order is the standing record of the confirmed order from here on, so any later reshuffle of the overview file's sections is itself a reorder request; see "Changing the order later" below.
 
 6. **Rename each photo.** Using the confirmed slug, `alt`, and `caption` from step 3, copy (don't move) each stripped file to `<gallery-slug>-<sequence>-<photo-slug>.<ext>` inside a new `ready/` folder next to the source photos. Number sequentially from `01`, in the order from step 5.
 
@@ -58,6 +58,15 @@ Treat the skill argument, if given, as the starting file or folder path. Ask for
 8. **Report.** List the files now in `ready/` and the gallery JSON path(s) written. Tell the user to upload everything in `ready/` to the `<gallery-slug>` folder in the ImageKit media library.
 
 9. **Clean up.** Once the user confirms the upload is done and they're ready to publish, ask whether to delete the generated content: the `ready/` folder and the `tmp/` overview file. Only delete on their confirmation. Leave the original source photos alone.
+
+## Changing the order later
+
+The sequence number is baked into each photo's filename, so a reorder after step 6 needs more than editing one number.
+
+- Rebuild `ready/` from the stripped originals (the source files stripped in step 4, not the `ready/` copies) rather than renaming in place — renaming in place risks a collision when two files swap positions.
+- Update the `photos` array in every locale's gallery JSON to the new order, with `src` reflecting each photo's new sequence number.
+- Renumber the section headers in the overview file to match, so it stays an accurate record.
+- If `ready/` was already uploaded to ImageKit under the old names, tell the user those are now orphaned and need deleting; the new filenames must be uploaded fresh since a local rename doesn't touch the CDN.
 
 ## Writing alt and caption text
 
