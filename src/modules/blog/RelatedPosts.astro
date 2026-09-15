@@ -1,0 +1,77 @@
+---
+import PostPreview from "@/modules/blog/PostPreview.astro";
+import { getRelatedPosts, type Post } from "@/modules/blog/blog";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { locale } = Astro.locals;
+const { parent, children } = await getRelatedPosts(post);
+
+const strings = {
+  en: { parent: "Part of the series", children: "More in this series" },
+  sk: { parent: "Súčasť série", children: "Ďalšie diely série" },
+};
+const t = strings[locale];
+---
+
+{
+  (parent || children.length > 0) && (
+    <div class="related-posts">
+      {parent && (
+        <section class="row" aria-labelledby="related-posts-parent">
+          <h2 id="related-posts-parent">{t.parent}</h2>
+          <ul>
+            <li>
+              <PostPreview post={parent} headingLevel="h3" linkTransition={false} />
+            </li>
+          </ul>
+        </section>
+      )}
+
+      {children.length > 0 && (
+        <section class="row" aria-labelledby="related-posts-children">
+          <h2 id="related-posts-children">{t.children}</h2>
+          <ul>
+            {children.map((child) => (
+              <li>
+                <PostPreview post={child} headingLevel="h3" linkTransition={false} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .related-posts {
+    inline-size: min(var(--screen-reading), 100%);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xl);
+    text-align: center;
+  }
+
+  ul {
+    display: contents;
+    list-style-type: none;
+  }
+</style>

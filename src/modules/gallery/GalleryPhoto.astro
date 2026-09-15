@@ -1,0 +1,70 @@
+---
+import { getGalleries } from "@/modules/gallery/gallery";
+import { GRID_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
+
+interface Props {
+  gallery: string;
+  photo: string;
+}
+
+const { gallery: galleryId, photo: filename } = Astro.props;
+const { locale } = Astro.locals;
+
+const galleries = await getGalleries(locale);
+const gallery = galleries.find((g) => g.id === galleryId);
+if (!gallery) {
+  throw new Error(`GalleryPhoto: no gallery "${galleryId}" for "${locale}"`);
+}
+
+const index = gallery.data.photos.findIndex((p) => p.src.endsWith(`/${filename}`));
+if (index === -1) {
+  throw new Error(`GalleryPhoto: no photo "${filename}" in "${galleryId}"`);
+}
+const photo = gallery.data.photos[index];
+---
+
+<button
+  type="button"
+  class="gallery-photo"
+  data-lightbox-target={galleryId}
+  data-lightbox-index={index}
+  aria-label={photo.caption ?? photo.alt}
+>
+  <img
+    src={imagekitUrl(photo.src, { width: 960 })}
+    srcset={imagekitSrcSet(photo.src, GRID_WIDTHS)}
+    sizes="(min-width: 48rem) 40rem, 100vw"
+    loading="lazy"
+    decoding="async"
+    alt={photo.alt}
+  />
+  {photo.caption && <span class="caption">{photo.caption}</span>}
+</button>
+
+<style>
+  .gallery-photo {
+    display: block;
+    inline-size: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  img {
+    display: block;
+    inline-size: 100%;
+    border-radius: var(--radius-xs);
+  }
+
+  .caption {
+    display: block;
+    margin-block-start: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-monospace);
+    font-size: var(--text-xs);
+  }
+</style>

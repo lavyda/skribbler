@@ -1,11 +1,7 @@
 ---
 import { i18n } from "astro:config/server";
 import Base from "@/layouts/Base.astro";
-import {
-  getListedGalleries,
-  slugOf,
-  type Locale,
-} from "@/modules/gallery/gallery";
+import { getGalleries, slugOf, type Locale } from "@/modules/gallery/gallery";
 import Chip from "@/lib/ui/Chip.svelte";
 import Lightbox from "@/modules/gallery/Lightbox.astro";
 import { dateFormatter } from "@/lib/dateTime";
@@ -20,7 +16,7 @@ export async function getStaticPaths() {
   const locales = i18n?.locales ?? [];
   const groups = await Promise.all(
     locales.map(async (lang) => {
-      const galleries = await getListedGalleries(lang as Locale);
+      const galleries = await getGalleries(lang as Locale);
       return galleries.map((gallery) => ({
         params: { lang, slug: slugOf(gallery) },
         props: { gallery },
@@ -100,7 +96,11 @@ const fmt = dateFormatter(locale);
       {
         gallery.data.photos.map((photo, index) => (
           <li>
-            <button type="button" data-lightbox-index={index}>
+            <button
+              type="button"
+              data-lightbox-target={gallery.id}
+              data-lightbox-index={index}
+            >
               <img
                 src={imagekitUrl(photo.src, { width: 640 })}
                 srcset={imagekitSrcSet(photo.src, GRID_WIDTHS)}
@@ -117,7 +117,7 @@ const fmt = dateFormatter(locale);
     </ul>
   </main>
 
-  <Lightbox photos={gallery.data.photos} />
+  <Lightbox id={gallery.id} photos={gallery.data.photos} />
 
   <style>
     .cover {
@@ -213,7 +213,7 @@ const fmt = dateFormatter(locale);
       column-gap: var(--space-l);
       background-color: var(--color-bg);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-m);
+      border-radius: var(--radius-xs);
 
       @media screen and (width < 40rem) {
         grid-template-columns: 1fr;

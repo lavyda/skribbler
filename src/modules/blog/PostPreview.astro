@@ -1,16 +1,31 @@
 ---
-import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Chip from "@/lib/ui/Chip.svelte";
 import { slugOf, readingTime, type Post } from "@/modules/blog/blog";
 import { dateFormatter } from "@/lib/dateTime";
+import { COVER_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
 
 interface Props {
   post: Post;
+  priority?: boolean;
+  headingLevel?: "h2" | "h3";
+  // Off for related-post cards: two posts that reference each other (a
+  // parent/child pair) each embed a card keyed by the other's slug, which
+  // collides with that other post's own hero transition:name on its own
+  // page. Dropping transition:name isn't enough on its own — Astro still
+  // auto-pairs same-type elements by DOM position, producing a stray
+  // slide — so transition:animate="none" is also disabled here.
+  linkTransition?: boolean;
 }
 
-const { post } = Astro.props;
+const {
+  post,
+  priority = false,
+  headingLevel = "h2",
+  linkTransition = true,
+} = Astro.props;
 const { locale } = Astro.locals;
+const Heading = headingLevel;
 
 const strings = {
   en: { min: "min read", updated: "Updated" },
@@ -23,16 +38,23 @@ const slug = slugOf(post);
 const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 ---
 
-<article>
+<article transition:animate={linkTransition ? undefined : "none"}>
   {
     post.data.cover && (
       <div class="cover-wrap">
-        <Image
-          src={post.data.cover}
+        <img
+          src={imagekitUrl(post.data.cover, { width: 960 })}
+          srcset={imagekitSrcSet(post.data.cover, COVER_WIDTHS)}
+          sizes="(min-width: 44rem) 45vw, 100vw"
+          fetchpriority={priority ? "high" : "auto"}
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? "sync" : "async"}
           alt={post.data.coverAlt ?? ""}
-          priority
           class="cover"
-          transition:name={`post-preview-cover-${slug}`}
+          transition:name={
+            linkTransition ? `post-preview-cover-${slug}` : undefined
+          }
+          transition:animate={linkTransition ? undefined : "none"}
         />
 
         <ul class="tags floating">
@@ -52,7 +74,13 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 
   <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
 
-  <div class="content" transition:name={`post-preview-meta-${slug}`}>
+  <div
+    class="content"
+    transition:name={
+      linkTransition ? `post-preview-meta-${slug}` : undefined
+    }
+    transition:animate={linkTransition ? undefined : "none"}
+  >
     <div class="meta">
       <time datetime={post.data.created.toISOString()}>
         {fmt.format(post.data.created)}
@@ -88,9 +116,9 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 
     <div class="divider" aria-hidden="true"><div></div></div>
 
-    <h2 class="title">
+    <Heading class="title">
       <a href={href}>{post.data.title}</a>
-    </h2>
+    </Heading>
 
     <p class="description">{post.data.description}</p>
   </div>
@@ -98,11 +126,13 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 
 <style>
   article {
+    container-type: inline-size;
     position: relative;
     inline-size: 100%;
+    block-size: 100%;
     cursor: pointer;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-xs);
     overflow: hidden;
   }
 
@@ -119,7 +149,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
   .cover {
     display: block;
     inline-size: 100%;
-    block-size: 16rem;
+    block-size: 12rem;
     object-fit: cover;
   }
 
@@ -136,9 +166,9 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
       "divider divider"
       "title title"
       "description description";
-    padding: var(--space-l);
-    row-gap: var(--space-m);
-    column-gap: var(--space-l);
+    padding: var(--space-m);
+    row-gap: var(--space-xs);
+    column-gap: var(--space-m);
   }
 
   article:has(.cover-wrap) .content {
@@ -148,6 +178,26 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
       "divider"
       "title"
       "description";
+  }
+
+  @container (width < 28rem) {
+    .content {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "meta"
+        "tags"
+        "divider"
+        "title"
+        "description";
+    }
+
+    article:has(.cover-wrap) .content {
+      grid-template-areas:
+        "meta"
+        "divider"
+        "title"
+        "description";
+    }
   }
 
   .meta {
@@ -162,24 +212,39 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 
   .tags.inline {
     grid-area: tags;
+    justify-self: start;
     display: flex;
     flex-wrap: wrap;
     align-items: start;
     gap: var(--space-2xs);
+    padding: 0;
     list-style-type: none;
+
+    /* Without an explicit width, li ends up sized to the flex line
+       instead of its content in this nested grid/flex/container-query
+       combination — cause unclear, but content-based sizing is what's
+       wanted here. */
+    li {
+      width: fit-content;
+    }
   }
 
   .tags.floating {
     position: absolute;
-    inset-inline-end: var(--space-l);
+    inset-inline-end: var(--space-m);
     inset-block-end: 0;
     z-index: 2;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: var(--space-2xs);
+    padding: 0;
     list-style-type: none;
     transform: translateY(50%);
+
+    li {
+      width: fit-content;
+    }
   }
 
   .divider {
@@ -195,7 +260,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
   .title {
     grid-area: title;
     font-family: var(--font-heading);
-    font-size: var(--text-xl);
+    font-size: var(--text-l);
     font-weight: var(--weight-normal);
 
     a {
@@ -214,5 +279,6 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
   .description {
     grid-area: description;
     color: var(--color-text-muted);
+    font-size: var(--text-s);
   }
 </style>

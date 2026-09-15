@@ -7,10 +7,11 @@ import ChevronLeft from "@/lib/ui/icons/ChevronLeft.svelte";
 import ChevronRight from "@/lib/ui/icons/ChevronRight.svelte";
 
 interface Props {
+  id: string;
   photos: Photo[];
 }
 
-const { photos } = Astro.props;
+const { id, photos } = Astro.props;
 const { locale } = Astro.locals;
 
 const strings = {
@@ -32,7 +33,7 @@ const t = strings[locale];
 const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
 ---
 
-<dialog class="lightbox">
+<dialog class="lightbox" data-lightbox-id={id}>
   <Button variant="ghost" icon aria-label={t.close} class="control close">
     <Icon glyph={X} size="1.25rem" />
   </Button>
@@ -66,7 +67,7 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
   </figure>
 </dialog>
 
-<script type="application/json" data-lightbox-photos set:html={payload} />
+<script type="application/json" data-lightbox-photos={id} set:html={payload} />
 
 <script>
   import { withViewTransition } from "@/lib/transitions/viewTransition";
@@ -74,172 +75,198 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
 
   type Photo = { src: string; alt: string; caption?: string };
 
-  const dialog = document.querySelector<HTMLDialogElement>(".lightbox")!;
-  const img = dialog.querySelector<HTMLImageElement>(".photo")!;
-  const status = dialog.querySelector<HTMLParagraphElement>(".status")!;
-  const caption = dialog.querySelector<HTMLParagraphElement>(".caption")!;
-  const counter = dialog.querySelector<HTMLParagraphElement>(".counter")!;
-  const closeButton = dialog.querySelector<HTMLButtonElement>(".close")!;
-  const prevButton = dialog.querySelector<HTMLButtonElement>(".prev")!;
-  const nextButton = dialog.querySelector<HTMLButtonElement>(".next")!;
+  // Astro bundles this <script> once per page regardless of how many
+  // <Lightbox> instances are rendered, so it must find and wire up every
+  // instance itself rather than assume a single dialog. Trigger elements
+  // for a given instance are scattered wherever content chooses to embed
+  // them (a related-gallery card, an inline photo in an article body, the
+  // gallery's own grid) and aren't necessarily in photo order or complete,
+  // so each one carries its real photo index explicitly rather than
+  // relying on DOM position.
+  function initLightbox(dialog: HTMLDialogElement) {
+    const id = dialog.dataset.lightboxId!;
+    const transitionName = `lightbox-photo-${id}`;
 
-  const payload = document.querySelector<HTMLScriptElement>(
-    "script[data-lightbox-photos]",
-  )!;
-  const photos: Photo[] = JSON.parse(payload.textContent!);
+    const img = dialog.querySelector<HTMLImageElement>(".photo")!;
+    const status = dialog.querySelector<HTMLParagraphElement>(".status")!;
+    const caption = dialog.querySelector<HTMLParagraphElement>(".caption")!;
+    const counter = dialog.querySelector<HTMLParagraphElement>(".counter")!;
+    const closeButton = dialog.querySelector<HTMLButtonElement>(".close")!;
+    const prevButton = dialog.querySelector<HTMLButtonElement>(".prev")!;
+    const nextButton = dialog.querySelector<HTMLButtonElement>(".next")!;
 
-  const thumbnails = Array.from(
-    document.querySelectorAll<HTMLButtonElement>("[data-lightbox-index]"),
-  );
+    const payload = document.querySelector<HTMLScriptElement>(
+      `script[data-lightbox-photos="${id}"]`,
+    )!;
+    const photos: Photo[] = JSON.parse(payload.textContent!);
 
-  let index = 0;
+    const thumbnails = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(
+        `[data-lightbox-target="${id}"]`,
+      ),
+    );
 
-  // Only one element may carry the shared name at a time, or the browser
-  // rejects the transition as a duplicate view-transition-name.
-  let tagged: HTMLElement | null = null;
-  function tag(el: HTMLElement) {
-    if (tagged && tagged !== el) tagged.style.viewTransitionName = "";
-    el.style.viewTransitionName = "lightbox-photo";
-    tagged = el;
-  }
+    let index = 0;
 
-  function lightboxSrc(photo: Photo) {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = nearestWidth(window.innerWidth * dpr);
-    return imagekitUrl(photo.src, { width });
-  }
-
-  // The spinner's own CSS transition-delay decides whether this becomes
-  // visible at all — fast loads never show it.
-  function setLoading(loading: boolean) {
-    if (loading) {
-      dialog.dataset.loading = "true";
-      status.textContent = status.dataset.loadingText ?? "";
-    } else {
-      delete dialog.dataset.loading;
-      status.textContent = "";
+    // Only one element may carry the shared name at a time, or the browser
+    // rejects the transition as a duplicate view-transition-name. Scoped
+    // per instance so two lightboxes open in sequence never fight over it.
+    let tagged: HTMLElement | null = null;
+    function tag(el: HTMLElement) {
+      if (tagged && tagged !== el) tagged.style.viewTransitionName = "";
+      el.style.viewTransitionName = transitionName;
+      tagged = el;
     }
-  }
 
-  function preload(i: number) {
-    const image = new Image();
-    image.fetchPriority = "low";
-    image.decoding = "async";
-    image.src = lightboxSrc(photos[i]!);
-    image.decode().catch(() => {});
-  }
+    function lightboxSrc(photo: Photo) {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = nearestWidth(window.innerWidth * dpr);
+      return imagekitUrl(photo.src, { width });
+    }
 
-  // decode() is preferred (it guarantees the image is actually decoded, not
-  // just downloaded, so the reveal never janks) but some browsers — e.g.
-  // Chrome deprioritizing a backgrounded tab — never settle its promise
-  // even once the image has fully loaded. Give it a grace period after
-  // `load` fires, then treat "loaded" as good enough rather than hang.
-  function whenReady(loader: HTMLImageElement): Promise<void> {
-    return new Promise((resolve) => {
-      let done = false;
-      const finish = () => {
-        if (done) return;
-        done = true;
-        resolve();
-      };
-      loader.decode().then(finish, finish);
-      const afterLoad = () => setTimeout(finish, 300);
-      if (loader.complete) afterLoad();
-      else {
-        loader.addEventListener("load", afterLoad, { once: true });
-        loader.addEventListener("error", finish, { once: true });
+    // The spinner's own CSS transition-delay decides whether this becomes
+    // visible at all — fast loads never show it.
+    function setLoading(loading: boolean) {
+      if (loading) {
+        dialog.dataset.loading = "true";
+        status.textContent = status.dataset.loadingText ?? "";
+      } else {
+        delete dialog.dataset.loading;
+        status.textContent = "";
       }
-    });
-  }
+    }
 
-  // Guards against rapid next/prev clicks: a stale in-flight decode is left
-  // to finish (harmless, the bytes get cached) but never reaches the DOM.
-  let renderToken = 0;
+    function preload(i: number) {
+      const image = new Image();
+      image.fetchPriority = "low";
+      image.decoding = "async";
+      image.src = lightboxSrc(photos[i]!);
+      image.decode().catch(() => {});
+    }
 
-  // withTransition=false skips the View Transition for the reveal — used by
-  // open()'s first photo, where the dialog already ran its own transition a
-  // moment earlier. Firing a second root-level transition right after (while
-  // the spinner is still mid-fade) visibly collided with it. The spinner's
-  // own opacity fade-out is enough of a reveal on its own: the photo is
-  // already decoded and paints instantly underneath as it fades away.
-  async function navigateTo(i: number, withTransition = true) {
-    const token = ++renderToken;
-    const photo = photos[i]!;
-    setLoading(true);
-    const loader = new Image();
-    loader.fetchPriority = "high";
-    loader.src = lightboxSrc(photo);
-    await whenReady(loader);
-    if (token !== renderToken) return;
-    setLoading(false);
-    index = i;
-    preload((index + 1) % photos.length);
-    preload((index - 1 + photos.length) % photos.length);
-    const apply = () => {
-      img.src = loader.src;
-      img.alt = photo.alt;
-      caption.textContent = photo.caption ?? "";
-      counter.textContent = `${index + 1} / ${photos.length}`;
-    };
-    if (withTransition) withViewTransition(apply);
-    else apply();
-  }
+    // decode() is preferred (it guarantees the image is actually decoded,
+    // not just downloaded, so the reveal never janks) but some browsers —
+    // e.g. Chrome deprioritizing a backgrounded tab — never settle its
+    // promise even once the image has fully loaded. Give it a grace period
+    // after `load` fires, then treat "loaded" as good enough rather than
+    // hang.
+    function whenReady(loader: HTMLImageElement): Promise<void> {
+      return new Promise((resolve) => {
+        let done = false;
+        const finish = () => {
+          if (done) return;
+          done = true;
+          resolve();
+        };
+        loader.decode().then(finish, finish);
+        const afterLoad = () => setTimeout(finish, 300);
+        if (loader.complete) afterLoad();
+        else {
+          loader.addEventListener("load", afterLoad, { once: true });
+          loader.addEventListener("error", finish, { once: true });
+        }
+      });
+    }
 
-  function open(i: number, thumbnail?: HTMLElement) {
-    const thumbImg = thumbnail?.querySelector("img");
-    if (thumbImg) tag(thumbImg);
-    // Opens immediately — the morph plays right away instead of waiting on
-    // the photo, which is what leaves the frame available to show a spinner.
-    // Clear any photo left over from a previous session first, or a reopen
-    // would show it until the new one finishes loading. navigateTo() is
-    // called from *inside* this callback, not after it — startViewTransition
-    // doesn't guarantee the callback runs synchronously, and for an
-    // already-cached photo navigateTo can otherwise finish and paint the
-    // real photo before this clear even runs, which then wipes it out.
-    withViewTransition(() => {
-      img.src = "";
-      img.alt = "";
-      caption.textContent = "";
-      counter.textContent = "";
-      dialog.showModal();
-      tag(img);
-      navigateTo(i, false);
-    });
-  }
+    // Guards against rapid next/prev clicks: a stale in-flight decode is
+    // left to finish (harmless, the bytes get cached) but never reaches the
+    // DOM.
+    let renderToken = 0;
 
-  function close() {
-    const thumbImg = thumbnails[index]?.querySelector("img");
-    withViewTransition(() => {
-      dialog.close();
+    // withTransition=false skips the View Transition for the reveal — used
+    // by open()'s first photo, where the dialog already ran its own
+    // transition a moment earlier. Firing a second root-level transition
+    // right after (while the spinner is still mid-fade) visibly collided
+    // with it. The spinner's own opacity fade-out is enough of a reveal on
+    // its own: the photo is already decoded and paints instantly underneath
+    // as it fades away.
+    async function navigateTo(i: number, withTransition = true) {
+      const token = ++renderToken;
+      const photo = photos[i]!;
+      setLoading(true);
+      const loader = new Image();
+      loader.fetchPriority = "high";
+      loader.src = lightboxSrc(photo);
+      await whenReady(loader);
+      if (token !== renderToken) return;
+      setLoading(false);
+      index = i;
+      preload((index + 1) % photos.length);
+      preload((index - 1 + photos.length) % photos.length);
+      const apply = () => {
+        img.src = loader.src;
+        img.alt = photo.alt;
+        caption.textContent = photo.caption ?? "";
+        counter.textContent = `${index + 1} / ${photos.length}`;
+      };
+      if (withTransition) withViewTransition(apply);
+      else apply();
+    }
+
+    function open(i: number, thumbnail?: HTMLElement) {
+      const thumbImg = thumbnail?.querySelector("img");
       if (thumbImg) tag(thumbImg);
+      // Opens immediately — the morph plays right away instead of waiting
+      // on the photo, which is what leaves the frame available to show a
+      // spinner. Clear any photo left over from a previous session first,
+      // or a reopen would show it until the new one finishes loading.
+      // navigateTo() is called from *inside* this callback, not after it —
+      // startViewTransition doesn't guarantee the callback runs
+      // synchronously, and for an already-cached photo navigateTo can
+      // otherwise finish and paint the real photo before this clear even
+      // runs, which then wipes it out.
+      withViewTransition(() => {
+        img.src = "";
+        img.alt = "";
+        caption.textContent = "";
+        counter.textContent = "";
+        dialog.showModal();
+        tag(img);
+        navigateTo(i, false);
+      });
+    }
+
+    function close() {
+      const thumbImg = thumbnails
+        .find((t) => Number(t.dataset.lightboxIndex) === index)
+        ?.querySelector("img");
+      withViewTransition(() => {
+        dialog.close();
+        if (thumbImg) tag(thumbImg);
+      });
+    }
+
+    function go(delta: number) {
+      navigateTo((index + delta + photos.length) % photos.length);
+    }
+
+    thumbnails.forEach((thumbnail) => {
+      const i = Number(thumbnail.dataset.lightboxIndex);
+      thumbnail.addEventListener("click", () => open(i, thumbnail));
+    });
+
+    closeButton.addEventListener("click", close);
+    prevButton.addEventListener("click", () => go(-1));
+    nextButton.addEventListener("click", () => go(1));
+
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      close();
+    });
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) close();
+    });
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") go(-1);
+      else if (event.key === "ArrowRight") go(1);
     });
   }
 
-  function go(delta: number) {
-    navigateTo((index + delta + photos.length) % photos.length);
-  }
-
-  thumbnails.forEach((thumbnail, i) => {
-    thumbnail.addEventListener("click", () => open(i, thumbnail));
-  });
-
-  closeButton.addEventListener("click", close);
-  prevButton.addEventListener("click", () => go(-1));
-  nextButton.addEventListener("click", () => go(1));
-
-  dialog.addEventListener("cancel", (event) => {
-    event.preventDefault();
-    close();
-  });
-
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) close();
-  });
-
-  dialog.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") go(-1);
-    else if (event.key === "ArrowRight") go(1);
-  });
+  document
+    .querySelectorAll<HTMLDialogElement>(".lightbox")
+    .forEach(initLightbox);
 </script>
 
 <style>

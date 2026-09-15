@@ -14,25 +14,24 @@ const blogs = defineCollection({
     base: "./src/content/blog",
     generateId: ({ entry }) => entry.replace(/\.mdx?$/, ""),
   }),
-  schema: ({ image }) =>
-    z
-      .object({
-        title: z.string(),
-        description: z.string(),
-        created: z.coerce.date(),
-        updated: z.coerce.date().optional(),
-        tags: z.array(z.string()).default([]),
-        draft: z.boolean().default(false),
-        authors: z.array(reference("authors")),
-        relatedPosts: z.array(reference("blogs")),
-        galleries: z.array(reference("galleries")).optional(),
-        cover: image().optional(),
-        coverAlt: z.string().optional(),
-      })
-      .refine((data) => !data.cover || Boolean(data.coverAlt), {
-        message: "coverAlt is required when cover is set",
-        path: ["coverAlt"],
-      }),
+  schema: z
+    .object({
+      title: z.string(),
+      description: z.string(),
+      created: z.coerce.date(),
+      updated: z.coerce.date().optional(),
+      tags: z.array(z.string()).default([]),
+      draft: z.boolean().default(false),
+      authors: z.array(reference("authors")),
+      relatedPosts: z.array(reference("blogs")),
+      galleries: z.array(reference("galleries")).optional(),
+      cover: z.url({ protocol: /^https$/ }).optional(),
+      coverAlt: z.string().optional(),
+    })
+    .refine((data) => !data.cover || Boolean(data.coverAlt), {
+      message: "coverAlt is required when cover is set",
+      path: ["coverAlt"],
+    }),
 });
 
 const authors = defineCollection({

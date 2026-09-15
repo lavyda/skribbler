@@ -1,0 +1,194 @@
+---
+import Lightbox from "@/modules/gallery/Lightbox.astro";
+import { getRelatedGalleries, type Post } from "@/modules/blog/blog";
+import { GRID_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { locale } = Astro.locals;
+const galleries = await getRelatedGalleries(post);
+
+const strings = {
+  en: {
+    heading: "Article galleries",
+    viewAll: (n: number) => `View all ${n} photos`,
+  },
+  sk: {
+    heading: "Galérie k článku",
+    viewAll: (n: number) => `Zobraziť všetkých ${n} fotiek`,
+  },
+};
+const t = strings[locale];
+---
+
+{
+  galleries.length > 0 && (
+    <div class="related-galleries">
+      <section class="row" aria-labelledby="related-galleries-heading">
+        <h2 id="related-galleries-heading">{t.heading}</h2>
+        <ul class="stacks">
+          {galleries.map((gallery) => {
+            const cover = gallery.data.photos[0];
+            const coverProps = {
+              src: imagekitUrl(cover.src, { width: 480 }),
+              srcset: imagekitSrcSet(cover.src, GRID_WIDTHS),
+              sizes: "26rem",
+            };
+            return (
+              <li>
+                <button
+                  type="button"
+                  class="stack"
+                  data-lightbox-target={gallery.id}
+                  data-lightbox-index="0"
+                >
+                  <span class="fake" aria-hidden="true">
+                    <img {...coverProps} loading="lazy" alt="" />
+                  </span>
+                  <span class="fake" aria-hidden="true">
+                    <img {...coverProps} loading="lazy" alt="" />
+                  </span>
+                  <span class="cover">
+                    <img
+                      {...coverProps}
+                      loading="lazy"
+                      decoding="async"
+                      alt=""
+                    />
+                    <span class="overlay">
+                      {t.viewAll(gallery.data.photos.length)}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      {galleries.map((gallery) => (
+        <Lightbox id={gallery.id} photos={gallery.data.photos} />
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .related-galleries {
+    inline-size: min(var(--screen-reading), 100%);
+    margin-inline: auto;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xl);
+    text-align: center;
+  }
+
+  .stacks {
+    display: contents;
+    list-style-type: none;
+  }
+
+  .stack {
+    display: block;
+    position: relative;
+    /* Narrower than the card, with margin-inline:auto centering it, so
+       the fake layers' fixed peek below lands exactly on the card's own
+       edges instead of extending past them. */
+    inline-size: calc(100% - 3rem);
+    margin-inline: auto;
+    aspect-ratio: 4 / 3;
+    max-block-size: 19rem;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    .fake {
+      position: absolute;
+      inset-block: 8%;
+      inline-size: 92%;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xs);
+
+      img {
+        transform: scale(1.15);
+        filter: blur(0.6rem);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: color-mix(
+          in srgb,
+          var(--color-bg) 40%,
+          transparent
+        );
+      }
+    }
+
+    .fake:nth-of-type(1) {
+      inset-inline-start: -1.5rem;
+    }
+
+    .fake:nth-of-type(2) {
+      inset-inline-start: auto;
+      inset-inline-end: -1.5rem;
+    }
+
+    .cover {
+      position: absolute;
+      inset: 0;
+      display: block;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xs);
+    }
+
+    img {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-m);
+      background-color: color-mix(in srgb, var(--color-bg) 40%, transparent);
+      color: var(--color-text);
+      font-family: var(--font-monospace);
+      font-size: var(--text-xs);
+      text-align: center;
+      transition: background-color 0.2s ease;
+    }
+
+    &:hover .overlay,
+    &:focus-visible .overlay {
+      background-color: color-mix(in srgb, var(--color-bg) 25%, transparent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 4px;
+    }
+  }
+</style>

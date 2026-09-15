@@ -13,12 +13,12 @@ const galleries = await getListedGalleries(locale);
 const strings = {
   en: {
     title: "Photography",
-    intro: "Visual diary",
+    intro: "The world through my eyes",
     empty: "No galleries yet.",
   },
   sk: {
-    title: "Fotografia",
-    intro: "Vizuálny denník",
+    title: "Momentky",
+    intro: "Svet mojimi očami",
     empty: "Zatiaľ žiadne galérie.",
   },
 };
@@ -71,8 +71,8 @@ const t = strings[locale];
   ul {
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
-    gap: var(--space-2xl);
+    grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+    gap: var(--space-xl);
     list-style-type: none;
   }
 

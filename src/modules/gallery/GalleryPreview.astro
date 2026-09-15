@@ -49,7 +49,7 @@ const cover = gallery.data.photos[0];
 
   <div class="seam" aria-hidden="true"></div>
 
-  <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
+  <a class="card-link" href={href} aria-hidden="true" tabindex="-1" />
 
   <div class="content" transition:name={`gallery-preview-meta-${slug}`}>
     <div class="meta">
@@ -86,7 +86,7 @@ const cover = gallery.data.photos[0];
     inline-size: 100%;
     cursor: pointer;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-xs);
     overflow: hidden;
   }
 
@@ -103,7 +103,7 @@ const cover = gallery.data.photos[0];
   .cover {
     display: block;
     inline-size: 100%;
-    block-size: 16rem;
+    block-size: 12rem;
     object-fit: cover;
   }
 
@@ -119,8 +119,8 @@ const cover = gallery.data.photos[0];
       "divider"
       "title"
       "description";
-    padding: var(--space-l);
-    row-gap: var(--space-m);
+    padding: var(--space-m);
+    row-gap: var(--space-xs);
   }
 
   .meta {
@@ -135,7 +135,7 @@ const cover = gallery.data.photos[0];
 
   .tags {
     position: absolute;
-    inset-inline-end: var(--space-l);
+    inset-inline-end: var(--space-m);
     inset-block-end: 0;
     z-index: 2;
     display: flex;
@@ -159,7 +159,7 @@ const cover = gallery.data.photos[0];
   .title {
     grid-area: title;
     font-family: var(--font-heading);
-    font-size: var(--text-xl);
+    font-size: var(--text-l);
     font-weight: var(--weight-normal);
 
     a {
@@ -178,5 +178,6 @@ const cover = gallery.data.photos[0];
   .description {
     grid-area: description;
     color: var(--color-text-muted);
+    font-size: var(--text-s);
   }
 </style>

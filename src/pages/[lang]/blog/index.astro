@@ -17,8 +17,8 @@ const strings = {
     empty: "No articles yet.",
   },
   sk: {
-    title: "Blog",
-    intro: "Zápisky o živote, cestovaní a všetkom ostatnom",
+    title: "Zápisník",
+    intro: "O živote, cestovaní a všetkom ostatnom",
     empty: "Zatiaľ žiadne články.",
   },
 };
@@ -37,7 +37,7 @@ const t = strings[locale];
       <ul>
         {posts.map((post) => (
           <li>
-            <PostPreview post={post} />
+            <PostPreview post={post} priority />
           </li>
         ))}
       </ul>
@@ -71,8 +71,8 @@ const t = strings[locale];
   ul {
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
-    gap: var(--space-2xl);
+    grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+    gap: var(--space-xl);
     list-style-type: none;
   }
 

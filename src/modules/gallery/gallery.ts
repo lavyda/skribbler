@@ -8,16 +8,19 @@ export type Photo = Gallery["data"]["photos"][number];
 export const slugOf = (gallery: Gallery): string =>
   gallery.id.split("/").slice(1).join("/");
 
-export async function getListedGalleries(locale: Locale): Promise<Gallery[]> {
+export async function getGalleries(locale: Locale): Promise<Gallery[]> {
   const prefix = `${locale}/`;
   const galleries = await getCollection(
     "galleries",
     ({ id, data }) =>
-      id.startsWith(prefix) &&
-      data.listed &&
-      (import.meta.env.PROD ? !data.draft : true),
+      id.startsWith(prefix) && (import.meta.env.PROD ? !data.draft : true),
   );
   return galleries.sort(
     (a, b) => b.data.created.getTime() - a.data.created.getTime(),
   );
+}
+
+export async function getListedGalleries(locale: Locale): Promise<Gallery[]> {
+  const galleries = await getGalleries(locale);
+  return galleries.filter((gallery) => gallery.data.listed);
 }

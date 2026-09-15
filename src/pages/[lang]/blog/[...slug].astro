@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { i18n } from "astro:config/server";
 import { render } from "astro:content";
 import Base from "@/layouts/Base.astro";
@@ -9,8 +8,11 @@ import {
   readingTime,
   type Locale,
 } from "@/modules/blog/blog";
+import RelatedGalleries from "@/modules/blog/RelatedGalleries.astro";
+import RelatedPosts from "@/modules/blog/RelatedPosts.astro";
 import Chip from "@/lib/ui/Chip.svelte";
 import { dateFormatter } from "@/lib/dateTime";
+import { COVER_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
 
 export async function getStaticPaths() {
   const locales = i18n?.locales ?? [];
@@ -44,10 +46,12 @@ const fmt = dateFormatter(locale);
   <main>
     {
       post.data.cover ? (
-        <Image
-          src={post.data.cover}
+        <img
+          src={imagekitUrl(post.data.cover, { width: 1920 })}
+          srcset={imagekitSrcSet(post.data.cover, COVER_WIDTHS)}
+          sizes="100vw"
+          fetchpriority="high"
           alt={post.data.coverAlt ?? ""}
-          priority
           class="cover"
           transition:name={`post-preview-cover-${slug}`}
         />
@@ -102,6 +106,9 @@ const fmt = dateFormatter(locale);
     <article>
       <Content />
     </article>
+
+    <RelatedGalleries post={post} />
+    <RelatedPosts post={post} />
   </main>
 
   <style>
@@ -128,6 +135,22 @@ const fmt = dateFormatter(locale);
       padding-inline: var(--space-xl);
     }
 
+    :global(.related-galleries),
+    :global(.related-posts) {
+      padding-block: var(--space-xl) var(--space-2xl);
+    }
+
+    /* Whichever of these follows the article directly inherits its bottom
+       padding as the gap — don't double up. */
+    article + :global(.related-galleries),
+    article + :global(.related-posts) {
+      padding-block-start: 0;
+    }
+
+    :global(.related-galleries) + :global(.related-posts) {
+      padding-block-start: 0;
+    }
+
     .content {
       inline-size: min(var(--screen-reading), calc(100% - var(--space-xl) * 2));
       margin-inline: auto;
@@ -144,7 +167,7 @@ const fmt = dateFormatter(locale);
       column-gap: var(--space-l);
       background-color: var(--color-bg);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-m);
+      border-radius: var(--radius-xs);
 
       @media screen and (width < 40rem) {
         grid-template-columns: 1fr;
