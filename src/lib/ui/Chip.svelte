@@ -24,11 +24,12 @@
 <style>
   .chip {
     display: inline-block;
+    box-sizing: border-box;
     padding: var(--space-2xs) var(--space-xs);
-    border: none;
+    border: 1px solid var(--color-text-muted);
     border-radius: var(--radius-xs);
-    background-color: var(--color-border);
-    color: var(--color-text-muted);
+    background-color: var(--color-surface);
+    color: var(--color-text);
     font-family: var(--font-monospace);
     font-size: var(--text-xs);
     line-height: 1;
@@ -41,8 +42,8 @@
 
   a.chip:hover,
   a.chip:focus-visible {
-    color: var(--color-text);
-    background-color: var(--color-surface);
+    border-color: var(--color-text);
+    background-color: var(--color-border);
   }
 
   a.chip:focus-visible {
