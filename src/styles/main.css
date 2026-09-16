@@ -27,6 +27,8 @@
   --text-2xl: clamp(1.5rem, 1.326rem + 0.87vw, 2rem);
   --text-3xl: clamp(2rem, 1.652rem + 1.739vw, 3rem);
 
+  --line-height-reading: 1.7;
+
   --weight-normal: 400;
   --weight-semibold: 600;
 

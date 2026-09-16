@@ -107,8 +107,10 @@ const fmt = dateFormatter(locale);
       <Content />
     </article>
 
-    <RelatedGalleries post={post} />
-    <RelatedPosts post={post} />
+    <div class="related">
+      <RelatedGalleries post={post} />
+      <RelatedPosts post={post} />
+    </div>
   </main>
 
   <style>
@@ -131,28 +133,27 @@ const fmt = dateFormatter(locale);
     article {
       inline-size: min(var(--screen-reading), 100%);
       margin-inline: auto;
-      padding-block: var(--space-xl) var(--space-2xl);
-      padding-inline: var(--space-xl);
+      padding-block: var(--space-xl);
+      padding-inline: var(--space-l);
+      line-height: var(--line-height-reading);
     }
 
-    :global(.related-galleries),
-    :global(.related-posts) {
-      padding-block: var(--space-xl) var(--space-2xl);
-    }
+    .related {
+      inline-size: min(var(--screen-reading), 100%);
+      margin-inline: auto;
+      padding-inline: var(--space-l);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
 
-    /* Whichever of these follows the article directly inherits its bottom
-       padding as the gap — don't double up. */
-    article + :global(.related-galleries),
-    article + :global(.related-posts) {
-      padding-block-start: 0;
-    }
-
-    :global(.related-galleries) + :global(.related-posts) {
-      padding-block-start: 0;
+      &:has(*) {
+        padding-block: var(--space-xl);
+        border-block-start: 1px solid var(--color-border);
+      }
     }
 
     .content {
-      inline-size: min(var(--screen-reading), calc(100% - var(--space-xl) * 2));
+      inline-size: min(var(--screen-reading), calc(100% - var(--space-l) * 2));
       margin-inline: auto;
       margin-block-start: calc(-1 * var(--space-3xl));
       display: grid;
@@ -162,7 +163,7 @@ const fmt = dateFormatter(locale);
         "divider divider"
         "title title"
         "description description";
-      padding: var(--space-xl);
+      padding: var(--space-l);
       row-gap: var(--space-m);
       column-gap: var(--space-l);
       background-color: var(--color-bg);
@@ -214,7 +215,7 @@ const fmt = dateFormatter(locale);
       grid-area: title;
       font-family: var(--font-heading);
       font-size: var(--text-xl);
-      font-weight: var(--weight-normal);
+      font-weight: var(--weight-semibold);
     }
 
     .description {

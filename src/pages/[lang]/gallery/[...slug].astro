@@ -136,7 +136,8 @@ const fmt = dateFormatter(locale);
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
       gap: var(--space-m);
-      padding: var(--space-xl);
+      padding-block: var(--space-xl);
+      padding-inline: var(--space-l);
       list-style-type: none;
 
       li {
@@ -198,7 +199,7 @@ const fmt = dateFormatter(locale);
     }
 
     .content {
-      inline-size: min(var(--screen-xl), calc(100% - var(--space-xl) * 2));
+      inline-size: min(var(--screen-xl), calc(100% - var(--space-l) * 2));
       margin-inline: auto;
       margin-block-start: calc(-1 * var(--space-3xl));
       display: grid;
@@ -208,7 +209,7 @@ const fmt = dateFormatter(locale);
         "divider divider"
         "title title"
         "description description";
-      padding: var(--space-xl);
+      padding: var(--space-l);
       row-gap: var(--space-m);
       column-gap: var(--space-l);
       background-color: var(--color-bg);
@@ -260,7 +261,7 @@ const fmt = dateFormatter(locale);
       grid-area: title;
       font-family: var(--font-heading);
       font-size: var(--text-xl);
-      font-weight: var(--weight-normal);
+      font-weight: var(--weight-semibold);
     }
 
     .description {

@@ -45,19 +45,26 @@ const photo = gallery.data.photos[index];
   .gallery-photo {
     display: block;
     inline-size: 100%;
+    margin-block: var(--space-xl);
     padding: 0;
     border: none;
     background: none;
     color: inherit;
     font: inherit;
-    text-align: start;
+    text-align: center;
     cursor: pointer;
   }
 
   img {
     display: block;
-    inline-size: 100%;
+    max-inline-size: 80%;
+    max-block-size: 32rem;
+    margin-inline: auto;
     border-radius: var(--radius-xs);
+
+    @media screen and (width < 40rem) {
+      max-inline-size: 100%;
+    }
   }
 
   .caption {
