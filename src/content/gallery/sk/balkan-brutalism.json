@@ -1,0 +1,46 @@
+{
+  "title": "Brutalizmus Balkánu",
+  "description": "Brutalistická architektúra naprieč juhovýchodnou Európou",
+  "created": "2026-09-17",
+  "tags": [
+    "architektúra",
+    "brutalizmus"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-01-genex-tower-1.jpg",
+      "alt": "Okrúhla veža je s vyššou budovou spojená vyvýšeným mostom",
+      "caption": "Veža Genex v Belehrade"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-02-genex-tower-2.jpg",
+      "alt": "Zaoblená betónová veža má rad okrúhlych okien",
+      "caption": "Detail veže Genex v Belehrade"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-03-marble-tower.jpg",
+      "alt": "Kamenná výšková budova sa týči na oblohe",
+      "caption": "Len ďalšia z nespočetných betónových výškových budov"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-04-apartment-block.jpg",
+      "alt": "Pred vysokou bytovkou sa križujú elektrické vedenia",
+      "caption": "Tradičná šedá betónová bytovka"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-05-coca-cola-sign.jpg",
+      "alt": "Na streche budovy je veľký nápis Coca-Cola",
+      "caption": "Takmer nestarnúca Coca-Cola"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-06-statue-concrete-building.jpg",
+      "alt": "Bronzová socha sediaceho muža stojí pred výškovou budovou",
+      "caption": "Šedá v Skopje"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-07-rudo-complex-tower.jpg",
+      "alt": "Vysoká betónová bytová veža sa dvíha do neba",
+      "caption": "Jedna z veží komplexu Rudo"
+    }
+  ]
+}

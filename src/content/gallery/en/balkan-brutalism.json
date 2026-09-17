@@ -1,0 +1,46 @@
+{
+  "title": "Balkan brutalism",
+  "description": "Brutalist architecture across southeastern Europe",
+  "created": "2026-09-17",
+  "tags": [
+    "architecture",
+    "brutalism"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-01-genex-tower-1.jpg",
+      "alt": "A round tower is linked to a taller building by an elevated bridge",
+      "caption": "Genex tower in Belgrade"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-02-genex-tower-2.jpg",
+      "alt": "A curved concrete tower has a row of round windows",
+      "caption": "Details of Genex tower in Belgrade"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-03-marble-tower.jpg",
+      "alt": "A stone-clad high-rise building rises against the sky",
+      "caption": "Just another high-rise concrete building"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-04-apartment-block.jpg",
+      "alt": "Power lines cross in front of a tall apartment building",
+      "caption": "Traditional gray concrete apartment block"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-05-coca-cola-sign.jpg",
+      "alt": "A large Coca-Cola sign sits on the roof of a building",
+      "caption": "Almost never aging Coca-Cola"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-06-statue-concrete-building.jpg",
+      "alt": "A bronze statue of a seated man stands in front of a high-rise building",
+      "caption": "A gray in Skopje"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/balkan-brutalism/balkan-brutalism-07-rudo-complex-tower.jpg",
+      "alt": "A tall concrete apartment tower rises into the sky",
+      "caption": "One of the towers of Rudo complex"
+    }
+  ]
+}
