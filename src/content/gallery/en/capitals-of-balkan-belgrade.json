@@ -1,0 +1,90 @@
+{
+  "title": "Belgrade",
+  "description": "Capital city of Serbia",
+  "created": "2026-08-08",
+  "listed": false,
+  "tags": [
+    "travel",
+    "Serbia"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-001-river-bridge-city-view.jpg",
+      "alt": "A bridge crosses a river with a city skyline in the background",
+      "caption": "A view of the Sava River"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-002-stone-lion-city-skyline.jpg",
+      "alt": "A stone lion statue overlooking a city skyline",
+      "caption": "A panoramic view of Belgrade"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-003-danube-sava-rivers.jpg",
+      "alt": "A river bends past a green peninsula with a city skyline in the distance",
+      "caption": "Where the Danube and Sava rivers meet"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-004-park-view-over-danube.jpg",
+      "alt": "An elevated view of a park and a river",
+      "caption": "An island on the Danube River"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-005-fortress-tower.jpg",
+      "alt": "A tower with a flag flying on top",
+      "caption": "A fortress where the Danube and Sava rivers meet"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-006-genex-tower.jpg",
+      "alt": "A brutalist twin-tower building with a round observation deck near the top",
+      "caption": "The Genex Tower, a.k.a. West Gate"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-007-genex-tower-graffiti.jpg",
+      "alt": "Brutalist apartment towers with graffiti at the base",
+      "caption": "A still-occupied part of the Genex Tower"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-008-genex-tower-walkway.jpg",
+      "alt": "The Genex Tower's round tower connected to the block below by an elevated walkway",
+      "caption": "Could be a great place for a restaurant"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-009-dry-fountain-genex-tower.jpg",
+      "alt": "An empty fountain filled with debris in front of the Genex Tower",
+      "caption": "Dystopian present"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-010-genex-tower-round-windows.jpg",
+      "alt": "The Genex Tower's round windows seen from below",
+      "caption": "Definitely unique design"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-011-brutalist-apartment-tower-corner.jpg",
+      "alt": "A tall concrete apartment building seen from below"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-012-apartment-tower-power-lines.jpg",
+      "alt": "A brutalist apartment building seen from below"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-013-rudo-complex-tower-1.jpg",
+      "alt": "One of the Rudo Complex towers seen from below",
+      "caption": "One of the Rudo Complex towers"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-014-rudo-complex-tower-2.jpg",
+      "alt": "Another of the Rudo Complex towers photographed from below",
+      "caption": "One of the Rudo Complex towers"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-015-rudo-complex-through-trees.jpg",
+      "alt": "The Rudo Complex towers rising above trees",
+      "caption": "The Rudo Complex towers"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-016-rudo-complex-tower-3.jpg",
+      "alt": "A Rudo Complex tower with a jagged, stepped silhouette",
+      "caption": "One of the Rudo Complex towers"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "title": "Belehrad",
+  "description": "Hlavné mesto Srbska",
+  "created": "2026-08-08",
+  "listed": false,
+  "tags": [
+    "cestovanie",
+    "Srbsko"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-001-river-bridge-city-view.jpg",
+      "alt": "Most cez rieku s panorámou mesta v pozadí",
+      "caption": "Pohľad na rieku Sávu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-002-stone-lion-city-skyline.jpg",
+      "alt": "Kamenná socha leva s výhľadom na panorámu mesta",
+      "caption": "Pohľad na panorámu Belehradu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-003-danube-sava-rivers.jpg",
+      "alt": "Rieka sa zatáča popri zelenom polostrove s panorámou mesta v diaľke",
+      "caption": "Sútok Dunaja a Sávy"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-004-park-view-over-danube.jpg",
+      "alt": "Výhľad z výšky na park a rieku",
+      "caption": "Ostrov na Dunaji"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-005-fortress-tower.jpg",
+      "alt": "Veža s vlajkou na vrchu",
+      "caption": "Pevnosť na sútoku Dunaja a Sávy"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-006-genex-tower.jpg",
+      "alt": "Dvojvežová brutalistická budova s okrúhlou vyhliadkovou plošinou pri vrchole",
+      "caption": "Veža Genex, známa aj ako Západná brána"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-007-genex-tower-graffiti.jpg",
+      "alt": "Brutalistické bytové veže s graffiti pri základni",
+      "caption": "Stále obývaná časť veže Genex"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-008-genex-tower-walkway.jpg",
+      "alt": "Okrúhla časť veže Genex spojená vyvýšenou lávkou so spodnou budovou",
+      "caption": "Mohlo by to byť super miesto pre reštauráciu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-009-dry-fountain-genex-tower.jpg",
+      "alt": "Prázdna fontána plná odpadu pred vežou Genex",
+      "caption": "Dystopická súčasnosť"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-010-genex-tower-round-windows.jpg",
+      "alt": "Okrúhle okná veže Genex zospodu",
+      "caption": "Rozhodne unikátny dizajn"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-011-brutalist-apartment-tower-corner.jpg",
+      "alt": "Vysoká betónová bytovka z pohľadu zdola"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-012-apartment-tower-power-lines.jpg",
+      "alt": "Brutalistická bytovka z pohľadu zdola"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-013-rudo-complex-tower-1.jpg",
+      "alt": "Jedna z veží komplexu Rudo z pohľadu zdola",
+      "caption": "Jedna z veží komplexu Rudo"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-014-rudo-complex-tower-2.jpg",
+      "alt": "Ďalšia z veží komplexu Rudo odfotografovaná odzdola",
+      "caption": "Jedna z veží komplexu Rudo"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-015-rudo-complex-through-trees.jpg",
+      "alt": "Veže komplexu Rudo týčiace sa nad stromami",
+      "caption": "Veže komplexu Rudo"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-belgrade/capitals-of-balkan-belgrade-016-rudo-complex-tower-3.jpg",
+      "alt": "Veža komplexu Rudo so zubatou, stupňovitou siluetou",
+      "caption": "Jedna z veží komplexu Rudo"
+    }
+  ]
+}
