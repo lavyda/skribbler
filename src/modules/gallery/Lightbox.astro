@@ -83,7 +83,19 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
   // gallery's own grid) and aren't necessarily in photo order or complete,
   // so each one carries its real photo index explicitly rather than
   // relying on DOM position.
+  //
+  // The script tag itself only executes once per browser session: Astro's
+  // router dedupes <script src> by URL across view-transition navigations,
+  // and every <Lightbox> instance site-wide compiles to the same file. So
+  // discovery has to happen on astro:page-load (fired on the initial load
+  // and again after every swap) rather than once at the top level, or
+  // dialogs introduced by later navigations never get wired up. Each
+  // dialog is guarded against re-init since astro:page-load can also fire
+  // for a dialog that survived a swap unchanged.
   function initLightbox(dialog: HTMLDialogElement) {
+    if (dialog.dataset.lightboxInit) return;
+    dialog.dataset.lightboxInit = "true";
+
     const id = dialog.dataset.lightboxId!;
     const transitionName = `lightbox-photo-${id}`;
 
@@ -264,9 +276,11 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
     });
   }
 
-  document
-    .querySelectorAll<HTMLDialogElement>(".lightbox")
-    .forEach(initLightbox);
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelectorAll<HTMLDialogElement>(".lightbox")
+      .forEach(initLightbox);
+  });
 </script>
 
 <style>
