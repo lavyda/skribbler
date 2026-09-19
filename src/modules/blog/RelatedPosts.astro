@@ -25,7 +25,7 @@ const t = strings[locale];
           <h2 id="related-posts-parent">{t.parent}</h2>
           <ul>
             <li>
-              <PostPreview post={parent} headingLevel="h3" linkTransition={false} />
+              <PostPreview post={parent} headingLevel="h3" />
             </li>
           </ul>
         </section>
@@ -37,7 +37,7 @@ const t = strings[locale];
           <ul>
             {children.map((child) => (
               <li>
-                <PostPreview post={child} headingLevel="h3" linkTransition={false} />
+                <PostPreview post={child} headingLevel="h3" />
               </li>
             ))}
           </ul>

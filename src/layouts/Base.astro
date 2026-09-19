@@ -33,6 +33,10 @@ const { locale } = Astro.locals;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<ClientRouter />
+		<script>
+			import { initCoverTransitions } from "@/lib/transitions/coverTransition";
+			initCoverTransitions();
+		</script>
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

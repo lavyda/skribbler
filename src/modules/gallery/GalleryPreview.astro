@@ -33,7 +33,7 @@ const cover = gallery.data.photos[0];
       fetchpriority="high"
       alt={cover.alt}
       class="cover"
-      transition:name={`gallery-preview-cover-${slug}`}
+      data-transition-role="card-cover"
     />
 
     <ul class="tags">
@@ -51,7 +51,7 @@ const cover = gallery.data.photos[0];
 
   <a class="card-link" href={href} aria-hidden="true" tabindex="-1" />
 
-  <div class="content" transition:name={`gallery-preview-meta-${slug}`}>
+  <div class="content" data-transition-role="card-meta">
     <div class="meta">
       <time datetime={gallery.data.created.toISOString()}>
         {fmt.format(gallery.data.created)}

@@ -9,21 +9,9 @@ interface Props {
   post: Post;
   priority?: boolean;
   headingLevel?: "h2" | "h3";
-  // Off for related-post cards: two posts that reference each other (a
-  // parent/child pair) each embed a card keyed by the other's slug, which
-  // collides with that other post's own hero transition:name on its own
-  // page. Dropping transition:name isn't enough on its own — Astro still
-  // auto-pairs same-type elements by DOM position, producing a stray
-  // slide — so transition:animate="none" is also disabled here.
-  linkTransition?: boolean;
 }
 
-const {
-  post,
-  priority = false,
-  headingLevel = "h2",
-  linkTransition = true,
-} = Astro.props;
+const { post, priority = false, headingLevel = "h2" } = Astro.props;
 const { locale } = Astro.locals;
 const Heading = headingLevel;
 
@@ -38,7 +26,7 @@ const slug = slugOf(post);
 const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 ---
 
-<article transition:animate={linkTransition ? undefined : "fade"}>
+<article>
   {
     post.data.cover && (
       <div class="cover-wrap">
@@ -51,10 +39,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
           decoding={priority ? "sync" : "async"}
           alt={post.data.coverAlt ?? ""}
           class="cover"
-          transition:name={
-            linkTransition ? `post-preview-cover-${slug}` : undefined
-          }
-          transition:animate={linkTransition ? undefined : "fade"}
+          data-transition-role="card-cover"
         />
 
         <ul class="tags floating">
@@ -74,13 +59,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 
   <a class="card-link" href={href} aria-hidden="true" tabindex="-1"></a>
 
-  <div
-    class="content"
-    transition:name={
-      linkTransition ? `post-preview-meta-${slug}` : undefined
-    }
-    transition:animate={linkTransition ? undefined : "fade"}
-  >
+  <div class="content" data-transition-role="card-meta">
     <div class="meta">
       <time datetime={post.data.created.toISOString()}>
         {fmt.format(post.data.created)}

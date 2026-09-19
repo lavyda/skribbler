@@ -31,7 +31,6 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { locale } = Astro.locals;
 const { Content } = await render(post);
-const slug = slugOf(post);
 
 const strings = {
   en: { min: "min read", updated: "Updated" },
@@ -53,7 +52,7 @@ const fmt = dateFormatter(locale);
           fetchpriority="high"
           alt={post.data.coverAlt ?? ""}
           class="cover"
-          transition:name={`post-preview-cover-${slug}`}
+          data-transition-role="hero-cover"
         />
       ) : (
         <div class="cover" aria-hidden="true" />
@@ -62,7 +61,7 @@ const fmt = dateFormatter(locale);
 
     <div class="seam" aria-hidden="true"></div>
 
-    <header class="content" transition:name={`post-preview-meta-${slug}`}>
+    <header class="content" data-transition-role="hero-meta">
       <div class="divider" aria-hidden="true"><div></div></div>
 
       <h2 class="title">
@@ -153,6 +152,12 @@ const fmt = dateFormatter(locale);
     }
 
     .content {
+      /* Chrome can paint the preceding <img>'s replaced-element layer
+         above a plain position:static sibling that overlaps it via
+         negative margin, regardless of DOM order — position+z-index
+         gives this box its own stacking context so it wins. */
+      position: relative;
+      z-index: 1;
       inline-size: min(var(--screen-reading), calc(100% - var(--space-l) * 2));
       margin-inline: auto;
       margin-block-start: calc(-1 * var(--space-3xl));
