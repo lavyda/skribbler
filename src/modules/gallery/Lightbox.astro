@@ -414,39 +414,82 @@ const payload = JSON.stringify(photos).replace(/</g, "\\u003c");
   @media screen and (width < 40rem) {
     .lightbox {
       padding-inline: var(--space-l);
+      padding-block-end: var(--space-m);
+    }
+
+    .lightbox :global(.close) {
+      inset-block-start: var(--space-s);
+    }
+
+    /* A block frame sized to the image would push .below past the
+       viewport once the image ran tall enough. Grid rows reserve .below's
+       row at its own auto height first, so it's always fully in view in
+       the same spot; the image gets whatever's left over and shrinks to
+       fit it instead. */
+    .frame {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      place-items: center;
+      position: relative;
+      align-self: stretch;
+      inline-size: 100%;
+      block-size: 100%;
     }
 
     .photo {
-      max-block-size: calc(100vh - var(--space-3xl) * 3);
+      min-inline-size: 0;
+      max-inline-size: 100%;
+      max-block-size: 100%;
     }
 
-    .frame {
-      display: block;
-      position: relative;
+    /* Constrains the abs-positioned spinner's containing block to the
+       image's own grid row, or it'd center across the whole frame
+       (image row + reserved .below row) instead of over the image. */
+    .spinner {
+      grid-row: 1;
     }
 
+    /* .nav and .meta flatten so prev/next/caption/counter become direct
+       grid items of .below — the only way to place .counter between the
+       arrows while .caption keeps the full-width row above them. */
     .below {
-      display: flex;
-      flex-direction: column-reverse;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: var(--space-m);
+      row-gap: var(--space-m);
       align-items: center;
-      gap: var(--space-m);
-      position: absolute;
-      inset-inline: 0;
-      inset-block-start: 100%;
+      justify-self: stretch;
       margin-block-start: var(--space-m);
     }
 
-    .nav {
-      display: flex;
-      gap: var(--space-m);
+    .nav,
+    .meta {
+      display: contents;
     }
 
-    .meta {
+    .caption {
+      grid-row: 1;
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+
+    .lightbox :global(.prev) {
+      grid-row: 2;
+      grid-column: 1;
+      justify-self: end;
       position: static;
     }
 
-    .lightbox :global(.prev),
+    .counter {
+      grid-row: 2;
+      grid-column: 2;
+    }
+
     .lightbox :global(.next) {
+      grid-row: 2;
+      grid-column: 3;
+      justify-self: start;
       position: static;
     }
   }
