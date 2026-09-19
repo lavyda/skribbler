@@ -38,7 +38,7 @@ const slug = slugOf(post);
 const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
 ---
 
-<article transition:animate={linkTransition ? undefined : "none"}>
+<article transition:animate={linkTransition ? undefined : "fade"}>
   {
     post.data.cover && (
       <div class="cover-wrap">
@@ -54,7 +54,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
           transition:name={
             linkTransition ? `post-preview-cover-${slug}` : undefined
           }
-          transition:animate={linkTransition ? undefined : "none"}
+          transition:animate={linkTransition ? undefined : "fade"}
         />
 
         <ul class="tags floating">
@@ -79,7 +79,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
     transition:name={
       linkTransition ? `post-preview-meta-${slug}` : undefined
     }
-    transition:animate={linkTransition ? undefined : "none"}
+    transition:animate={linkTransition ? undefined : "fade"}
   >
     <div class="meta">
       <time datetime={post.data.created.toISOString()}>
@@ -151,6 +151,7 @@ const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
     inline-size: 100%;
     block-size: 12rem;
     object-fit: cover;
+    border-radius: var(--radius-xs) var(--radius-xs) 0 0;
   }
 
   .seam {
