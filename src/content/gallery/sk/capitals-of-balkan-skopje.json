@@ -1,0 +1,82 @@
+{
+  "title": "Skopje",
+  "description": "Hlavné mesto Severného Macedónska",
+  "created": "2026-09-17",
+  "listed": false,
+  "tags": [
+    "cestovanie",
+    "Severné Macedónsko"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-01-stone-bridge-archaeological-museum.jpg",
+      "alt": "Kupolovitá neoklasicistická budova s radmi stĺpov stojí vedľa starého kamenného mosta nad riekou",
+      "caption": "Archeologické múzeum Severného Macedónska za kamenným mostom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-02-museum-colonnade-detail.jpg",
+      "alt": "Rady žliabkovaných kamenných stĺpov podopierajú strechu budovy na pozadí jasnej oblohy",
+      "caption": "Detailný pohľad na stĺporadie múzea"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-03-justinian-statue-stone-bridge.jpg",
+      "alt": "Bronzová socha sediacej korunovanej postavy s berlou sa týči nad riekou a mostom",
+      "caption": "Socha Justiniána I. s múzeom a kamenným mostom v pozadí"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-04-riverside-government-building.jpg",
+      "alt": "Honosná biela budova so sochami na balkónoch stojí popri rieke lemovanej graffiti",
+      "caption": "Honosná budova pri už nie tak honosnej promenáde rieky"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-05-warrior-horse-statue-fountain.jpg",
+      "alt": "Bronzová socha muža na vzpínajúcom sa koni sa týči nad fontánou, v pozadí kopce",
+      "caption": "Socha jazdca na koni"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-06-coca-cola-sign-rooftop.jpg",
+      "alt": "Veľký nápis Coca-Cola sedí na streche budovy na pozadí jasnej oblohy",
+      "caption": "Takmer nestarnúca Coca-Cola"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-07-seated-statue-scaffolded-building.jpg",
+      "alt": "Bronzová socha sediaceho muža v okuliaroch sedí pred zrekonštruovanou budovou s členitou fasádou",
+      "caption": "Šedá v Skopje"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-08-macedonia-gate-triumphal-arch.jpg",
+      "alt": "Kamenná triumfálna brána stojí vedľa výškovej budovy, pri jej päte bronzová socha",
+      "caption": "Všetko na jednej kope"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-09-statues-of-all-kinds.jpg",
+      "alt": "Bronzová socha nahého muža stojí neďaleko stĺporadia zakončeného štyrmi bronzovými koňmi",
+      "caption": "Vyobrazenia sôch sú rôznorodé"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-10-fountain-vodno-cross-view.jpg",
+      "alt": "Veľká fontána s bronzovými postavami stojí pred kopcom zakončeným krížom a vežou",
+      "caption": "Kopec s krížom v pozadí"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-11-macedonia-square-warrior-statue.jpg",
+      "alt": "Bronzová jazdecká socha sa týči nad námestím plným ľudí, vlajkou a fontánou",
+      "caption": "Hlavné námestie"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-12-old-bazaar-street-market.jpg",
+      "alt": "Úzka ulica lemovaná obchodmi a svetelnou reťazou vedie popri vonkajších stoloch kaviarne",
+      "caption": "Ulička v starom bazáre"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-13-old-bazaar-street-mosque.jpg",
+      "alt": "Dláždená ulica lemovaná obchodmi vedie k mešite s vysokým minaretom",
+      "caption": "Pohľad na mešitu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-skopje/capitals-of-balkan-skopje-14-old-bazaar-motorcycle.jpg",
+      "alt": "Na úzkej uličke lemovanej klenotníctvami stojí zaparkovaný skúter",
+      "caption": "Uličky starého bazáru majú svoj vlastný charakter"
+    }
+  ]
+}
