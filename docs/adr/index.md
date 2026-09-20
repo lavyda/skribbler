@@ -5,6 +5,7 @@
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-lucide-icons-vendored.md) | Use only Lucide icons, copied into the project | Accepted |
 | [0003](0003-imagekit-cdn-for-gallery-photos.md) | Host gallery photos on ImageKit | Accepted |
+| [0004](0004-lightbox-no-scroll-lock.md) | Skip background scroll-lock in the lightbox | Accepted |
 
 ## Adding a new ADR
 
