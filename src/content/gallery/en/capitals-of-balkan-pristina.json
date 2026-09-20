@@ -1,0 +1,47 @@
+{
+  "title": "Pristina",
+  "description": "Capital city of Kosovo",
+  "created": "2026-08-08",
+  "listed": false,
+  "tags": [
+    "travel",
+    "Kosovo"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-01-cafe-terrace-mother-teresa-square.jpeg",
+      "alt": "Outdoor tables and chairs sit on a cafe terrace beneath an apartment building",
+      "caption": "A cafe terrace on Mother Teresa Square"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-02-soldier-statue-market-square.jpeg",
+      "alt": "A bronze statue of a soldier, seen from behind, overlooks a square lined with market stalls",
+      "caption": "History and present in the one place"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-03-zahir-pajaziti-statue.jpeg",
+      "alt": "A bronze statue of a man stands on a pedestal in a city square",
+      "caption": "The statue of Zahir Pajaziti on Mother Teresa Square"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-04-cathedral-saint-mother-teresa.jpeg",
+      "alt": "A stone cathedral with twin bell towers stands behind a row of trees",
+      "caption": "The Cathedral of Saint Mother Teresa"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-05-national-library-dusk.jpeg",
+      "alt": "A building with a domed, lattice-covered facade sits behind trees at dusk",
+      "caption": "The National Library of Kosovo"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-06-elevated-view-national-library.jpeg",
+      "alt": "An elevated view over Pristina shows the National Library and hills in the distance",
+      "caption": "A view over central Pristina, with the National Library below"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-pristina/capitals-of-balkan-pristina-07-elevated-view-boulevard.jpeg",
+      "alt": "An elevated view looks down a wide boulevard lined with tall buildings",
+      "caption": "A view down one of Pristina's main boulevards"
+    }
+  ]
+}
