@@ -43,6 +43,8 @@ Treat the skill argument, if given, as the starting file or folder path. Ask for
 
    Once every photo is in, point the user to the file and ask them to review it. Apply their edits or corrections directly to the file. Don't strip, rename, or write anything else until they've confirmed.
 
+   Once they confirm, spell-check every piece of text in the overview file (title, description, and each photo's `alt`/`caption`, in every locale drafted) — this catches typos in the user's own edits, not just the original draft. Report any mistakes found to the user before fixing them; don't fix silently. Then apply the fixes and continue straight on to step 4, without waiting for a further go-ahead.
+
 4. **Strip metadata.**
    ```sh
    npm run strip-exif -- <photo paths>
