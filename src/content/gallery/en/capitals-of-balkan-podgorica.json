@@ -1,0 +1,17 @@
+{
+  "title": "Podgorica",
+  "description": "Capital city of Montenegro",
+  "created": "2024-06-03",
+  "listed": false,
+  "tags": [
+    "travel",
+    "Montenegro"
+  ],
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/capitals-of-balkan-podgorica/capitals-of-balkan-podgorica-01-panel-apartment-blocks.jpg",
+      "alt": "A row of aging panel apartment blocks stands behind trees along a street",
+      "caption": "A typical neighbourhood, and my only photo from there"
+    }
+  ]
+}
