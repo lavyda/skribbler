@@ -117,7 +117,7 @@
     const probe = document.createElement("span");
     probe.style.color = input;
     probe.style.display = "none";
-    wrap.appendChild(probe);
+    document.body.appendChild(probe);
     const resolved = getComputedStyle(probe).color;
     probe.remove();
 
@@ -344,7 +344,7 @@
   });
 
   $effect(() => {
-    color;
+    void color;
     untrack(() => {
       if (!ctx) return;
       applyColor();
@@ -353,8 +353,8 @@
   });
 
   $effect(() => {
-    cols;
-    center;
+    void cols;
+    void center;
     untrack(() => {
       if (!ctx) return;
       layout();
@@ -363,7 +363,7 @@
   });
 
   $effect(() => {
-    animate;
+    void animate;
     untrack(() => {
       if (!ctx) return;
       start();
