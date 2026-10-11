@@ -1,6 +1,8 @@
 ---
 import { sectionUrl, type Alternates } from "@/lib/i18n";
 import Button from "@/lib/ui/Button.svelte";
+import Icon from "@/lib/ui/Icon.svelte";
+import X from "@/lib/ui/icons/X.svelte";
 
 interface Props {
   alternates: Alternates;
@@ -17,6 +19,7 @@ const strings = {
     also: "This page is also available in",
     languages: { en: "English", sk: "Slovak" },
     stay: "Stay here",
+    close: "Close",
   },
   sk: {
     name: "Slovenčina",
@@ -24,13 +27,14 @@ const strings = {
     also: "Táto stránka je dostupná aj po",
     languages: { en: "anglicky", sk: "slovensky" },
     stay: "Zostať tu",
+    close: "Zavrieť",
   },
 };
 type Strings = typeof strings;
 const current = strings[locale as keyof Strings];
 ---
 
-<dialog id="lang-dialog">
+<dialog id="lang-dialog" closedby="none">
   {
     locales
       .filter((l) => l !== locale)
@@ -38,6 +42,15 @@ const current = strings[locale as keyof Strings];
         const offered = strings[l as keyof Strings];
         return (
           <form method="dialog" id={`lang-offer-${l}`} hidden>
+            <Button
+              variant="ghost"
+              icon
+              type="submit"
+              class="close"
+              aria-label={`${offered.close} / ${current.close}`}
+            >
+              <Icon glyph={X} />
+            </Button>
             <p id={`lang-offer-${l}-a`} lang={l}>
               {offered.available}
             </p>
@@ -45,17 +58,18 @@ const current = strings[locale as keyof Strings];
               {current.also} {current.languages[l as keyof Strings["en"]["languages"]]}.
             </p>
             <div class="actions">
+              <Button variant="secondary" type="submit">
+                <span lang={l}>{offered.stay}</span>
+                <span aria-hidden="true">/</span>
+                <span lang={locale}>{current.stay}</span>
+              </Button>
               <Button
                 link
                 href={alternates[l] ?? sectionUrl(l, Astro.url.pathname)}
                 data-choose-locale={l}
+                autofocus
               >
                 <span lang={l}>{offered.name}</span>
-              </Button>
-              <Button variant="secondary" type="submit" autofocus>
-                <span lang={l}>{offered.stay}</span>
-                <span aria-hidden="true">/</span>
-                <span lang={locale}>{current.stay}</span>
               </Button>
             </div>
           </form>
@@ -74,15 +88,6 @@ const current = strings[locale as keyof Strings];
     const chosen = target.closest<HTMLElement>("[data-choose-locale]")?.dataset
       .chooseLocale;
     if (chosen) save(chosen);
-
-    // A click on the backdrop lands on the dialog element itself, outside its box.
-    if (target instanceof HTMLDialogElement && target.open) {
-      const box = target.getBoundingClientRect();
-      const { clientX: x, clientY: y } = event as MouseEvent;
-      if (x < box.left || x > box.right || y < box.top || y > box.bottom) {
-        target.close();
-      }
-    }
   });
 
   document.addEventListener("astro:page-load", () => {
@@ -98,7 +103,10 @@ const current = strings[locale as keyof Strings];
       "aria-labelledby",
       `lang-offer-${wanted}-a lang-offer-${wanted}-b`,
     );
-    // Stay, Esc and backdrop click all close the dialog: that counts as dismissing.
+    // Only a button closes it. closedby="none" covers Esc and backdrop clicks;
+    // cancel covers browsers without closedby support.
+    dialog.addEventListener("cancel", (event) => event.preventDefault());
+    // Closing via Stay or the close button counts as dismissing.
     dialog.addEventListener("close", () => dismiss(wanted), { once: true });
     dialog.showModal();
   });
@@ -129,11 +137,17 @@ const current = strings[locale as keyof Strings];
     gap: var(--space-xs);
   }
 
+  form :global(.close) {
+    position: absolute;
+    inset-block-start: var(--space-s);
+    inset-inline-end: var(--space-s);
+  }
+
   p {
     margin: 0;
   }
 
-  p:first-child {
+  p:first-of-type {
     font-size: var(--text-xl);
     font-weight: var(--weight-semibold);
     line-height: 1.3;
