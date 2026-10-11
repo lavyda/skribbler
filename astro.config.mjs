@@ -18,8 +18,5 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  redirects: {
-    "/": "/en/",
-  },
   vite: { build: { cssMinify: 'esbuild' } },
 });

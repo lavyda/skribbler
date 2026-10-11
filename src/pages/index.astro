@@ -1,0 +1,32 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const { locales, defaultLocale } = Astro.locals;
+const fallback = getRelativeLocaleUrl(defaultLocale);
+const canonical = new URL(fallback, Astro.site).href;
+---
+
+<!doctype html>
+<html lang={defaultLocale} data-locales={locales.join(",")} data-default-locale={defaultLocale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Vladimír Kovalský</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+    <noscript>
+      <meta http-equiv="refresh" content={`0;url=${fallback}`} />
+    </noscript>
+  </head>
+  <body>
+    <noscript>
+      {locales.map((l) => <a href={getRelativeLocaleUrl(l)}>{l.toUpperCase()}</a>)}
+    </noscript>
+    <script>
+      import { defaultLocale, preferred } from "@/lib/localePreference";
+
+      const lang = preferred() ?? defaultLocale();
+      location.replace(`/${lang}/`);
+    </script>
+  </body>
+</html>

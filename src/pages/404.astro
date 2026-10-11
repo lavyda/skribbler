@@ -1,10 +1,9 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
 import Fill from "@/layouts/Fill.astro";
 import ConfusedGuy from "@/lib/ui/ConfusedGuy.astro";
 import Button from "@/lib/ui/Button.svelte";
 
-const { locale, defaultLocale, locales } = Astro.locals;
+const { locale, locales } = Astro.locals;
 
 const strings: Record<string, { text: string; home: string }> = {
   en: { text: "This page doesn't exist.", home: "Back home" },
@@ -12,7 +11,7 @@ const strings: Record<string, { text: string; home: string }> = {
 };
 ---
 
-<Fill title="404 · Vladimír Kovalský" alternates={{}}>
+<Fill title="404 · Vladimír Kovalský" alternates={{}} suggestLocale={false}>
   <div class="layout">
     <ConfusedGuy />
     {
@@ -20,7 +19,7 @@ const strings: Record<string, { text: string; home: string }> = {
         <div class="not-found" data-locale={l} hidden={l !== locale}>
           <h1>404</h1>
           <p>{strings[l].text}</p>
-          <Button variant="secondary" link href={getRelativeLocaleUrl(l)}>
+          <Button variant="secondary" link href="/">
             {strings[l].home}
           </Button>
         </div>
@@ -29,17 +28,17 @@ const strings: Record<string, { text: string; home: string }> = {
   </div>
 </Fill>
 
-<script is:inline define:vars={{ locales, defaultLocale }}>
-  // Static 404 is rendered once, so the locale is resolved from the URL here.
+<script>
+  import { preferred, siteLocales } from "@/lib/localePreference";
+
+  // The static 404 is rendered once, so the language is resolved here.
+  // The URL is never changed: a path without a locale prefix is simply a 404.
+  const blocks = document.querySelectorAll<HTMLElement>("[data-locale]");
   const [first] = location.pathname.split("/").filter(Boolean);
-  if (first && locales.includes(first)) {
-    for (const el of document.querySelectorAll("[data-locale]")) {
-      el.hidden = el.dataset.locale !== first;
-    }
-  } else if (first) {
-    const preferred = navigator.language.slice(0, 2);
-    const lang = locales.includes(preferred) ? preferred : defaultLocale;
-    location.replace(`/${lang}${location.pathname}${location.search}${location.hash}`);
+  const lang = siteLocales().includes(first) ? first : preferred();
+
+  if (lang) {
+    for (const el of blocks) el.hidden = el.dataset.locale !== lang;
   }
 </script>
 

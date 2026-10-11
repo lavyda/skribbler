@@ -34,6 +34,7 @@ const t = strings[locale as keyof typeof strings];
   variant="ghost"
   link
   href={href}
+  data-choose-locale={target}
   title={`${t.changeLanguage} ${t[target]}`}
 >
   {target.toUpperCase()}

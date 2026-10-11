@@ -5,12 +5,13 @@ import type { Alternates } from "@/lib/i18n";
 interface Props {
 	title?: string;
 	alternates?: Alternates;
+	suggestLocale?: boolean;
 }
 
-const { title, alternates } = Astro.props;
+const { title, alternates, suggestLocale } = Astro.props;
 ---
 
-<Base {title} {alternates}>
+<Base {title} {alternates} {suggestLocale}>
 	<main>
 		<slot />
 	</main>
