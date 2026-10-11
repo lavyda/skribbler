@@ -1,7 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { entryUrl } from "@/lib/i18n";
 import Chip from "@/lib/ui/Chip.svelte";
-import { slugOf, readingTime, type Post } from "@/modules/blog/blog";
+import { readingTime, type Post } from "@/modules/blog/blog";
 import { dateFormatter } from "@/lib/dateTime";
 import { COVER_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
 
@@ -22,8 +22,7 @@ const strings = {
 const t = strings[locale];
 
 const fmt = dateFormatter(locale);
-const slug = slugOf(post);
-const href = getRelativeLocaleUrl(locale, `blog/${slug}`);
+const href = entryUrl("blogs", post);
 ---
 
 <article>

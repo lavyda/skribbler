@@ -3,6 +3,13 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import Navigation from "./Navigation.astro";
 import ThemeSwitcher from "./ThemeSwitcher.svelte";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
+import type { Alternates } from "@/lib/i18n";
+
+interface Props {
+  alternates: Alternates;
+}
+
+const { alternates } = Astro.props;
 
 const { locale } = Astro.locals;
 
@@ -26,7 +33,7 @@ const t = strings[locale as keyof typeof strings];
     ><span>{t.name}</span> <span>{t.surname}</span>
   </a>
   <Navigation />
-  <LanguageSwitcher />
+  <LanguageSwitcher {alternates} />
   <ThemeSwitcher client:load labels={t.theme} />
 </header>
 

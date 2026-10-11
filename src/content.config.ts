@@ -23,6 +23,7 @@ const blogs = defineCollection({
       tags: z.array(z.string()).default([]),
       draft: z.boolean().default(false),
       authors: z.array(reference("authors")),
+      translationKey: z.string().optional(),
       relatedPosts: z.array(reference("blogs")),
       galleries: z.array(reference("galleries")).optional(),
       cover: z.url({ protocol: /^https$/ }).optional(),
@@ -57,6 +58,7 @@ const galleries = defineCollection({
     listed: z.boolean().default(true),
     photos: z.array(photo).min(1),
     blogs: z.array(reference("blogs")).optional(),
+    translationKey: z.string().optional(),
   }),
 });
 

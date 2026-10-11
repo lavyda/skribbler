@@ -6,6 +6,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://kovalsky.sk",
   integrations: [svelte(), mdx()],
   image: {
     remotePatterns: [{ protocol: "https", hostname: "ik.imagekit.io" }],

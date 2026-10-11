@@ -1,7 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { entryUrl } from "@/lib/i18n";
 import Chip from "@/lib/ui/Chip.svelte";
-import { slugOf, type Gallery } from "@/modules/gallery/gallery";
+import type { Gallery } from "@/modules/gallery/gallery";
 import { dateFormatter } from "@/lib/dateTime";
 import { COVER_WIDTHS, imagekitSrcSet, imagekitUrl } from "@/lib/imagekit";
 
@@ -19,8 +19,7 @@ const strings = {
 const t = strings[locale];
 
 const fmt = dateFormatter(locale);
-const slug = slugOf(gallery);
-const href = getRelativeLocaleUrl(locale, `gallery/${slug}`);
+const href = entryUrl("galleries", gallery);
 const cover = gallery.data.photos[0];
 ---
 

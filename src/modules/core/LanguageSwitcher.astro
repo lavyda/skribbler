@@ -1,16 +1,19 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { sectionUrl, type Alternates } from "@/lib/i18n";
+
+interface Props {
+  alternates: Alternates;
+}
+
+const { alternates } = Astro.props;
 import Button from "@/lib/ui/Button.svelte";
 
 const { locale, locales } = Astro.locals;
 
 const target = locales.find((l) => l !== locale) ?? locale;
 
-const segments = Astro.url.pathname.split("/").filter(Boolean);
-if (locales.some((l) => l === segments[0])) {
-  segments.shift();
-}
-const href = getRelativeLocaleUrl(target, segments.join("/"));
+// No translation: land on the section index instead of a 404.
+const href = alternates[target] ?? sectionUrl(target, Astro.url.pathname);
 
 const strings = {
   en: {

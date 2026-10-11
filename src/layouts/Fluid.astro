@@ -1,14 +1,16 @@
 ---
 import Base from "./Base.astro";
+import type { Alternates } from "@/lib/i18n";
 
 interface Props {
 	title?: string;
+	alternates?: Alternates;
 }
 
-const { title } = Astro.props;
+const { title, alternates } = Astro.props;
 ---
 
-<Base {title}>
+<Base {title} {alternates}>
 	<main>
 		<slot />
 	</main>

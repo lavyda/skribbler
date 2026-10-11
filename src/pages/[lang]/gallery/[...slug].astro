@@ -1,6 +1,7 @@
 ---
 import { i18n } from "astro:config/server";
 import Base from "@/layouts/Base.astro";
+import { getAlternates } from "@/lib/i18n";
 import { getGalleries, slugOf, type Locale } from "@/modules/gallery/gallery";
 import Chip from "@/lib/ui/Chip.svelte";
 import Lightbox from "@/modules/gallery/Lightbox.astro";
@@ -28,6 +29,7 @@ export async function getStaticPaths() {
 
 const { gallery } = Astro.props;
 const { locale } = Astro.locals;
+const alternates = await getAlternates("galleries", gallery);
 const cover = gallery.data.photos[0];
 
 const strings = {
@@ -39,7 +41,7 @@ const t = strings[locale];
 const fmt = dateFormatter(locale);
 ---
 
-<Base title={gallery.data.title}>
+<Base title={gallery.data.title} {alternates}>
   <main>
     <img
       src={imagekitUrl(cover.src, { width: 1920 })}
