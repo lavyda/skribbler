@@ -1,0 +1,81 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Fill from "@/layouts/Fill.astro";
+import ConfusedGuy from "@/lib/ui/ConfusedGuy.astro";
+import Button from "@/lib/ui/Button.svelte";
+
+const { locale, defaultLocale, locales } = Astro.locals;
+
+const strings: Record<string, { text: string; home: string }> = {
+  en: { text: "This page doesn't exist.", home: "Back home" },
+  sk: { text: "Táto stránka neexistuje.", home: "Späť domov" },
+};
+---
+
+<Fill title="404 · Vladimír Kovalský" alternates={{}}>
+  <div class="layout">
+    <ConfusedGuy />
+    {
+      locales.map((l) => (
+        <div class="not-found" data-locale={l} hidden={l !== locale}>
+          <h1>404</h1>
+          <p>{strings[l].text}</p>
+          <Button variant="secondary" link href={getRelativeLocaleUrl(l)}>
+            {strings[l].home}
+          </Button>
+        </div>
+      ))
+    }
+  </div>
+</Fill>
+
+<script is:inline define:vars={{ locales, defaultLocale }}>
+  // Static 404 is rendered once, so the locale is resolved from the URL here.
+  const [first] = location.pathname.split("/").filter(Boolean);
+  if (first && locales.includes(first)) {
+    for (const el of document.querySelectorAll("[data-locale]")) {
+      el.hidden = el.dataset.locale !== first;
+    }
+  } else if (first) {
+    const preferred = navigator.language.slice(0, 2);
+    const lang = locales.includes(preferred) ? preferred : defaultLocale;
+    location.replace(`/${lang}${location.pathname}${location.search}${location.hash}`);
+  }
+</script>
+
+<style>
+  .layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl) var(--space-2xl);
+    padding-block-start: var(--space-3xl);
+
+    @media screen and (width < 40rem) {
+      padding-block-start: 0;
+    }
+  }
+
+  .not-found {
+    display: grid;
+    gap: var(--space-s);
+    justify-items: center;
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  h1 {
+    font-family: var(--font-monospace);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-normal);
+    color: var(--color-accent);
+  }
+
+  p {
+    color: var(--color-text-muted);
+  }
+</style>
