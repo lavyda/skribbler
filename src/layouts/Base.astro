@@ -1,4 +1,5 @@
 ---
+import Analytics from "@vercel/analytics/astro";
 import { ClientRouter } from "astro:transitions";
 import "@/styles/reset.css";
 import "@/styles/main.css";
@@ -23,7 +24,11 @@ const hreflangs = Astro.site ? Object.entries(alternates) : [];
 ---
 
 <!doctype html>
-<html lang={locale} data-locales={locales.join(",")} data-default-locale={defaultLocale}>
+<html
+	lang={locale}
+	data-locales={locales.join(",")}
+	data-default-locale={defaultLocale}
+>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -83,6 +88,7 @@ const hreflangs = Astro.site ? Object.entries(alternates) : [];
 		<Header {alternates} />
 		<slot />
 		{suggestLocale && <LanguageDialog {alternates} />}
+		<Analytics />
 	</body>
 </html>
 
