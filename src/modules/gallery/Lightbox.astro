@@ -71,21 +71,28 @@ const payload = JSON.stringify({ photos, labels: strings[locale] }).replace(
       if (!viewer) {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const width = nearestWidth(window.innerWidth * dpr);
+        const elements = photos.map((photo) => ({
+          href: imagekitUrl(photo.src, { width }),
+          type: "image",
+          alt: photo.alt,
+          description: photo.caption,
+        })) as unknown as [];
         viewer = GLightbox({
-          elements: photos.map((photo) => ({
-            href: imagekitUrl(photo.src, { width }),
-            type: "image",
-            alt: photo.alt,
-            description: photo.caption,
-          })),
+          elements,
           loop: true,
           moreText: labels.more,
         });
         // The buttons are built on every open, so relabel each time.
         viewer.on("open", () => {
-          document.querySelector(".gclose")?.setAttribute("aria-label", labels.close);
-          document.querySelector(".gprev")?.setAttribute("aria-label", labels.previous);
-          document.querySelector(".gnext")?.setAttribute("aria-label", labels.next);
+          document
+            .querySelector(".gclose")
+            ?.setAttribute("aria-label", labels.close);
+          document
+            .querySelector(".gprev")
+            ?.setAttribute("aria-label", labels.previous);
+          document
+            .querySelector(".gnext")
+            ?.setAttribute("aria-label", labels.next);
         });
         instances.add(viewer);
       }
