@@ -1,0 +1,30 @@
+/* GLightbox mounts on <body>, so its theming can't live in a scoped
+   component style. The library sits in its own layer: unlayered rules
+   below always beat it, whatever their specificity. */
+@import "glightbox/dist/css/glightbox.min.css" layer(glightbox);
+
+.gslide-description {
+  padding: var(--space-s);
+  background: transparent;
+  text-align: center;
+}
+
+.gdesc-inner {
+  padding: 0;
+}
+
+.gslide-title,
+.gslide-desc {
+  margin: 0;
+  color: #F0F0F0;
+  font-family: var(--font-monospace);
+  font-size: var(--text-xs);
+}
+
+:is(.gclose, .gprev, .gnext) path {
+  transition: fill 150ms ease;
+}
+
+:is(.gclose, .gprev, .gnext):hover path {
+  fill: var(--color-accent);
+}

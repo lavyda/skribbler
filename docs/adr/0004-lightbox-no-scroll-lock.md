@@ -1,6 +1,6 @@
 # 0004. Skip background scroll-lock in the lightbox
 
-Status: Accepted
+Status: Superseded by [0005](0005-glightbox-replaces-custom-lightbox.md)
 
 ## Context
 
