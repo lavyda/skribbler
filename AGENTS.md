@@ -15,6 +15,10 @@ astro dev status
 
   Manage it with `astro dev stop`, `astro dev status`, and `astro dev logs`. Once the task is done, stop it yourself with `astro dev stop` — but only when you're the one who started it.
 
+## Checks
+
+An implementation is done when `npm run check` exits with zero errors. It runs every check; `check:ts` and `check:lint` (ESLint, including Prettier formatting) run them one at a time; `lint:fix` fixes formatting and fixable lint errors. Run them after the last edit and fix what they report before handing back.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

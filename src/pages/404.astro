@@ -14,17 +14,15 @@ const strings: Record<string, { text: string; home: string }> = {
 <Fill title="404 · Vladimír Kovalský" alternates={{}} suggestLocale={false}>
   <div class="layout">
     <ConfusedGuy />
-    {
-      locales.map((l) => (
-        <div class="not-found" data-locale={l} hidden={l !== locale}>
-          <h1>404</h1>
-          <p>{strings[l].text}</p>
-          <Button variant="secondary" link href="/">
-            {strings[l].home}
-          </Button>
-        </div>
-      ))
-    }
+    {locales.map((l) => (
+      <div class="not-found" data-locale={l} hidden={l !== locale}>
+        <h1>404</h1>
+        <p>{strings[l].text}</p>
+        <Button variant="secondary" link href="/">
+          {strings[l].home}
+        </Button>
+      </div>
+    ))}
   </div>
 </Fill>
 

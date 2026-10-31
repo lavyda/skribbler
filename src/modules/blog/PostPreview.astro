@@ -26,33 +26,29 @@ const href = entryUrl("blogs", post);
 ---
 
 <article>
-  {
-    post.data.cover && (
-      <div class="cover-wrap">
-        <img
-          src={imagekitUrl(post.data.cover, { width: 960 })}
-          srcset={imagekitSrcSet(post.data.cover, COVER_WIDTHS)}
-          sizes="(min-width: 44rem) 45vw, 100vw"
-          fetchpriority={priority ? "high" : "auto"}
-          loading={priority ? "eager" : "lazy"}
-          decoding={priority ? "sync" : "async"}
-          alt={post.data.coverAlt ?? ""}
-          class="cover"
-          data-transition-role="card-cover"
-        />
+  {post.data.cover && (
+    <div class="cover-wrap">
+      <img
+        src={imagekitUrl(post.data.cover, { width: 960 })}
+        srcset={imagekitSrcSet(post.data.cover, COVER_WIDTHS)}
+        sizes="(min-width: 44rem) 45vw, 100vw"
+        fetchpriority={priority ? "high" : "auto"}
+        loading={priority ? "eager" : "lazy"}
+        decoding={priority ? "sync" : "async"}
+        alt={post.data.coverAlt ?? ""}
+        class="cover"
+        data-transition-role="card-cover"
+      />
 
-        <ul class="tags floating">
-          {
-            post.data.tags.map((tag) => (
-              <li>
-                <Chip>{tag}</Chip>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    )
-  }
+      <ul class="tags floating">
+        {post.data.tags.map((tag) => (
+          <li>
+            <Chip>{tag}</Chip>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
 
   {post.data.cover && <div class="seam" aria-hidden="true" />}
 
@@ -63,16 +59,14 @@ const href = entryUrl("blogs", post);
       <time datetime={post.data.created.toISOString()}>
         {fmt.format(post.data.created)}
       </time>
-      {
-        post.data.updated && (
-          <>
-            <span aria-hidden="true">·</span>
-            <span>
-              {t.updated} {fmt.format(post.data.updated)}
-            </span>
-          </>
-        )
-      }
+      {post.data.updated && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span>
+            {t.updated} {fmt.format(post.data.updated)}
+          </span>
+        </>
+      )}
       <span aria-hidden="true">·</span>
       <span>
         {readingTime(post.body)}
@@ -80,19 +74,19 @@ const href = entryUrl("blogs", post);
       </span>
     </div>
 
-    {
-      !post.data.cover && (
-        <ul class="tags inline">
-          {post.data.tags.map((tag) => (
-            <li>
-              <Chip>{tag}</Chip>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+    {!post.data.cover && (
+      <ul class="tags inline">
+        {post.data.tags.map((tag) => (
+          <li>
+            <Chip>{tag}</Chip>
+          </li>
+        ))}
+      </ul>
+    )}
 
-    <div class="divider" aria-hidden="true"><div></div></div>
+    <div class="divider" aria-hidden="true">
+      <div></div>
+    </div>
 
     <Heading class="title">
       <a href={href}>{post.data.title}</a>

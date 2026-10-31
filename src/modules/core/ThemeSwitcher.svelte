@@ -32,7 +32,8 @@
     systemDark = media.matches;
     mounted = true;
 
-    const onChange = (event: MediaQueryListEvent) => (systemDark = event.matches);
+    const onChange = (event: MediaQueryListEvent) =>
+      (systemDark = event.matches);
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
   });

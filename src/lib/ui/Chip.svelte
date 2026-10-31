@@ -15,8 +15,8 @@
     class="chip"
     href={disabled ? undefined : href}
     aria-disabled={disabled ? "true" : undefined}
-    tabindex={disabled ? -1 : undefined}
-  >{@render children()}</a>
+    tabindex={disabled ? -1 : undefined}>{@render children()}</a
+  >
 {:else}
   <span class="chip">{@render children()}</span>
 {/if}
@@ -58,7 +58,9 @@
 
   @media (prefers-reduced-motion: no-preference) {
     a.chip {
-      transition: color 160ms ease, background-color 160ms ease;
+      transition:
+        color 160ms ease,
+        background-color 160ms ease;
     }
   }
 </style>

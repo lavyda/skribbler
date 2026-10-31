@@ -8,15 +8,15 @@ import LanguageDialog from "@/modules/core/LanguageDialog.astro";
 import { getMirroredAlternates, type Alternates } from "@/lib/i18n";
 
 interface Props {
-	title?: string;
-	alternates?: Alternates;
-	suggestLocale?: boolean;
+  title?: string;
+  alternates?: Alternates;
+  suggestLocale?: boolean;
 }
 
 const {
-	title = "Vladimír Kovalský",
-	alternates = getMirroredAlternates(Astro.url.pathname),
-	suggestLocale = true,
+  title = "Vladimír Kovalský",
+  alternates = getMirroredAlternates(Astro.url.pathname),
+  suggestLocale = true,
 } = Astro.props;
 const { locale, locales, defaultLocale } = Astro.locals;
 const absolute = (path: string) => new URL(path, Astro.site).href;
@@ -25,76 +25,72 @@ const hreflangs = Astro.site ? Object.entries(alternates) : [];
 
 <!doctype html>
 <html
-	lang={locale}
-	data-locales={locales.join(",")}
-	data-default-locale={defaultLocale}
+  lang={locale}
+  data-locales={locales.join(",")}
+  data-default-locale={defaultLocale}
 >
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="color-scheme" content="light dark" />
-		<script is:inline>
-			function applyTheme() {
-				const t = localStorage.getItem("theme");
-				if (t === "light" || t === "dark")
-					document.documentElement.dataset.theme = t;
-				else document.documentElement.removeAttribute("data-theme");
-			}
-			applyTheme();
-			document.addEventListener("astro:after-swap", applyTheme);
-		</script>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		{Astro.site && <link rel="canonical" href={absolute(Astro.url.pathname)} />}
-		{
-			hreflangs.length > 1 &&
-				hreflangs.map(([lang, path]) => (
-					<link rel="alternate" hreflang={lang} href={absolute(path)} />
-				))
-		}
-		{
-			hreflangs.length > 1 && alternates[defaultLocale] && (
-				<link
-					rel="alternate"
-					hreflang="x-default"
-					href={absolute(alternates[defaultLocale])}
-				/>
-			)
-		}
-		<ClientRouter />
-		<script>
-			import { initCoverTransitions } from "@/lib/transitions/coverTransition";
-			initCoverTransitions();
-		</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      function applyTheme() {
+        const t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark")
+          document.documentElement.dataset.theme = t;
+        else document.documentElement.removeAttribute("data-theme");
+      }
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {Astro.site && <link rel="canonical" href={absolute(Astro.url.pathname)} />}
+    {hreflangs.length > 1 &&
+      hreflangs.map(([lang, path]) => (
+        <link rel="alternate" hreflang={lang} href={absolute(path)} />
+      ))}
+    {hreflangs.length > 1 && alternates[defaultLocale] && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={absolute(alternates[defaultLocale])}
+      />
+    )}
+    <ClientRouter />
+    <script>
+      import { initCoverTransitions } from "@/lib/transitions/coverTransition";
+      initCoverTransitions();
+    </script>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
-			rel="stylesheet"
-		/>
-	</head>
-	<body>
-		<Header {alternates} />
-		<slot />
-		{suggestLocale && <LanguageDialog {alternates} />}
-		<Analytics />
-	</body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header {alternates} />
+    <slot />
+    {suggestLocale && <LanguageDialog {alternates} />}
+    <Analytics />
+  </body>
 </html>
 
 <style>
-	body {
-		display: grid;
-		grid-template-rows: auto 1fr;
-	}
+  body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
 </style>

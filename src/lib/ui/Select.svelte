@@ -47,7 +47,10 @@
 
   function handleChange(event: Event & { currentTarget: HTMLSelectElement }) {
     const next = event.currentTarget.value;
-    onchange?.(next, options.find((opt) => opt.value === next));
+    onchange?.(
+      next,
+      options.find((opt) => opt.value === next),
+    );
   }
 </script>
 
@@ -56,9 +59,18 @@
     <label for={id} class="select-field__label">{label}</label>
   {/if}
 
-  <select class="select" {id} {name} aria-label={ariaLabel} {required} {disabled} onchange={handleChange}>
+  <select
+    class="select"
+    {id}
+    {name}
+    aria-label={ariaLabel}
+    {required}
+    {disabled}
+    onchange={handleChange}
+  >
     <button type="button">
-      {#if selected}{@render selected(selectedOption)}{:else}<selectedcontent></selectedcontent>{/if}
+      {#if selected}{@render selected(selectedOption)}{:else}<selectedcontent
+        ></selectedcontent>{/if}
     </button>
 
     {#each options ?? [] as opt (opt.value)}

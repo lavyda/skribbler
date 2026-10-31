@@ -3,10 +3,7 @@
   "description": "Capital city of Kosovo",
   "created": "2026-09-17",
   "listed": false,
-  "tags": [
-    "travel",
-    "Kosovo"
-  ],
+  "tags": ["travel", "Kosovo"],
   "translationKey": "capitals-of-balkan-pristina",
   "photos": [
     {

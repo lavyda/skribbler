@@ -3,26 +3,26 @@ import Base from "./Base.astro";
 import type { Alternates } from "@/lib/i18n";
 
 interface Props {
-	title?: string;
-	alternates?: Alternates;
-	suggestLocale?: boolean;
+  title?: string;
+  alternates?: Alternates;
+  suggestLocale?: boolean;
 }
 
 const { title, alternates, suggestLocale } = Astro.props;
 ---
 
 <Base {title} {alternates} {suggestLocale}>
-	<main>
-		<slot />
-	</main>
+  <main>
+    <slot />
+  </main>
 </Base>
 
 <style>
-	main {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		align-content: start;
-		padding: clamp(1rem, 0.826rem + 0.87vw, 1.5rem)
-			clamp(1.5rem, 0.63rem + 4.348vw, 4rem);
-	}
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    padding: clamp(1rem, 0.826rem + 0.87vw, 1.5rem)
+      clamp(1.5rem, 0.63rem + 4.348vw, 4rem);
+  }
 </style>

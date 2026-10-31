@@ -56,11 +56,11 @@ const fmt = dateFormatter(locale);
     <div class="seam" aria-hidden="true"></div>
 
     <header class="content" data-transition-role="hero-meta">
-      <div class="divider" aria-hidden="true"><div></div></div>
+      <div class="divider" aria-hidden="true">
+        <div></div>
+      </div>
 
-      <h2 class="title">
-        {gallery.data.title}
-      </h2>
+      <h2 class="title">{gallery.data.title}</h2>
 
       <p class="description">{gallery.data.description}</p>
 
@@ -68,53 +68,49 @@ const fmt = dateFormatter(locale);
         <time datetime={gallery.data.created.toISOString()}>
           {fmt.format(gallery.data.created)}
         </time>
-        {
-          gallery.data.updated && (
-            <>
-              <span aria-hidden="true">·</span>
-              <span>
-                {t.updated} {fmt.format(gallery.data.updated)}
-              </span>
-            </>
-          )
-        }
+        {gallery.data.updated && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>
+              {t.updated} {fmt.format(gallery.data.updated)}
+            </span>
+          </>
+        )}
         <span aria-hidden="true">·</span>
-        <span>{gallery.data.photos.length} {t.photos}</span>
+        <span>
+          {gallery.data.photos.length} {t.photos}
+        </span>
       </div>
 
       <ul class="tags">
-        {
-          gallery.data.tags.map((tag) => (
-            <li>
-              <Chip>{tag}</Chip>
-            </li>
-          ))
-        }
+        {gallery.data.tags.map((tag) => (
+          <li>
+            <Chip>{tag}</Chip>
+          </li>
+        ))}
       </ul>
     </header>
 
     <ul class="photos">
-      {
-        gallery.data.photos.map((photo, index) => (
-          <li>
-            <button
-              type="button"
-              data-lightbox-target={gallery.id}
-              data-lightbox-index={index}
-            >
-              <img
-                src={imagekitUrl(photo.src, { width: 640 })}
-                srcset={imagekitSrcSet(photo.src, GRID_WIDTHS)}
-                sizes="(min-width: 30rem) 20rem, 100vw"
-                loading="lazy"
-                decoding="async"
-                alt={photo.alt}
-              />
-              {photo.caption && <span class="caption">{photo.caption}</span>}
-            </button>
-          </li>
-        ))
-      }
+      {gallery.data.photos.map((photo, index) => (
+        <li>
+          <button
+            type="button"
+            data-lightbox-target={gallery.id}
+            data-lightbox-index={index}
+          >
+            <img
+              src={imagekitUrl(photo.src, { width: 640 })}
+              srcset={imagekitSrcSet(photo.src, GRID_WIDTHS)}
+              sizes="(min-width: 30rem) 20rem, 100vw"
+              loading="lazy"
+              decoding="async"
+              alt={photo.alt}
+            />
+            {photo.caption && <span class="caption">{photo.caption}</span>}
+          </button>
+        </li>
+      ))}
     </ul>
   </main>
 

@@ -46,9 +46,11 @@ Treat the skill argument, if given, as the starting file or folder path. Ask for
    Once they confirm, spell-check every piece of text in the overview file (title, description, and each photo's `alt`/`caption`, in every locale drafted) — this catches typos in the user's own edits, not just the original draft. Report any mistakes found to the user before fixing them; don't fix silently. Then apply the fixes and continue straight on to step 4, without waiting for a further go-ahead.
 
 4. **Strip metadata.**
+
    ```sh
    npm run strip-exif -- <photo paths>
    ```
+
    See `docs/guides/preparing-photos.md` for what this keeps and drops.
 
 5. **Order the photos.** Use the capture times collected in step 3 when present on every photo. Otherwise keep the order the user gave them in. Show the resulting order to the user — as the section order in the overview file — and ask them to confirm it before renaming. That section order is the standing record of the confirmed order from here on, so any later reshuffle of the overview file's sections is itself a reorder request; see "Changing the order later" below.

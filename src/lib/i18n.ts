@@ -21,7 +21,10 @@ export const entryUrl = (
   collection: Translatable,
   entry: { id: string },
 ): string =>
-  getRelativeLocaleUrl(localeOf(entry), `${ROUTES[collection]}/${slugOf(entry)}`);
+  getRelativeLocaleUrl(
+    localeOf(entry),
+    `${ROUTES[collection]}/${slugOf(entry)}`,
+  );
 
 const locales = (): Locale[] =>
   (i18n?.locales.flatMap((l) => (typeof l === "string" ? l : l.codes)) ?? [

@@ -3,11 +3,21 @@
 </script>
 
 <script lang="ts">
-  import type { HTMLAttributes, HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
+  import type {
+    HTMLAttributes,
+    HTMLAnchorAttributes,
+    HTMLButtonAttributes,
+  } from "svelte/elements";
   import type { Snippet } from "svelte";
 
-  type ButtonOnly = Omit<HTMLButtonAttributes, keyof HTMLAttributes<HTMLElement> | "disabled">;
-  type AnchorOnly = Omit<HTMLAnchorAttributes, keyof HTMLAttributes<HTMLElement>>;
+  type ButtonOnly = Omit<
+    HTMLButtonAttributes,
+    keyof HTMLAttributes<HTMLElement> | "disabled"
+  >;
+  type AnchorOnly = Omit<
+    HTMLAnchorAttributes,
+    keyof HTMLAttributes<HTMLElement>
+  >;
 
   interface Base extends HTMLAttributes<HTMLElement> {
     variant?: ButtonVariant;
@@ -16,10 +26,13 @@
     children: Snippet;
   }
 
-  type Props = Base & (
-    | ({ link?: false } & ButtonOnly & Partial<Record<Exclude<keyof AnchorOnly, keyof ButtonOnly>, never>>)
-    | ({ link: true } & AnchorOnly & Partial<Record<Exclude<keyof ButtonOnly, keyof AnchorOnly>, never>>)
-  );
+  type Props = Base &
+    (
+      | ({ link?: false } & ButtonOnly &
+          Partial<Record<Exclude<keyof AnchorOnly, keyof ButtonOnly>, never>>)
+      | ({ link: true } & AnchorOnly &
+          Partial<Record<Exclude<keyof ButtonOnly, keyof AnchorOnly>, never>>)
+    );
 
   let {
     variant = "primary",
@@ -33,7 +46,12 @@
     ...rest
   }: Props = $props();
 
-  const classes = $derived(["btn", `btn--${variant}`, icon && "btn--icon", className]);
+  const classes = $derived([
+    "btn",
+    `btn--${variant}`,
+    icon && "btn--icon",
+    className,
+  ]);
 </script>
 
 {#if link}
@@ -42,10 +60,15 @@
     class={classes}
     href={disabled ? undefined : href}
     aria-disabled={disabled ? "true" : undefined}
-    tabindex={disabled ? -1 : undefined}
-  >{@render children()}</a>
+    tabindex={disabled ? -1 : undefined}>{@render children()}</a
+  >
 {:else}
-  <button {...rest} class={classes} type={type as HTMLButtonAttributes['type']} {disabled}>{@render children()}</button>
+  <button
+    {...rest}
+    class={classes}
+    type={type as HTMLButtonAttributes["type"]}
+    {disabled}>{@render children()}</button
+  >
 {/if}
 
 <style>
@@ -88,7 +111,11 @@
   }
 
   .btn--primary:hover {
-    background-color: color-mix(in oklab, var(--color-accent), var(--color-bg) 15%);
+    background-color: color-mix(
+      in oklab,
+      var(--color-accent),
+      var(--color-bg) 15%
+    );
   }
 
   .btn--secondary {

@@ -21,7 +21,7 @@ const read = (key: string): string | null => {
 const write = (key: string, value: string) => {
   try {
     localStorage.setItem(key, value);
-  // eslint-disable-next-line no-empty
+    // eslint-disable-next-line no-empty
   } catch {}
 };
 

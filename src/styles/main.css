@@ -36,14 +36,14 @@
   --font-heading: "Saira", serif;
   --font-monospace: "Source Code Pro", monospace;
 
-  --color-accent: light-dark(#E0003A, #FE003A);
-  --color-on-accent: light-dark(#FFFFFF, #0A0A0A);
+  --color-accent: light-dark(#e0003a, #fe003a);
+  --color-on-accent: light-dark(#ffffff, #0a0a0a);
 
-  --color-bg: light-dark(#FFFFFF, #000000);
-  --color-surface: light-dark(#F7F7F7, #0C0C0E);
-  --color-text: light-dark(#111111, #F0F0F0);
-  --color-text-muted: light-dark(#5E5E5E, #8C8C8C);
-  --color-border: light-dark(#E5E5E5, #2A2A2C);
+  --color-bg: light-dark(#ffffff, #000000);
+  --color-surface: light-dark(#f7f7f7, #0c0c0e);
+  --color-text: light-dark(#111111, #f0f0f0);
+  --color-text-muted: light-dark(#5e5e5e, #8c8c8c);
+  --color-border: light-dark(#e5e5e5, #2a2a2c);
 }
 
 :root {

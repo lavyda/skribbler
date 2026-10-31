@@ -3,10 +3,7 @@
   "description": "Capital city of North Macedonia",
   "created": "2026-09-17",
   "listed": false,
-  "tags": [
-    "travel",
-    "North Macedonia"
-  ],
+  "tags": ["travel", "North Macedonia"],
   "translationKey": "capitals-of-balkan-skopje",
   "photos": [
     {

@@ -17,35 +17,33 @@ const strings = {
 const t = strings[locale];
 ---
 
-{
-  (parent || children.length > 0) && (
-    <div class="related-posts">
-      {parent && (
-        <section class="row" aria-labelledby="related-posts-parent">
-          <h2 id="related-posts-parent">{t.parent}</h2>
-          <ul>
-            <li>
-              <PostPreview post={parent} headingLevel="h3" />
-            </li>
-          </ul>
-        </section>
-      )}
+{(parent || children.length > 0) && (
+  <div class="related-posts">
+    {parent && (
+      <section class="row" aria-labelledby="related-posts-parent">
+        <h2 id="related-posts-parent">{t.parent}</h2>
+        <ul>
+          <li>
+            <PostPreview post={parent} headingLevel="h3" />
+          </li>
+        </ul>
+      </section>
+    )}
 
-      {children.length > 0 && (
-        <section class="row" aria-labelledby="related-posts-children">
-          <h2 id="related-posts-children">{t.children}</h2>
-          <ul>
-            {children.map((child) => (
-              <li>
-                <PostPreview post={child} headingLevel="h3" />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </div>
-  )
-}
+    {children.length > 0 && (
+      <section class="row" aria-labelledby="related-posts-children">
+        <h2 id="related-posts-children">{t.children}</h2>
+        <ul>
+          {children.map((child) => (
+            <li>
+              <PostPreview post={child} headingLevel="h3" />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+)}
 
 <style>
   .related-posts {

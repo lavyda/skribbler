@@ -2,10 +2,7 @@
   "title": "Maroko",
   "description": "Roadtrip v Maroku (november 2025): Marakéš, Ouarzazate, Merzouga, Tinghir, Fes, Rabat, Casablanca.",
   "created": "2026-08-30",
-  "tags": [
-    "cestovanie",
-    "Maroko"
-  ],
+  "tags": ["cestovanie", "Maroko"],
   "translationKey": "morocco-2025",
   "photos": [
     {

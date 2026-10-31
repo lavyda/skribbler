@@ -16,7 +16,9 @@ if (!gallery) {
   throw new Error(`GalleryPhoto: no gallery "${galleryId}" for "${locale}"`);
 }
 
-const index = gallery.data.photos.findIndex((p) => p.src.endsWith(`/${filename}`));
+const index = gallery.data.photos.findIndex((p) =>
+  p.src.endsWith(`/${filename}`),
+);
 if (index === -1) {
   throw new Error(`GalleryPhoto: no photo "${filename}" in "${galleryId}"`);
 }

@@ -3,10 +3,7 @@
   "description": "Hlavné mesto Srbska",
   "created": "2026-09-17",
   "listed": false,
-  "tags": [
-    "cestovanie",
-    "Srbsko"
-  ],
+  "tags": ["cestovanie", "Srbsko"],
   "translationKey": "capitals-of-balkan-belgrade",
   "photos": [
     {

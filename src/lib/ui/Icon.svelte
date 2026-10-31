@@ -8,7 +8,13 @@
     title?: string;
   }
 
-  let { glyph: Glyph, size = "1em", title, class: className, ...rest }: Props = $props();
+  let {
+    glyph: Glyph,
+    size = "1em",
+    title,
+    class: className,
+    ...rest
+  }: Props = $props();
 </script>
 
 <Glyph

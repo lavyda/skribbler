@@ -23,6 +23,7 @@ It edits the file in place, so run it on a copy or export, not a master file you
 ## What it removes vs. keeps
 
 Removed (private):
+
 - GPS location
 - Camera & lens serial numbers
 - Owner/author name, copyright
@@ -32,6 +33,7 @@ Removed (private):
 - Any other maker-specific data
 
 Kept (not private):
+
 - Camera make & model, lens model
 - Capture date & time
 - Shutter speed

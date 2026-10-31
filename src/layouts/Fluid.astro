@@ -3,22 +3,22 @@ import Base from "./Base.astro";
 import type { Alternates } from "@/lib/i18n";
 
 interface Props {
-	title?: string;
-	alternates?: Alternates;
-	suggestLocale?: boolean;
+  title?: string;
+  alternates?: Alternates;
+  suggestLocale?: boolean;
 }
 
 const { title, alternates, suggestLocale } = Astro.props;
 ---
 
 <Base {title} {alternates} {suggestLocale}>
-	<main>
-		<slot />
-	</main>
+  <main>
+    <slot />
+  </main>
 </Base>
 
 <style>
-	main {
-		padding: var(--space-l) var(--space-3xl);
-	}
+  main {
+    padding: var(--space-l) var(--space-3xl);
+  }
 </style>

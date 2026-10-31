@@ -30,19 +30,17 @@ const t = strings[locale];
     <h1>{t.title}</h1>
     <p>{t.intro}</p>
   </header>
-  {
-    posts.length === 0 ? (
-      <p class="empty">{t.empty}</p>
-    ) : (
-      <ul>
-        {posts.map((post) => (
-          <li>
-            <PostPreview post={post} priority />
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  {posts.length === 0 ? (
+    <p class="empty">{t.empty}</p>
+  ) : (
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <PostPreview post={post} priority />
+        </li>
+      ))}
+    </ul>
+  )}
 </Fill>
 
 <style>

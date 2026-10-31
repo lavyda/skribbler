@@ -35,51 +35,55 @@ const current = strings[locale as keyof Strings];
 ---
 
 <dialog id="lang-dialog" closedby="none">
-  {
-    locales
-      .filter((l) => l !== locale)
-      .map((l) => {
-        const offered = strings[l as keyof Strings];
-        return (
-          <form method="dialog" id={`lang-offer-${l}`} hidden>
-            <Button
-              variant="ghost"
-              icon
-              type="submit"
-              class="close"
-              aria-label={`${offered.close} / ${current.close}`}
-            >
-              <Icon glyph={X} />
+  {locales
+    .filter((l) => l !== locale)
+    .map((l) => {
+      const offered = strings[l as keyof Strings];
+      return (
+        <form method="dialog" id={`lang-offer-${l}`} hidden>
+          <Button
+            variant="ghost"
+            icon
+            type="submit"
+            class="close"
+            aria-label={`${offered.close} / ${current.close}`}
+          >
+            <Icon glyph={X} />
+          </Button>
+          <p id={`lang-offer-${l}-a`} lang={l}>
+            {offered.available}
+          </p>
+          <p id={`lang-offer-${l}-b`} lang={locale}>
+            {current.also}{" "}
+            {current.languages[l as keyof Strings["en"]["languages"]]}.
+          </p>
+          <div class="actions">
+            <Button variant="secondary" type="submit">
+              <span lang={l}>{offered.stay}</span>
+              <span aria-hidden="true">/</span>
+              <span lang={locale}>{current.stay}</span>
             </Button>
-            <p id={`lang-offer-${l}-a`} lang={l}>
-              {offered.available}
-            </p>
-            <p id={`lang-offer-${l}-b`} lang={locale}>
-              {current.also} {current.languages[l as keyof Strings["en"]["languages"]]}.
-            </p>
-            <div class="actions">
-              <Button variant="secondary" type="submit">
-                <span lang={l}>{offered.stay}</span>
-                <span aria-hidden="true">/</span>
-                <span lang={locale}>{current.stay}</span>
-              </Button>
-              <Button
-                link
-                href={alternates[l] ?? sectionUrl(l, Astro.url.pathname)}
-                data-choose-locale={l}
-                autofocus
-              >
-                <span lang={l}>{offered.name}</span>
-              </Button>
-            </div>
-          </form>
-        );
-      })
-  }
+            <Button
+              link
+              href={alternates[l] ?? sectionUrl(l, Astro.url.pathname)}
+              data-choose-locale={l}
+              autofocus
+            >
+              <span lang={l}>{offered.name}</span>
+            </Button>
+          </div>
+        </form>
+      );
+    })}
 </dialog>
 
 <script>
-  import { dismiss, isDismissed, preferred, save } from "@/lib/localePreference";
+  import {
+    dismiss,
+    isDismissed,
+    preferred,
+    save,
+  } from "@/lib/localePreference";
 
   document.addEventListener("click", (event) => {
     const target = event.target as Element;

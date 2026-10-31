@@ -1,7 +1,9 @@
 // Fixed, shared across grid/covers/lightbox — deliberately the only widths
 // the app ever requests, so switching to preprocessed static files later is
 // just a URL-builder swap; the width-selection logic doesn't change.
-export const IMAGE_WIDTHS = [320, 480, 640, 960, 1280, 1920, 2560, 3200, 3840] as const;
+export const IMAGE_WIDTHS = [
+  320, 480, 640, 960, 1280, 1920, 2560, 3200, 3840,
+] as const;
 
 // Per-context subsets of IMAGE_WIDTHS, kept next to it so they can't drift
 // out of sync with the approved set.
@@ -27,5 +29,7 @@ export function imagekitUrl(
 }
 
 export function imagekitSrcSet(src: string, widths: readonly number[]): string {
-  return widths.map((w) => `${imagekitUrl(src, { width: w })} ${w}w`).join(", ");
+  return widths
+    .map((w) => `${imagekitUrl(src, { width: w })} ${w}w`)
+    .join(", ");
 }

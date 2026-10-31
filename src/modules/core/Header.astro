@@ -29,8 +29,8 @@ const t = strings[locale as keyof typeof strings];
 ---
 
 <header>
-  <a href={getRelativeLocaleUrl(locale, "")}
-    ><span>{t.name}</span> <span>{t.surname}</span>
+  <a href={getRelativeLocaleUrl(locale, "")}>
+    <span>{t.name}</span> <span>{t.surname}</span>
   </a>
   <Navigation />
   <LanguageSwitcher {alternates} />

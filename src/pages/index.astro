@@ -7,7 +7,11 @@ const canonical = new URL(fallback, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang={defaultLocale} data-locales={locales.join(",")} data-default-locale={defaultLocale}>
+<html
+  lang={defaultLocale}
+  data-locales={locales.join(",")}
+  data-default-locale={defaultLocale}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -20,7 +24,9 @@ const canonical = new URL(fallback, Astro.site).href;
   </head>
   <body>
     <noscript>
-      {locales.map((l) => <a href={getRelativeLocaleUrl(l)}>{l.toUpperCase()}</a>)}
+      {locales.map((l) => (
+        <a href={getRelativeLocaleUrl(l)}>{l.toUpperCase()}</a>
+      ))}
     </noscript>
     <script>
       import { defaultLocale, preferred } from "@/lib/localePreference";

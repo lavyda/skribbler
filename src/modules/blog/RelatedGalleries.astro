@@ -24,58 +24,51 @@ const strings = {
 const t = strings[locale];
 ---
 
-{
-  galleries.length > 0 && (
-    <div class="related-galleries">
-      <section class="row" aria-labelledby="related-galleries-heading">
-        <h2 id="related-galleries-heading">{t.heading}</h2>
-        <ul class="stacks">
-          {galleries.map((gallery) => {
-            const cover = gallery.data.photos[0];
-            const coverProps = {
-              src: imagekitUrl(cover.src, { width: 480 }),
-              srcset: imagekitSrcSet(cover.src, GRID_WIDTHS),
-              sizes: "26rem",
-            };
-            return (
-              <li>
-                <button
-                  type="button"
-                  class="stack"
-                  data-lightbox-target={gallery.id}
-                  data-lightbox-index="0"
-                >
-                  <span class="fake" aria-hidden="true">
-                    <img {...coverProps} loading="lazy" alt="" />
+{galleries.length > 0 && (
+  <div class="related-galleries">
+    <section class="row" aria-labelledby="related-galleries-heading">
+      <h2 id="related-galleries-heading">{t.heading}</h2>
+      <ul class="stacks">
+        {galleries.map((gallery) => {
+          const cover = gallery.data.photos[0];
+          const coverProps = {
+            src: imagekitUrl(cover.src, { width: 480 }),
+            srcset: imagekitSrcSet(cover.src, GRID_WIDTHS),
+            sizes: "26rem",
+          };
+          return (
+            <li>
+              <button
+                type="button"
+                class="stack"
+                data-lightbox-target={gallery.id}
+                data-lightbox-index="0"
+              >
+                <span class="fake" aria-hidden="true">
+                  <img {...coverProps} loading="lazy" alt="" />
+                </span>
+                <span class="fake" aria-hidden="true">
+                  <img {...coverProps} loading="lazy" alt="" />
+                </span>
+                <span class="cover">
+                  <img {...coverProps} loading="lazy" decoding="async" alt="" />
+                  <span class="overlay">
+                    <span class="title">{gallery.data.title}</span>
+                    {t.viewAll(gallery.data.photos.length)}
                   </span>
-                  <span class="fake" aria-hidden="true">
-                    <img {...coverProps} loading="lazy" alt="" />
-                  </span>
-                  <span class="cover">
-                    <img
-                      {...coverProps}
-                      loading="lazy"
-                      decoding="async"
-                      alt=""
-                    />
-                    <span class="overlay">
-                      <span class="title">{gallery.data.title}</span>
-                      {t.viewAll(gallery.data.photos.length)}
-                    </span>
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
 
-      {galleries.map((gallery) => (
-        <Lightbox id={gallery.id} photos={gallery.data.photos} />
-      ))}
-    </div>
-  )
-}
+    {galleries.map((gallery) => (
+      <Lightbox id={gallery.id} photos={gallery.data.photos} />
+    ))}
+  </div>
+)}
 
 <style>
   .related-galleries {
@@ -134,11 +127,7 @@ const t = strings[locale];
         content: "";
         position: absolute;
         inset: 0;
-        background-color: color-mix(
-          in srgb,
-          var(--color-bg) 40%,
-          transparent
-        );
+        background-color: color-mix(in srgb, var(--color-bg) 40%, transparent);
       }
     }
 

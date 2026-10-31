@@ -16,7 +16,7 @@
 .gslide-title,
 .gslide-desc {
   margin: 0;
-  color: #F0F0F0;
+  color: #f0f0f0;
   font-family: var(--font-monospace);
   font-size: var(--text-xs);
 }

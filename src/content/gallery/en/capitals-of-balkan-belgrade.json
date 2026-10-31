@@ -3,10 +3,7 @@
   "description": "Capital city of Serbia",
   "created": "2026-09-17",
   "listed": false,
-  "tags": [
-    "travel",
-    "Serbia"
-  ],
+  "tags": ["travel", "Serbia"],
   "translationKey": "capitals-of-balkan-belgrade",
   "photos": [
     {

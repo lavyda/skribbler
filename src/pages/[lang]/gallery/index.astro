@@ -30,19 +30,17 @@ const t = strings[locale];
     <h1>{t.title}</h1>
     <p>{t.intro}</p>
   </header>
-  {
-    galleries.length === 0 ? (
-      <p class="empty">{t.empty}</p>
-    ) : (
-      <ul>
-        {galleries.map((gallery) => (
-          <li>
-            <GalleryPreview gallery={gallery} />
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  {galleries.length === 0 ? (
+    <p class="empty">{t.empty}</p>
+  ) : (
+    <ul>
+      {galleries.map((gallery) => (
+        <li>
+          <GalleryPreview gallery={gallery} />
+        </li>
+      ))}
+    </ul>
+  )}
 </Fill>
 
 <style>

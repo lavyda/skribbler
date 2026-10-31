@@ -146,10 +146,14 @@ async function stripOne(path, maxDimension) {
   await writeFile(tmp, buffer);
   await rename(tmp, path);
 
-  const keptCount = kept ? Object.values(kept).reduce((n, ifd) => n + Object.keys(ifd).length, 0) : 0;
+  const keptCount = kept
+    ? Object.values(kept).reduce((n, ifd) => n + Object.keys(ifd).length, 0)
+    : 0;
   const note = [
     orientation > 1 ? "de-rotated" : null,
-    willResize ? `resized ${width}x${height} to ${info.width}x${info.height}` : null,
+    willResize
+      ? `resized ${width}x${height} to ${info.width}x${info.height}`
+      : null,
     keptCount > 0 ? `kept ${keptCount} tags` : null,
   ]
     .filter(Boolean)

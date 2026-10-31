@@ -3,10 +3,7 @@
   "description": "Capital city of Montenegro",
   "created": "2026-09-17",
   "listed": false,
-  "tags": [
-    "travel",
-    "Montenegro"
-  ],
+  "tags": ["travel", "Montenegro"],
   "translationKey": "capitals-of-balkan-podgorica",
   "photos": [
     {

@@ -33,9 +33,10 @@ Return these six sections, in this order, with no intro or outro.
 3. **Synonyms.** A table of words or phrases from the original that could be swapped, with 2–3 alternatives each:
 
    | Original | Alternatives |
-   | --- | --- |
+   | -------- | ------------ |
 
    Include only words where a swap would actually help (repetition, vague or weak wording). Skip the table if there are none.
+
 4. **Flow and phrasing proposals.** A short list of `original → proposed` pairs for the larger changes made in Version 2, so the user can adopt them one by one.
 5. **Fact check.** Last step. For every thing in the text that can be clearly identified (a place, building, person, event, date, number, name), look it up with WebSearch and check that the name is spelled correctly and that what the text says about it is true. List each as `item: what the text says → verdict` (confirmed, wrong, or unclear), with the correct name or fact and a source link when it differs. Don't edit the text for this. Only report. Skip vague or purely subjective claims. Skip the section if nothing can be identified.
 

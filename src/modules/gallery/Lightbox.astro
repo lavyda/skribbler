@@ -32,7 +32,6 @@ const payload = JSON.stringify({ photos, labels: strings[locale] }).replace(
 ---
 
 <script type="application/json" data-lightbox-photos={id} set:html={payload} />
-
 <script>
   type GLightbox = typeof import("glightbox");
   import type { Photo } from "@/modules/gallery/gallery";
