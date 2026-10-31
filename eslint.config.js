@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import eslintPluginAstro from "eslint-plugin-astro";
@@ -6,7 +7,7 @@ import svelte from "eslint-plugin-svelte";
 import prettier from "eslint-plugin-prettier/recommended";
 import svelteConfig from "./svelte.config.js";
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ["dist/", ".astro/"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
