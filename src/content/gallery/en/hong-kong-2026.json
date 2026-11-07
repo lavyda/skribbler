@@ -1,0 +1,45 @@
+{
+  "title": "Hong Kong",
+  "description": "Snapshots from Hong Kong",
+  "tags": ["travel", "Hong Kong"],
+  "created": "2026-11-07",
+  "translationKey": "hong-kong-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-001-red-taxis-at-night.jpeg",
+      "alt": "Red taxis waiting at a traffic light on a street at night"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-002-street-shops.jpeg",
+      "alt": "Ramen restaurant with red curtains next to a lit snack shop at night"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-003-shuttered-alley.jpeg",
+      "alt": "Cat walking down a narrow alley between closed metal shutters"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-004-lantern-entrance-pipes.jpeg",
+      "alt": "Building entrance with a red lantern, exposed pipes and a yellow wet floor sign"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-005-purple-facade-yellow-vest.jpeg",
+      "alt": "Purple apartment building with air conditioners and a yellow vest hanging from a rack"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-006-bus-apartment-block.jpeg",
+      "alt": "Double-decker bus with a lotus flower pattern parked in front of a worn apartment block"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-007-blurred-car-black-white.jpeg",
+      "alt": "Motion-blurred car in black and white with people visible in its windows"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-008-pink-ding-ding.jpeg",
+      "alt": "Pink ding-ding crossing a junction between tall apartment buildings"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-009-blue-ding-ding.jpeg",
+      "alt": "Blue ding-ding on tracks in a street with buses and tall buildings at dusk"
+    }
+  ]
+}

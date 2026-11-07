@@ -1,0 +1,33 @@
+{
+  "title": "Avatar mountains",
+  "description": "Avatar mountains of Zhangjiajie National Forest Park",
+  "created": "2026-11-07",
+  "tags": ["travel", "China"],
+  "translationKey": "avatar-mountains-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-001-misty-pillars-wide.jpeg",
+      "alt": "Group of sandstone pillars rising through fog above green forest"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-002-misty-pillars-tall.jpeg",
+      "alt": "Two tall sandstone pillars in fog above a forested slope"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-003-misty-pillar-pines.jpeg",
+      "alt": "Rock pillar topped with pine trees standing in fog above a forest"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-004-sunlit-pillar-valley.jpeg",
+      "alt": "Tall narrow sandstone pillar in a valley framed by pine branches"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-005-house-in-fog.jpeg",
+      "alt": "House on a wooded hillside seen through thick fog"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-006-foggy-forest-stairway.jpeg",
+      "alt": "Stairway with wooden railings leading down through a foggy forest"
+    }
+  ]
+}

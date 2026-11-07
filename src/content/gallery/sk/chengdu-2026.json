@@ -1,0 +1,37 @@
+{
+  "title": "Čcheng-tu",
+  "description": "Momentky z Čcheng-tu",
+  "tags": ["cestovanie", "Čína"],
+  "created": "2026-11-07",
+  "translationKey": "chengdu-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-001-forested-hillside-temple.jpeg",
+      "alt": "Chrámové budovy a vysoká pagoda medzi hustými zelenými stromami na svahu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-002-concrete-staircase.jpeg",
+      "alt": "Hlava človeka za zábradlím betónového schodiska pod veľkým nosníkom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-003-xicun-courtyard-walkways.jpeg",
+      "alt": "Vyvýšené chodníky v Xicun Courtyard pred ružovou tehlovou bytovkou"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-004-xicun-courtyard-and-towers.jpeg",
+      "alt": "Vyvýšené chodníky v Xicun Courtyard a strecha s heliportom pred výškovými obytnými vežami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-005-xicun-courtyard-wesley-valley-walkway.jpeg",
+      "alt": "Zakrivený chodník s betónovými stĺpmi v Xicun Courtyard pod nápisom Wesley Valley"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-006-car-tuk-tuk-scooter.jpeg",
+      "alt": "Modré auto, biely tuk-tuk a skúter na mokrej ulici zhora"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-007-barred-balconies.jpeg",
+      "alt": "Fasáda obytnej veže so zamrežovanými balkónmi a klimatizáciami"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Chengdu",
+  "description": "Snapshots from Chengdu",
+  "tags": ["travel", "China"],
+  "created": "2026-11-07",
+  "translationKey": "chengdu-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-001-forested-hillside-temple.jpeg",
+      "alt": "Temple buildings and a tall pagoda among dense green trees on a hillside"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-002-concrete-staircase.jpeg",
+      "alt": "Person's head behind the railing of a concrete staircase under a large beam"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-003-xicun-courtyard-walkways.jpeg",
+      "alt": "Elevated walkways of Xicun Courtyard in front of a pink brick apartment building"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-004-xicun-courtyard-and-towers.jpeg",
+      "alt": "Elevated walkways of Xicun Courtyard and a rooftop helipad in front of high-rise apartment towers"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-005-xicun-courtyard-wesley-valley-walkway.jpeg",
+      "alt": "Curved walkway with concrete columns in Xicun Courtyard under a sign reading Wesley Valley"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-006-car-tuk-tuk-scooter.jpeg",
+      "alt": "Blue car, white tuk-tuk and a scooter on a wet street seen from above"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chengdu-2026/chengdu-2026-007-barred-balconies.jpeg",
+      "alt": "Apartment tower facade with barred balconies and air conditioners"
+    }
+  ]
+}

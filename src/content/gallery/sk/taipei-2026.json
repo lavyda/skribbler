@@ -1,0 +1,45 @@
+{
+  "title": "Taipej",
+  "description": "Momentky z Taipeja",
+  "tags": ["cestovanie", "Taipej"],
+  "created": "2026-11-07",
+  "translationKey": "taipei-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-001-taipei-101-from-below.jpeg",
+      "alt": "Taipei 101 zospodu na pozadí bledej oblohy"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-002-busy-street-signs.jpeg",
+      "alt": "Ulica plná zvislých tabúľ so skútrami a autami v premávke"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-003-taipei-101-above-alley.jpeg",
+      "alt": "Osvetlený Taipei 101 týčiaci sa nad úzkou uličkou v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-004-lantern-bar-corner.jpeg",
+      "alt": "Ľudia sedia pri malom vonkajšom bare pod papierovými lampiónmi v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-005-taipei-101-from-street.jpeg",
+      "alt": "Rozmazaná žena v popredí a osvetlený Taipei 101 za ňou v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-006-taipei-101-skyline-night.jpeg",
+      "alt": "Osvetlený Taipei 101 týčiaci sa nad nočnou panorámou mesta"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-007-hanging-bicycle.jpeg",
+      "alt": "Bicykel zavesený na stene pod bielym lampiónom vedľa červeného plagátu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-008-red-door-covered-bike.jpeg",
+      "alt": "Červené dvere a okno s rastlinami, dáždnikmi a prikrytým bicyklom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/taipei-2026/taipei-2026-009-alley-signs.jpeg",
+      "alt": "Úzka ulička s káblami, zaparkovanými skútrami a nápismi"
+    }
+  ]
+}

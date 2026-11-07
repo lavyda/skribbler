@@ -1,0 +1,45 @@
+{
+  "title": "Hongkong",
+  "description": "Momentky z Hongkongu",
+  "tags": ["cestovanie", "Hongkong"],
+  "created": "2026-11-07",
+  "translationKey": "hong-kong-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-001-red-taxis-at-night.jpeg",
+      "alt": "Červené taxíky stoja na semafore na ulici v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-002-street-shops.jpeg",
+      "alt": "Ramenová reštaurácia s červenými záclonkami vedľa osvetleného bufetu v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-003-shuttered-alley.jpeg",
+      "alt": "Mačka kráčajúca úzkou uličkou medzi zatvorenými kovovými roletami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-004-lantern-entrance-pipes.jpeg",
+      "alt": "Vchod do budovy s červeným lampiónom, viditeľným potrubím a žltou tabuľou o mokrej podlahe"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-005-purple-facade-yellow-vest.jpeg",
+      "alt": "Fialová bytovka s klimatizáciami a žltou vestou visiacou na sušiaku"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-006-bus-apartment-block.jpeg",
+      "alt": "Poschodový autobus so vzorom lotosových kvetov zaparkovaný pred schátraným bytovým domom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-007-blurred-car-black-white.jpeg",
+      "alt": "Rozmazané auto v čiernobielom prevedení s ľuďmi viditeľnými v oknách"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-008-pink-ding-ding.jpeg",
+      "alt": "Ružový ding-ding prechádzajúci križovatkou medzi vysokými bytovými domami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/hong-kong-2026/hong-kong-2026-009-blue-ding-ding.jpeg",
+      "alt": "Modrý ding-ding na koľajniach v ulici s autobusmi a vysokými budovami za súmraku"
+    }
+  ]
+}

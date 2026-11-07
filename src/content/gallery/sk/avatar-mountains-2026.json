@@ -1,0 +1,33 @@
+{
+  "title": "Hory z Avatara",
+  "description": "Hory z Avatara v národnom lesnom parku Čang-ťia-ťie",
+  "tags": ["cestovanie", "Čína"],
+  "created": "2026-11-07",
+  "translationKey": "avatar-mountains-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-001-misty-pillars-wide.jpeg",
+      "alt": "Skupina pieskovcových stĺpov týčiacich sa z hmly nad zeleným lesom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-002-misty-pillars-tall.jpeg",
+      "alt": "Dva vysoké pieskovcové stĺpy v hmle nad zalesneným svahom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-003-misty-pillar-pines.jpeg",
+      "alt": "Skalný stĺp s borovicami na vrchole stojaci v hmle nad lesom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-004-sunlit-pillar-valley.jpeg",
+      "alt": "Vysoký úzky pieskovcový stĺp v údolí orámovaný borovicovými konármi"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-005-house-in-fog.jpeg",
+      "alt": "Dom na zalesnenom svahu vidieť cez hustú hmlu"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/avatar-mountains-2026/avatar-mountains-2026-006-foggy-forest-stairway.jpeg",
+      "alt": "Schodisko s drevenými zábradliami vedúce dole hmlistým lesom"
+    }
+  ]
+}

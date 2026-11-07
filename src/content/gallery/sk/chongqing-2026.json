@@ -1,0 +1,97 @@
+{
+  "title": "Čchung-čching",
+  "description": "Momentky z Čchung-čchingu",
+  "tags": ["cestovanie", "Čína"],
+  "created": "2026-11-07",
+  "translationKey": "chongqing-2026",
+  "photos": [
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-001-foggy-skyscraper.jpeg",
+      "alt": "Sklenený mrakodrap zahalený hmlou"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-002-river-and-foggy-skyline.jpeg",
+      "alt": "Rieka s mostom pred panorámou mesta v hmle"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-003-apartment-block-facades.jpeg",
+      "alt": "Fasády bytových domov s klimatizáciami a modrými oknami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-004-curved-street-from-above.jpeg",
+      "alt": "Zakrivená ulica s popadaným lístím zhora, pohľad cez rozmazaný otvor"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-005-street-between-apartment-blocks.jpeg",
+      "alt": "Úzka ulica s autami medzi bytovými domami zhora"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-006-towers-over-old-rooftops.jpeg",
+      "alt": "Výškové budovy nad strechami nízkych starých domov"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-007-air-conditioners-and-flowers.jpeg",
+      "alt": "Klimatizačné jednotky a kvety pred budovou s lampiónmi"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-008-traffic-under-overpass.jpeg",
+      "alt": "Žltý taxík na ulici pod betónovou estakádou"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-009-men-at-outdoor-table.jpeg",
+      "alt": "Dvaja muži sedia pri stole pred vchodom s červenými lampiónmi"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-010-plane-between-towers.jpeg",
+      "alt": "Lietadlo na oblohe medzi dvoma výškovými budovami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-011-hazy-skyline-and-angular-building.jpeg",
+      "alt": "Výškové budovy v hmle a nižšia budova so šikmou fasádou"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-012-ferry-and-arched-bridge.jpeg",
+      "alt": "Loď na rieke pred oblúkovým mostom a obytnými vežami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-013-people-on-terrace.jpeg",
+      "alt": "Traja ľudia pri zábradlí terasy pred výškovými budovami"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-014-cable-car-lines-over-skyline.jpeg",
+      "alt": "Laná lanovky pred panorámou mesta pri rieke"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-015-night-river-bridge.jpeg",
+      "alt": "Osvetlený most cez rieku a mesto v noci zhora"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-016-night-shop-signs.jpeg",
+      "alt": "Pouličné obchody s pestrofarebnými nápismi v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-017-red-grid-facade.jpeg",
+      "alt": "Detail červenej mriežkovej fasády"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-018-man-on-steps-under-neon.jpeg",
+      "alt": "Muž sediaci na schodoch pod neónovými nápismi"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-019-night-food-stall.jpeg",
+      "alt": "Pouličný stánok s jedlom a ľuďmi v noci"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-020-grill-stall-in-smoke.jpeg",
+      "alt": "Dvaja ľudia pri grile v dyme pod modrým svetlom"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-021-green-neon-hotel-sign.jpeg",
+      "alt": "Zelené neónové nápisy na budove hotela"
+    },
+    {
+      "src": "https://ik.imagekit.io/vladimir/chongqing-2026/chongqing-2026-022-convenience-store-at-night.jpeg",
+      "alt": "Nočný obchod s osvetleným vchodom a červenými nápismi"
+    }
+  ]
+}
