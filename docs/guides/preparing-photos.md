@@ -20,7 +20,7 @@ The stripped photo goes straight into the repo: save it under `src/content/blog/
 
 Gallery photos aren't stored in the repo, they're hosted on ImageKit (see [ADR 0003](../adr/0003-imagekit-cdn-for-gallery-photos.md)). Strip the file locally first, then upload it to the gallery's folder in the ImageKit media library, and reference the resulting HTTPS URL in the gallery entry's `photos` array.
 
-Name each file `<gallery-slug>-<sequence>-<short-slug>.<ext>`, for example `canyon-trip-001-river-bend.jpg`. The gallery slug should match both the gallery's JSON id (`canyon-trip.json`) and its ImageKit folder name, so photos sort together and stay easy to trace back to their gallery. Skip the original camera filename like `IMG_1234.JPG`. It doesn't say anything about the photo.
+Name each file `<gallery-slug>-<sequence>-<short-slug>.<ext>`, where `<sequence>` is always three digits starting at `001`, for example `canyon-trip-001-river-bend.jpg`. The gallery slug should match both the gallery's JSON id (`canyon-trip.json`) and its ImageKit folder name, so photos sort together and stay easy to trace back to their gallery. Skip the original camera filename like `IMG_1234.JPG`. It doesn't say anything about the photo.
 
 The resulting URL is always `https://ik.imagekit.io/vladimir/<gallery-slug>/<filename>`, for example `https://ik.imagekit.io/vladimir/morocco-2025/morocco-2025-006-layered-dunes-dusk.jpeg`.
 

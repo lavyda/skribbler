@@ -55,7 +55,7 @@ Treat the skill argument, if given, as the starting file or folder path. Ask for
 
 5. **Order the photos.** Use the capture times collected in step 3 when present on every photo. Otherwise keep the order the user gave them in. Show the resulting order to the user — as the section order in the overview file — and ask them to confirm it before renaming. That section order is the standing record of the confirmed order from here on, so any later reshuffle of the overview file's sections is itself a reorder request; see "Changing the order later" below.
 
-6. **Rename each photo.** Using the confirmed slug, `alt`, and `caption` from step 3, copy (don't move) each stripped file to `<gallery-slug>-<sequence>-<photo-slug>.<ext>` inside a new `ready/` folder next to the source photos. Number sequentially from `01`, in the order from step 5.
+6. **Rename each photo.** Using the confirmed slug, `alt`, and `caption` from step 3, copy (don't move) each stripped file to `<gallery-slug>-<sequence>-<photo-slug>.<ext>` inside a new `ready/` folder next to the source photos. Number sequentially from `001`, always three digits (`001`, `002`, …, `010`, …), in the order from step 5.
 
 7. **Write the gallery entry.** Create `src/content/gallery/<locale>/<gallery-slug>.json` per the schema in `src/content.config.ts`: `title`, `description`, `tags`, `created`, `photos` (`src`, `alt`, `caption`). Build each `src` as `https://ik.imagekit.io/vladimir/<gallery-slug>/<renamed-filename>` (see [ADR 0003](../../../docs/adr/0003-imagekit-cdn-for-gallery-photos.md)). Repeat per requested locale, copying the confirmed `title`, `description`, `alt`, and `caption` for that locale from the overview file, while keeping the same `src` and photo order across locales.
 
